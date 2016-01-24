@@ -16,11 +16,6 @@ import shooter.Shooter;
 
 public class MyGame extends Game{
 
-	int playerX = 10;
-	float playerY = 10;
-	float velocity = 0;
-	float gravity = 0.5f;
-	boolean canJump = false;
 	Image banner;
 	
 	public MyGame() {
@@ -36,22 +31,19 @@ public class MyGame extends Game{
 	public void tick(Graphics2D g, Input p1, Input p2, Sound s) {
 		g.setColor(Color.WHITE);
 		g.fillRect(0,0,WIDTH,HEIGHT);
-		g.setColor(Color.BLUE);
-		g.fillOval((int)playerX,(int)playerY,100,100);
 		
-		velocity += gravity;
 		
-		playerY += velocity;
+		int tileSizeW = WIDTH / 8;
+		int tileSizeH = HEIGHT / 8;
 		
-		if (playerY > HEIGHT-100) {
-			velocity = 0;
-			playerY = HEIGHT-100;
-			canJump = true;
-		}
+		g.setColor(Color.MAGENTA);
+		g.fillOval(WIDTH/2 - tileSizeW/2, HEIGHT/2 - tileSizeH, tileSizeW, tileSizeH);
 		
-		if (canJump && p1.pressed(Button.U)) {
-			canJump = false;
-			velocity = -15;
+		g.setColor(Color.GRAY);
+		for (int i = 0; i <= 7; i++) {
+			for (int j = 4; j <= 7; j++) {
+				g.drawRect(i * tileSizeW, j * tileSizeH, tileSizeW, tileSizeH);
+			}
 		}
 	}
 
