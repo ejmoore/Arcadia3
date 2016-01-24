@@ -15,8 +15,6 @@ public class MyGame extends Game {
 	private final int height = 100;
 	
 	Image banner;
-	//Tile[] tiles = new Tile[64];
-	//ArrayList<Tile[]> tiles = new ArrayList<Tile[]>();
 	Tile[][] tiles = new Tile[width][height];
 	
 	private final int tileSizeW = WIDTH / 8;
@@ -40,9 +38,7 @@ public class MyGame extends Game {
 		
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
-				int temp = map.nextInt();
-				System.out.println(temp + ":" + i + ":" + j);
-				tiles[i][j] = new Tile(temp, i, j, tileSizeW, tileSizeH);
+				tiles[i][j] = new Tile(map.nextInt(), i, j, tileSizeW, tileSizeH);
 			}
 		}
 	}
