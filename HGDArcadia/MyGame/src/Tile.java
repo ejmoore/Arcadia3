@@ -19,9 +19,13 @@ public class Tile {
 	
 	public void drawTile(Graphics2D g) {
 		if (tileType == 0) {
-			g.setColor(Color.GRAY);
-		} else {
+			g.setColor(Color.WHITE);
+		}
+		else if (tileType == 1) {
 			g.setColor(Color.GREEN);
+		}
+		else if (tileType == 2){
+			g.setColor(Color.BLUE);
 		}
 		
 		g.fillRect(col * tileSizeW,row * tileSizeH, tileSizeW, tileSizeH);
