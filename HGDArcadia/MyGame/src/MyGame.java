@@ -19,8 +19,10 @@ public class MyGame extends Game{
 	Image banner;
 	Tile[] tiles = new Tile[32];
 	
-	int tileSizeW = WIDTH / 8;
-	int tileSizeH = HEIGHT / 8;
+	private final int width = 8;
+	private final int height = 8;
+	private final int tileSizeW = WIDTH / width;
+	private final int tileSizeH = HEIGHT / height;
 	
 	public MyGame() {
 		try {
