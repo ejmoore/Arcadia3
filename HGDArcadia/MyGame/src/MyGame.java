@@ -34,9 +34,9 @@ public class MyGame extends Game{
 	
 	@Override
 	public void tick(Graphics2D g, Input p1, Input p2, Sound s) {
-		g.setColor(Color.BLUE);
+		g.setColor(Color.WHITE);
 		g.fillRect(0,0,WIDTH,HEIGHT);
-		g.setColor(Color.BLACK);
+		g.setColor(Color.BLUE);
 		g.fillOval((int)playerX,(int)playerY,100,100);
 		
 		velocity += gravity;
