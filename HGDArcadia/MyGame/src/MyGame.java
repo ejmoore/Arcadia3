@@ -11,13 +11,16 @@ import shooter.Shooter;
 
 public class MyGame extends Game {
 
-	Image banner;
-	Tile[] tiles = new Tile[64];
-
 	private final int width = 8;
 	private final int height = 100;
-	private final int tileSizeW = WIDTH / width;
-	private final int tileSizeH = HEIGHT / height;
+	
+	Image banner;
+	//Tile[] tiles = new Tile[64];
+	//ArrayList<Tile[]> tiles = new ArrayList<Tile[]>();
+	Tile[][] tiles = new Tile[width][height];
+	
+	private final int tileSizeW = WIDTH / 8;
+	private final int tileSizeH = HEIGHT / 8;
 
 	public MyGame() {
 		try {
@@ -34,11 +37,12 @@ public class MyGame extends Game {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		int k = 0;
-		for (int i = 0; i <= 7; i++) {
-			for (int j = 0; j <= 7; j++) {
-				tiles[k] = new Tile(map.nextInt(), i, j, tileSizeW, tileSizeH);
-				k++;
+		
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+				int temp = map.nextInt();
+				System.out.println(temp + ":" + i + ":" + j);
+				tiles[i][j] = new Tile(temp, i, j, tileSizeW, tileSizeH);
 			}
 		}
 	}
@@ -48,11 +52,13 @@ public class MyGame extends Game {
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 
-		
-
 		for (int i = 0; i < tiles.length; i++) {
-			tiles[i].drawTile(g);
+			for (int j = 0; j < tiles[i].length; j++) {
+				tiles[i][j].drawTile(g);
+			}
 		}
+
+		
 		g.setColor(Color.MAGENTA);
 		g.fillOval(WIDTH / 2 - tileSizeW / 2, HEIGHT / 2 - tileSizeH, tileSizeW, tileSizeH);
 	}

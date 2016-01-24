@@ -9,7 +9,7 @@ public class Tile {
 	int tileSizeW;
 	int tileSizeH;
 	
-	public Tile(int type, int row, int col, int tileSizeW, int tileSizeH) {
+	public Tile(int type, int col, int row, int tileSizeW, int tileSizeH) {
 		tileType = type;
 		this.row = row;
 		this.col = col;
