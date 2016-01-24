@@ -15,7 +15,7 @@ public class MyGame extends Game {
 	Tile[] tiles = new Tile[64];
 
 	private final int width = 8;
-	private final int height = 8;
+	private final int height = 100;
 	private final int tileSizeW = WIDTH / width;
 	private final int tileSizeH = HEIGHT / height;
 
@@ -67,16 +67,22 @@ public class MyGame extends Game {
 		}
 		// draw top
 		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j <= 7; j++) {
+			for (int j = 0; j <= width-1; j++) {
 				writer.print("0 ");
 			}
 			writer.println();
 		}
-
-		// draw bottom
+		
+		// draw first row
+		for (int j = 0; j <=width-1;j++){
+			writer.print("1 ");
+		}
+		writer.println();
+		
+		// draw ground
 		Random randomGenerator = new Random();
-		for (int i = 4; i <= 7; i++) {
-			for (int j = 0; j <= 7; j++) {
+		for (int i = 5; i <= height-1; i++) {
+			for (int j = 0; j <= width-1; j++) {
 				int tileNum = randomGenerator.nextInt(100);
 				if (tileNum >= 0 && tileNum < 80) {
 					writer.print("1 ");
