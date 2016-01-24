@@ -3,7 +3,6 @@ import java.awt.Graphics2D;
 
 public class Tile {
 	
-	int temp = 0;
 	int tileType;
 	int row;
 	int col;
@@ -27,11 +26,6 @@ public class Tile {
 			g.setColor(Color.BLUE);
 		}
 		
-		
-		if (temp < 32) {
-			System.out.println("X:" + col * tileSizeW + " Y:" + row * tileSizeH);
-			temp++;
-		}
 		
 		g.fillRect(col * tileSizeW,row * tileSizeH, tileSizeW, tileSizeH);
 	}

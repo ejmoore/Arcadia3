@@ -60,46 +60,7 @@ public class MyGame extends Game {
 	}
 
 	public void createMap() {
-
-		PrintWriter writer = null;
-		try {
-			writer = new PrintWriter("map.txt", "UTF-8");
-		} catch (FileNotFoundException | UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		// draw top
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j <= width-1; j++) {
-				writer.print("0 ");
-			}
-			writer.println();
-		}
-		
-		// draw first row
-		for (int j = 0; j <=width-1;j++){
-			writer.print("1 ");
-		}
-		writer.println();
-		
-		// draw ground
-		Random randomGenerator = new Random();
-		for (int i = 5; i <= height-1; i++) {
-			for (int j = 0; j <= width-1; j++) {
-				int tileNum = randomGenerator.nextInt(100);
-				if (tileNum >= 0 && tileNum < 80) {
-					writer.print("1 ");
-				}
-				if (tileNum >= 80 && tileNum < 90) {
-					writer.print("2 ");
-				}
-				if (tileNum >= 90 && tileNum <= 100) {
-					writer.print("0 ");
-				}
-			}
-			writer.println();
-		}
-
-		writer.close();
+		initializeMap map1 = new initializeMap(width,height);
 	}
 
 	@Override
