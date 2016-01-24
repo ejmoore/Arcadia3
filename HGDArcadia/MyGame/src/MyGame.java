@@ -17,6 +17,10 @@ import shooter.Shooter;
 public class MyGame extends Game{
 
 	Image banner;
+	Tile[] tiles = new Tile[32];
+	
+	int tileSizeW = WIDTH / 8;
+	int tileSizeH = HEIGHT / 8;
 	
 	public MyGame() {
 		try {
@@ -25,6 +29,14 @@ public class MyGame extends Game{
 			System.out.println("NO BANNER FOUND");
 			e.printStackTrace();
 		}
+		
+		int k = 0;
+		for (int i = 0; i <= 7; i++) {
+			for (int j = 4; j <= 7; j++) {
+				tiles[k] = new Tile(0,j,i,tileSizeW,tileSizeH);
+				k++;
+			}
+		}
 	}
 	
 	@Override
@@ -32,18 +44,12 @@ public class MyGame extends Game{
 		g.setColor(Color.WHITE);
 		g.fillRect(0,0,WIDTH,HEIGHT);
 		
-		
-		int tileSizeW = WIDTH / 8;
-		int tileSizeH = HEIGHT / 8;
-		
 		g.setColor(Color.MAGENTA);
 		g.fillOval(WIDTH/2 - tileSizeW/2, HEIGHT/2 - tileSizeH, tileSizeW, tileSizeH);
 		
-		g.setColor(Color.GRAY);
-		for (int i = 0; i <= 7; i++) {
-			for (int j = 4; j <= 7; j++) {
-				g.drawRect(i * tileSizeW, j * tileSizeH, tileSizeW, tileSizeH);
-			}
+		for (int i = 0; i < tiles.length; i++) {
+			System.out.println(i);
+			tiles[i].drawTile(g);
 		}
 	}
 
