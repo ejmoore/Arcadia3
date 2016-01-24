@@ -1,29 +1,24 @@
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.io.IOException;
+import java.awt.*;
+import java.io.*;
+import java.util.*;
 
 import javax.imageio.ImageIO;
 
-import arcadia.Arcadia;
-import arcadia.Button;
-import arcadia.Game;
-import arcadia.Input;
-import arcadia.Sound;
+import arcadia.*;
 import basicGame.BasicGame;
 import intro.IntroGame;
 import shooter.Shooter;
 
-public class MyGame extends Game{
+public class MyGame extends Game {
 
 	Image banner;
-	Tile[] tiles = new Tile[32];
-	
+	Tile[] tiles = new Tile[64];
+
 	private final int width = 8;
 	private final int height = 8;
 	private final int tileSizeW = WIDTH / width;
 	private final int tileSizeH = HEIGHT / height;
-	
+
 	public MyGame() {
 		try {
 			banner = ImageIO.read(MyGame.class.getResource("banner.png"));
@@ -31,43 +26,87 @@ public class MyGame extends Game{
 			System.out.println("NO BANNER FOUND");
 			e.printStackTrace();
 		}
-		
+		createMap();
+		Scanner map = null;
+		try {
+			map = new Scanner(new File("map.txt"));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		int k = 0;
 		for (int i = 0; i <= 7; i++) {
-			for (int j = 4; j <= 7; j++) {
-				tiles[k] = new Tile(0,j,i,tileSizeW,tileSizeH);
+			for (int j = 0; j <= 7; j++) {
+				tiles[k] = new Tile(map.nextInt(), i, j, tileSizeW, tileSizeH);
 				k++;
 			}
 		}
 	}
-	
+
 	@Override
 	public void tick(Graphics2D g, Input p1, Input p2, Sound s) {
 		g.setColor(Color.WHITE);
-		g.fillRect(0,0,WIDTH,HEIGHT);
+		g.fillRect(0, 0, WIDTH, HEIGHT);
+
 		
-		g.setColor(Color.MAGENTA);
-		g.fillOval(WIDTH/2 - tileSizeW/2, HEIGHT/2 - tileSizeH, tileSizeW, tileSizeH);
-		
+
 		for (int i = 0; i < tiles.length; i++) {
-			System.out.println(i);
 			tiles[i].drawTile(g);
 		}
+		g.setColor(Color.MAGENTA);
+		g.fillOval(WIDTH / 2 - tileSizeW / 2, HEIGHT / 2 - tileSizeH, tileSizeW, tileSizeH);
+	}
+
+	public void createMap() {
+
+		PrintWriter writer = null;
+		try {
+			writer = new PrintWriter("map.txt", "UTF-8");
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		// draw top
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j <= 7; j++) {
+				writer.print("0 ");
+			}
+			writer.println();
+		}
+
+		// draw bottom
+		Random randomGenerator = new Random();
+		for (int i = 4; i <= 7; i++) {
+			for (int j = 0; j <= 7; j++) {
+				int tileNum = randomGenerator.nextInt(100);
+				if (tileNum >= 0 && tileNum < 80) {
+					writer.print("1 ");
+				}
+				if (tileNum >= 80 && tileNum < 90) {
+					writer.print("2 ");
+				}
+				if (tileNum >= 90 && tileNum <= 100) {
+					writer.print("0 ");
+				}
+			}
+			writer.println();
+		}
+
+		writer.close();
 	}
 
 	@Override
 	public void reset() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public Image banner() {
-		//512x128
+		// 512x128
 		return banner;
 	}
 
 	public static void main(String[] args) {
-		Arcadia.display(new Arcadia(new Game[] {new MyGame(), new IntroGame(), new BasicGame(), new Shooter()}));
+		Arcadia.display(new Arcadia(new Game[] { new MyGame(), new IntroGame(), new BasicGame(), new Shooter() }));
 	}
 }
