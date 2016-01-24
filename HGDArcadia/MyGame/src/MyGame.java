@@ -36,8 +36,8 @@ public class MyGame extends Game {
 			e.printStackTrace();
 		}
 		
-		for (int i = 0; i < width; i++) {
-			for (int j = 0; j < height; j++) {
+		for (int j = 0; j < height; j++) {
+			for (int i = 0; i < width; i++) {
 				tiles[i][j] = new Tile(map.nextInt(), i, j, tileSizeW, tileSizeH);
 			}
 		}
