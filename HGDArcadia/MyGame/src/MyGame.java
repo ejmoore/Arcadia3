@@ -91,7 +91,7 @@ public class MyGame extends Game {
 	}
 
 	public void createMap() {
-		initializeMap map1 = new initializeMap(width,height);
+		InitializeMap map1 = new InitializeMap(width,height);
 	}
 
 	@Override
