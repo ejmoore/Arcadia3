@@ -13,10 +13,10 @@ import shooter.Shooter;
 public class MyGame extends Game {
 
 	Image banner;
-	Tile[][] tiles = new Tile[20][100];
+	Tile[][] tiles = new Tile[40][100];
 	int startx = 10;
 	int starty = 0;
-	private final int width = 20;
+	private final int width = 40;
 	private final int height = 100;
 	private final int tileSizeW = WIDTH / 8;
 	private final int tileSizeH = HEIGHT / 8;
@@ -48,7 +48,7 @@ public class MyGame extends Game {
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 
-		int k= 0;
+		int k = 0;
 		for (int i = startx; i <= startx + 8; i++) {
 			int h = 0;
 			for (int j = starty; j <= starty + 8; j++) {
@@ -57,33 +57,47 @@ public class MyGame extends Game {
 			}
 			k++;
 		}
-		
+
 		g.setColor(Color.MAGENTA);
-	//drawImage(g, ship, WIDTH / 2, HEIGHT / 2, 0);
+		// drawImage(g, ship, WIDTH / 2, HEIGHT / 2, 0);
 		System.out.println(startx + " " + starty);
-		g.fillOval(WIDTH / 2 - tileSizeW , HEIGHT / 2 - tileSizeH, tileSizeW, tileSizeH);
-		
+		g.fillOval(WIDTH / 2 - tileSizeW, HEIGHT / 2 - tileSizeH, tileSizeW, tileSizeH);
+
 		if (p1.pressed(Button.L)) {
-			if (tiles[startx + 2][starty + 3].tileType != 2)
-				if (startx != 0)
+			if (startx != 0) {
+				if (tiles[startx + 2][starty + 3].tileType == 0) {
 					startx--;
+				} else if (tiles[startx + 2][starty + 3].tileType != 2) {
+					tiles[startx + 2][starty + 3].tileType = 0;
+					startx--;
+				}
+			}
 		} // Move left if player hit left
 		if (p1.pressed(Button.R)) {
-			if(startx<11)
-			if (tiles[startx + 4][starty + 3].tileType != 2)
-				startx++;
+			if (startx < 11) {
+				if (tiles[startx + 4][starty + 3].tileType == 0) {
+					startx++;
+				} else if (tiles[startx + 4][starty + 3].tileType != 2) {
+					tiles[startx + 4][starty + 3].tileType = 0;
+					startx++;
+				}
+			}
 		} // Move right if player hit right
 		if (p1.pressed(Button.D)) {
-			if (tiles[startx + 3][starty + 4].tileType != 2)
+			if (tiles[startx + 3][starty + 4].tileType == 0) {
 				starty++;
-		} // Move down if player hit down
+			} else if (tiles[startx + 3][starty + 4].tileType != 2 ) {
+				tiles[startx + 3][starty + 4].tileType = 0;
+				starty++;
+			}
+		}
 		if (p1.pressed(Button.U)) {
-			if (tiles[startx + 3][starty + 2].tileType != 2)
+			if (tiles[startx + 3][starty + 2].tileType == 0)
 				if (starty != 0)
 					starty--;
 		} // Move up if player hit up
 		try {
-			Thread.sleep(30);
+			Thread.sleep(60);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -91,7 +105,7 @@ public class MyGame extends Game {
 	}
 
 	public void createMap() {
-		InitializeMap map1 = new InitializeMap(width,height);
+		InitializeMap map1 = new InitializeMap(width, height);
 	}
 
 	@Override
