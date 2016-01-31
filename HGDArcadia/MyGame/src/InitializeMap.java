@@ -154,7 +154,7 @@ public class InitializeMap {
 		zone10.ore6SpawnRate = 5;
 		zoneWrite(zone10);
 		
-		Zone zone11 = new Zone(301, 340);
+		Zone zone11 = new Zone(341, 380);
 		zone11.dirtSpawnRate = 50;
 		zone11.airSpawnRate = 10;
 		zone11.ore3SpawnRate = 10;
@@ -165,7 +165,7 @@ public class InitializeMap {
 		zoneWrite(zone11);
 		
 
-		Zone end = new Zone(900, 1000);
+		Zone end = new Zone(381, 1000);
 		end.wallSpawnRate = 100;
 		writer.close();
 	}
