@@ -13,7 +13,7 @@ import shooter.Shooter;
 public class MyGame extends Game {
 
 	Image banner;
-	Tile[][] tiles = new Tile[34][100];
+	Tile[][] tiles = new Tile[35][100];
 	int startx = 10;
 	int starty = 0;
 	private final int width = 20;
