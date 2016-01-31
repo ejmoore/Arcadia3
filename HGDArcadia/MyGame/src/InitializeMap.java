@@ -89,7 +89,81 @@ public class InitializeMap {
 		zone4.dirtSpawnRate = 65;
 		zone4.airSpawnRate = 10;
 		zone4.ore1SpawnRate = 10;
-		zone4.ore2SpawnRate = 5;
+		zone4.ore2SpawnRate = 10;
+		zone4.ore3SpawnRate = 5;
+		zoneWrite(zone4);
+		
+		Zone zone5 = new Zone(141, 180);
+		zone5.dirtSpawnRate = 60;
+		zone5.airSpawnRate = 10;
+		zone5.ore1SpawnRate = 10;
+		zone5.ore2SpawnRate = 10;
+		zone5.ore3SpawnRate = 5;
+		zone5.ore4SpawnRate = 5;
+		zoneWrite(zone5);
+		
+		Zone zone6 = new Zone(181, 220);
+		zone6.dirtSpawnRate = 55;
+		zone6.airSpawnRate = 10;
+		zone6.ore1SpawnRate = 10;
+		zone6.ore2SpawnRate = 10;
+		zone6.ore3SpawnRate = 5;
+		zone6.ore4SpawnRate = 5;
+		zone6.ore5SpawnRate = 5;
+		zoneWrite(zone6);
+		
+		Zone zone7 = new Zone(221, 260);
+		zone7.dirtSpawnRate = 50;
+		zone7.airSpawnRate = 10;
+		zone7.ore1SpawnRate = 10;
+		zone7.ore2SpawnRate = 10;
+		zone7.ore3SpawnRate = 5;
+		zone7.ore4SpawnRate = 5;
+		zone7.ore5SpawnRate = 5;
+		zone7.ore6SpawnRate = 5;
+		zoneWrite(zone7);
+		
+		Zone zone8 = new Zone(261, 300);
+		zone8.dirtSpawnRate = 50;
+		zone8.airSpawnRate = 10;
+		zone8.ore1SpawnRate = 5;
+		zone8.ore2SpawnRate = 10;
+		zone8.ore3SpawnRate = 10;
+		zone8.ore4SpawnRate = 5;
+		zone8.ore5SpawnRate = 5;
+		zone8.ore6SpawnRate = 5;
+		zoneWrite(zone8);
+		
+		Zone zone9 = new Zone(301, 340);
+		zone9.dirtSpawnRate = 50;
+		zone9.airSpawnRate = 10;
+		zone9.ore2SpawnRate = 10;
+		zone9.ore3SpawnRate = 15;
+		zone9.ore4SpawnRate = 5;
+		zone9.ore5SpawnRate = 5;
+		zone9.ore6SpawnRate = 5;
+		zoneWrite(zone9);
+		
+		Zone zone10 = new Zone(301, 340);
+		zone10.dirtSpawnRate = 50;
+		zone10.airSpawnRate = 10;
+		zone10.ore2SpawnRate = 5;
+		zone10.ore3SpawnRate = 15;
+		zone10.ore4SpawnRate = 10;
+		zone10.ore5SpawnRate = 5;
+		zone10.ore6SpawnRate = 5;
+		zoneWrite(zone10);
+		
+		Zone zone11 = new Zone(301, 340);
+		zone11.dirtSpawnRate = 50;
+		zone11.airSpawnRate = 10;
+		zone11.ore3SpawnRate = 10;
+		zone11.ore4SpawnRate = 10;
+		zone11.ore5SpawnRate = 10;
+		zone11.ore6SpawnRate = 5;
+		zone11.ore7SpawnRate = 5;
+		zoneWrite(zone11);
+		
 
 		Zone end = new Zone(900, 1000);
 		end.wallSpawnRate = 100;
