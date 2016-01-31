@@ -24,8 +24,26 @@ public class Tile {
 			g.setColor(Color.GREEN);
 		} else if(tileType == 2){
 			g.setColor(Color.BLUE);
+		} else if(tileType == 3) {
+			g.setColor(Color.RED);
+		} else if(tileType == 4) {
+			g.setColor(Color.MAGENTA);
+		} else if(tileType == 5) {
+			g.setColor(Color.CYAN);
+		} else if(tileType == 6) {
+			g.setColor(Color.DARK_GRAY);
+		} else if(tileType == 8) {
+			g.setColor(Color.GRAY);
+		} else if(tileType == 9) {
+			g.setColor(Color.LIGHT_GRAY);
+		} else if(tileType == 10) {
+			g.setColor(Color.ORANGE);
+		} else if(tileType == 11) {
+			g.setColor(Color.PINK);
 		} else if(tileType == 7){
 			g.setColor(Color.BLACK);
+		} else {
+			g.setColor(Color.YELLOW);
 		}
 		g.fillRect(x * tileSizeW,y * tileSizeH, tileSizeW, tileSizeH);
 	}
