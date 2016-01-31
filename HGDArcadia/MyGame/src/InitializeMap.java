@@ -144,15 +144,15 @@ public class InitializeMap {
 		zone9.ore6SpawnRate = 5;
 		zoneWrite(zone9);
 		
-		Zone zone10 = new Zone(301, 340);
-		zone10.dirtSpawnRate = 50;
-		zone10.airSpawnRate = 10;
-		zone10.ore2SpawnRate = 5;
-		zone10.ore3SpawnRate = 15;
-		zone10.ore4SpawnRate = 10;
-		zone10.ore5SpawnRate = 5;
-		zone10.ore6SpawnRate = 5;
-		zoneWrite(zone10);
+//		Zone zone10 = new Zone(301, 340);
+//		zone10.dirtSpawnRate = 50;
+//		zone10.airSpawnRate = 10;
+//		zone10.ore2SpawnRate = 5;
+//		zone10.ore3SpawnRate = 15;
+//		zone10.ore4SpawnRate = 10;
+//		zone10.ore5SpawnRate = 5;
+//		zone10.ore6SpawnRate = 5;
+//		zoneWrite(zone10);
 		
 		Zone zone11 = new Zone(341, 380);
 		zone11.dirtSpawnRate = 50;
@@ -167,6 +167,7 @@ public class InitializeMap {
 
 		Zone end = new Zone(381, 1000);
 		end.wallSpawnRate = 100;
+		zoneWrite(end);
 		writer.close();
 	}
 
