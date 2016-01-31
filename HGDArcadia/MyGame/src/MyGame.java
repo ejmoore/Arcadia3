@@ -13,7 +13,7 @@ import shooter.Shooter;
 public class MyGame extends Game {
 
 	Image banner;
-	Tile[][] tiles = new Tile[35][100];
+	Tile[][] tiles = new Tile[55][101];
 	int startx = 10;
 	int starty = 0;
 	private final int width = 40;
@@ -74,7 +74,7 @@ public class MyGame extends Game {
 			}
 		} // Move left if player hit left
 		if (p1.pressed(Button.R)) {
-			if (startx<width+4) {
+			if (startx < width+4) {
 				if (tiles[startx + 4][starty + 3].tileType == 0) {
 					startx++;
 				} else if (tiles[startx + 4][starty + 3].tileType != 2) {
@@ -84,11 +84,13 @@ public class MyGame extends Game {
 			}
 		} // Move right if player hit right
 		if (p1.pressed(Button.D)) {
-			if (tiles[startx + 3][starty + 4].tileType == 0) {
-				starty++;
-			} else if (tiles[startx + 3][starty + 4].tileType != 2 ) {
-				tiles[startx + 3][starty + 4].tileType = 0;
-				starty++;
+			if (starty < height-9) {
+				if (tiles[startx + 3][starty + 4].tileType == 0) {
+					starty++;
+				} else if (tiles[startx + 3][starty + 4].tileType != 2 ) {
+					tiles[startx + 3][starty + 4].tileType = 0;
+					starty++;
+				}
 			}
 		}
 		if (p1.pressed(Button.U)) {
