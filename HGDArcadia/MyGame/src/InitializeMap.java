@@ -83,8 +83,7 @@ public class InitializeMap {
 		zone3.ore2SpawnRate = 5;
 		zone3.ore3SpawnRate = 5;
 		zoneWrite(zone3);
-		
-		
+
 		Zone zone4 = new Zone(101, 140);
 		zone4.dirtSpawnRate = 65;
 		zone4.airSpawnRate = 10;
@@ -92,7 +91,7 @@ public class InitializeMap {
 		zone4.ore2SpawnRate = 10;
 		zone4.ore3SpawnRate = 5;
 		zoneWrite(zone4);
-		
+
 		Zone zone5 = new Zone(141, 180);
 		zone5.dirtSpawnRate = 60;
 		zone5.airSpawnRate = 10;
@@ -101,7 +100,7 @@ public class InitializeMap {
 		zone5.ore3SpawnRate = 5;
 		zone5.ore4SpawnRate = 5;
 		zoneWrite(zone5);
-		
+
 		Zone zone6 = new Zone(181, 220);
 		zone6.dirtSpawnRate = 55;
 		zone6.airSpawnRate = 10;
@@ -111,7 +110,7 @@ public class InitializeMap {
 		zone6.ore4SpawnRate = 5;
 		zone6.ore5SpawnRate = 5;
 		zoneWrite(zone6);
-		
+
 		Zone zone7 = new Zone(221, 260);
 		zone7.dirtSpawnRate = 50;
 		zone7.airSpawnRate = 10;
@@ -122,7 +121,7 @@ public class InitializeMap {
 		zone7.ore5SpawnRate = 5;
 		zone7.ore6SpawnRate = 5;
 		zoneWrite(zone7);
-		
+
 		Zone zone8 = new Zone(261, 300);
 		zone8.dirtSpawnRate = 50;
 		zone8.airSpawnRate = 10;
@@ -133,7 +132,7 @@ public class InitializeMap {
 		zone8.ore5SpawnRate = 5;
 		zone8.ore6SpawnRate = 5;
 		zoneWrite(zone8);
-		
+
 		Zone zone9 = new Zone(301, 340);
 		zone9.dirtSpawnRate = 50;
 		zone9.airSpawnRate = 10;
@@ -143,17 +142,17 @@ public class InitializeMap {
 		zone9.ore5SpawnRate = 5;
 		zone9.ore6SpawnRate = 5;
 		zoneWrite(zone9);
-		
-//		Zone zone10 = new Zone(301, 340);
-//		zone10.dirtSpawnRate = 50;
-//		zone10.airSpawnRate = 10;
-//		zone10.ore2SpawnRate = 5;
-//		zone10.ore3SpawnRate = 15;
-//		zone10.ore4SpawnRate = 10;
-//		zone10.ore5SpawnRate = 5;
-//		zone10.ore6SpawnRate = 5;
-//		zoneWrite(zone10);
-		
+
+		// Zone zone10 = new Zone(301, 340);
+		// zone10.dirtSpawnRate = 50;
+		// zone10.airSpawnRate = 10;
+		// zone10.ore2SpawnRate = 5;
+		// zone10.ore3SpawnRate = 15;
+		// zone10.ore4SpawnRate = 10;
+		// zone10.ore5SpawnRate = 5;
+		// zone10.ore6SpawnRate = 5;
+		// zoneWrite(zone10);
+
 		Zone zone11 = new Zone(341, 380);
 		zone11.dirtSpawnRate = 50;
 		zone11.airSpawnRate = 10;
@@ -163,7 +162,6 @@ public class InitializeMap {
 		zone11.ore6SpawnRate = 5;
 		zone11.ore7SpawnRate = 5;
 		zoneWrite(zone11);
-		
 
 		Zone end = new Zone(381, 1000);
 		end.wallSpawnRate = 100;
@@ -190,6 +188,7 @@ public class InitializeMap {
 		int n15 = n14 + zone.ore13SpawnRate;
 		int n16 = n15 + zone.ore14SpawnRate;
 		int n17 = n16 + zone.ore15SpawnRate;
+		int n18 = n17 + zone.wallSpawnRate;
 
 		Random randomGenerator = new Random();
 		for (int y = zone.getUpper(); y <= zone.getLower(); y++) {
@@ -198,7 +197,7 @@ public class InitializeMap {
 			}
 			for (int x = 0; x <= width; x++) {
 				int tileNum = randomGenerator.nextInt(100);
-
+				System.out.println(n18);
 				if (tileNum >= 0 && tileNum <= n1) {
 					writer.print("00 ");
 				} else if (tileNum > n1 && tileNum <= n2) {
@@ -233,10 +232,9 @@ public class InitializeMap {
 					writer.print("16 ");
 				} else if (tileNum > n16 && tileNum <= n17) {
 					writer.print("17 ");
-				} else if (tileNum > n17 && tileNum <= 100) {
-					writer.print("18 ");
+				} else if (tileNum > n17 && tileNum <= n18) {
+					writer.print("07 ");
 				}
-
 			}
 			for (int i = 0; i < 7; i++) {
 				writer.print("07 ");
