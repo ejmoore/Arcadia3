@@ -13,7 +13,7 @@ import shooter.Shooter;
 public class MyGame extends Game {
 
 	Image banner;
-	Tile[][] tiles = new Tile[40][100];
+	Tile[][] tiles = new Tile[35][100];
 	int startx = 10;
 	int starty = 0;
 	private final int width = 40;
@@ -37,7 +37,7 @@ public class MyGame extends Game {
 			e.printStackTrace();
 		}
 		for (int j = 0; j < height; j++) {
-			for (int i = 0; i < width; i++) {
+			for (int i = 0; i < width+15; i++) {
 				tiles[i][j] = new Tile(map.nextInt(), i, j, tileSizeW, tileSizeH);
 			}
 		}
@@ -64,7 +64,7 @@ public class MyGame extends Game {
 		g.fillOval(WIDTH / 2 - tileSizeW, HEIGHT / 2 - tileSizeH, tileSizeW, tileSizeH);
 
 		if (p1.pressed(Button.L)) {
-			if (startx != 0) {
+			if (startx != 4) {
 				if (tiles[startx + 2][starty + 3].tileType == 0) {
 					startx--;
 				} else if (tiles[startx + 2][starty + 3].tileType != 2) {
@@ -74,7 +74,7 @@ public class MyGame extends Game {
 			}
 		} // Move left if player hit left
 		if (p1.pressed(Button.R)) {
-			if (startx < 11) {
+			if (startx<width+4) {
 				if (tiles[startx + 4][starty + 3].tileType == 0) {
 					startx++;
 				} else if (tiles[startx + 4][starty + 3].tileType != 2) {

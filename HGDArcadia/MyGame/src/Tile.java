@@ -24,6 +24,8 @@ public class Tile {
 			g.setColor(Color.GREEN);
 		} else if(tileType == 2){
 			g.setColor(Color.BLUE);
+		} else if(tileType == 7){
+			g.setColor(Color.BLACK);
 		}
 		g.fillRect(x * tileSizeW,y * tileSizeH, tileSizeW, tileSizeH);
 	}
