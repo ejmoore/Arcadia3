@@ -16,11 +16,14 @@ public class MyGame extends Game {
 	Tile[][] tiles = new Tile[55][1001];
 	int startx = 10;
 	int starty = 0;
+	float deltaX = 0;
+	float deltaY = 0;
 	long startTime = System.currentTimeMillis();
 	private final int width = 40;
 	private final int height = 1000;
 	private final int tileSizeW = WIDTH / 8;
 	private final int tileSizeH = HEIGHT / 8;
+	Ship ship = new Ship(WIDTH, HEIGHT, tileSizeH, tileSizeW);
 
 	public MyGame() {
 		try {
@@ -38,72 +41,86 @@ public class MyGame extends Game {
 			e.printStackTrace();
 		}
 		for (int j = 0; j < height; j++) {
-			for (int i = 0; i < width+15; i++) {
+			for (int i = 0; i < width + 15; i++) {
 				tiles[i][j] = new Tile(map.nextInt(), i, j, tileSizeW, tileSizeH);
 			}
 		}
+
 	}
 
 	@Override
 	public void tick(Graphics2D g, Input p1, Input p2, Sound s) {
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
-		if (System.currentTimeMillis()- startTime > 100) {
-			if (tiles[startx + 3][starty + 4].tileType == 0) {
+		if (System.currentTimeMillis() - startTime > 100) {
+			if (tiles[startx + 4][starty + 5].tileType == 0) {
 				starty++;
-			} 
+			}
 			startTime = System.currentTimeMillis();
 		}
 
-		int k = 0;
-		for (int i = startx; i <= startx + 8; i++) {
-			int h = 0;
-			for (int j = starty; j <= starty + 8; j++) {
+		float k = -1 + deltaX;
+		for (int i = startx; i <= startx + 10; i++) {
+			float h = -1 + deltaY;
+			for (int j = starty; j <= starty + 10; j++) {
 				tiles[i][j].drawTile(g, k, h);
 				h++;
 			}
 			k++;
 		}
 
-		g.setColor(Color.MAGENTA);
-		// drawImage(g, ship, WIDTH / 2, HEIGHT / 2, 0);
-		System.out.println(startx + " " + starty);
-		g.fillOval(WIDTH / 2 - tileSizeW, HEIGHT / 2 - tileSizeH, tileSizeW, tileSizeH);
+		ship.drawShip(g);
 
+		Tile left = tiles[startx + 3][starty + 4];
+		Tile right = tiles[startx + 5][starty + 4];
+		Tile down = tiles[startx + 4][starty + 5];
+		Tile up = tiles[startx + 4][starty + 3];
 		if (p1.pressed(Button.L)) {
-			if (startx != 4) {
-				if (tiles[startx + 2][starty + 3].tileType == 0) {
-					startx--;
-				} else if (tiles[startx + 2][starty + 3].tileType != 2 && tiles[startx + 3][starty + 4].tileType != 0) {
-					tiles[startx + 2][starty + 3].tileType = 0;
+			if (left.tileType != 7) {
+				if (left.tileType == 0) {
+					// startx--;
+					deltaX += .1;
+					if (deltaX > 1) {
+						startx--;
+						deltaX = 0;
+					}
+				} else if (left.tileType != 2 && down.tileType != 0) {
+					left.tileType = 0;
 					startx--;
 				}
 			}
 		} // Move left if player hit left
 		if (p1.pressed(Button.R)) {
-			if (startx < width+4) {
-				if (tiles[startx + 4][starty + 3].tileType == 0) {
-					startx++;
-				} else if (tiles[startx + 4][starty + 3].tileType != 2 && tiles[startx + 3][starty + 4].tileType != 0) {
-					tiles[startx + 4][starty + 3].tileType = 0;
+			if (right.tileType != 7) {
+				if (right.tileType == 0) {
+					//startx++;
+					deltaX -= .1;
+					if (deltaX < -1) {
+						startx++;
+						deltaX = 0;
+					}
+				} else if (right.tileType != 2 && down.tileType != 0) {
+					right.tileType = 0;
 					startx++;
 				}
 			}
 		} // Move right if player hit right
 		if (p1.pressed(Button.D)) {
-			if (starty < height-9) {
-				if (tiles[startx + 3][starty + 4].tileType == 0) {
+			if (down.tileType != 7 && starty < height-9) {
+				if (down.tileType == 0) {
 					starty++;
-				} else if (tiles[startx + 3][starty + 4].tileType != 2 ) {
-					tiles[startx + 3][starty + 4].tileType = 0;
+				} else if (down.tileType != 2) {
+					down.tileType = 0;
 					starty++;
 				}
 			}
 		}
 		if (p1.pressed(Button.U)) {
-			if (tiles[startx + 3][starty + 2].tileType == 0)
-				if (starty != 0)
-					starty--;
+			if (up.tileType != 7) {
+				if (up.tileType == 0)
+					if (starty != 0)
+						starty--;
+			}
 		} // Move up if player hit up
 		try {
 			Thread.sleep(60);
