@@ -84,7 +84,7 @@ public class MyGame extends Game {
 						startx--;
 						deltaX = 0;
 					}
-				} else if (left.tileType != 2 && down.tileType != 0) {
+				} else if (down.tileType != 0) {
 					left.tileType = 0;
 					startx--;
 				}
@@ -99,7 +99,7 @@ public class MyGame extends Game {
 						startx++;
 						deltaX = 0;
 					}
-				} else if (right.tileType != 2 && down.tileType != 0) {
+				} else if (down.tileType != 0) {
 					right.tileType = 0;
 					startx++;
 				}
@@ -109,7 +109,7 @@ public class MyGame extends Game {
 			if (down.tileType != 7 && starty < height-9) {
 				if (down.tileType == 0) {
 					starty++;
-				} else if (down.tileType != 2) {
+				} else {
 					down.tileType = 0;
 					starty++;
 				}
