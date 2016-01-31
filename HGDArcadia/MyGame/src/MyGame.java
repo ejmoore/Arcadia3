@@ -65,11 +65,11 @@ public class MyGame extends Game {
 		
 		if (p1.pressed(Button.L)) {
 			if (tiles[startx + 2][starty + 3].tileType != 2)
-				if (startx != 0)
+				if (startx != 4)
 					startx--;
 		} // Move left if player hit left
 		if (p1.pressed(Button.R)) {
-			if(startx<11)
+			if(startx<width+4)
 			if (tiles[startx + 4][starty + 3].tileType != 2)
 				startx++;
 		} // Move right if player hit right
