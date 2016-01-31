@@ -13,9 +13,10 @@ import shooter.Shooter;
 public class MyGame extends Game {
 
 	Image banner;
-	Tile[][] tiles = new Tile[35][100];
+	Tile[][] tiles = new Tile[55][100];
 	int startx = 10;
 	int starty = 0;
+	long startTime = System.currentTimeMillis();
 	private final int width = 40;
 	private final int height = 100;
 	private final int tileSizeW = WIDTH / 8;
@@ -47,6 +48,12 @@ public class MyGame extends Game {
 	public void tick(Graphics2D g, Input p1, Input p2, Sound s) {
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
+		if (System.currentTimeMillis()- startTime > 100) {
+			if (tiles[startx + 3][starty + 4].tileType == 0) {
+				starty++;
+			} 
+			startTime = System.currentTimeMillis();
+		}
 
 		int k = 0;
 		for (int i = startx; i <= startx + 8; i++) {
@@ -67,7 +74,7 @@ public class MyGame extends Game {
 			if (startx != 4) {
 				if (tiles[startx + 2][starty + 3].tileType == 0) {
 					startx--;
-				} else if (tiles[startx + 2][starty + 3].tileType != 2) {
+				} else if (tiles[startx + 2][starty + 3].tileType != 2 && tiles[startx + 3][starty + 4].tileType != 0) {
 					tiles[startx + 2][starty + 3].tileType = 0;
 					startx--;
 				}
@@ -77,7 +84,7 @@ public class MyGame extends Game {
 			if (startx<width+4) {
 				if (tiles[startx + 4][starty + 3].tileType == 0) {
 					startx++;
-				} else if (tiles[startx + 4][starty + 3].tileType != 2) {
+				} else if (tiles[startx + 4][starty + 3].tileType != 2 && tiles[startx + 3][starty + 4].tileType != 0) {
 					tiles[startx + 4][starty + 3].tileType = 0;
 					startx++;
 				}
