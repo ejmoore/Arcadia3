@@ -13,7 +13,7 @@ import shooter.Shooter;
 public class MyGame extends Game {
 
 	Image banner;
-	Tile[][] tiles = new Tile[20][100];
+	Tile[][] tiles = new Tile[34][100];
 	int startx = 10;
 	int starty = 0;
 	private final int width = 20;
@@ -37,7 +37,7 @@ public class MyGame extends Game {
 			e.printStackTrace();
 		}
 		for (int j = 0; j < height; j++) {
-			for (int i = 0; i < width; i++) {
+			for (int i = 0; i < width+14; i++) {
 				tiles[i][j] = new Tile(map.nextInt(), i, j, tileSizeW, tileSizeH);
 			}
 		}
