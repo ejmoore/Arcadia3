@@ -13,14 +13,14 @@ import shooter.Shooter;
 public class MyGame extends Game {
 
 	Image banner;
-	Tile[][] tiles = new Tile[55][100];
+	Tile[][] tiles = new Tile[55][1001];
 	int startx = 10;
 	int starty = 0;
 	float deltaX = 0;
 	float deltaY = 0;
 	long startTime = System.currentTimeMillis();
 	private final int width = 40;
-	private final int height = 100;
+	private final int height = 1000;
 	private final int tileSizeW = WIDTH / 8;
 	private final int tileSizeH = HEIGHT / 8;
 	Ship ship = new Ship(WIDTH, HEIGHT, tileSizeH, tileSizeW);
@@ -106,7 +106,7 @@ public class MyGame extends Game {
 			}
 		} // Move right if player hit right
 		if (p1.pressed(Button.D)) {
-			if (down.tileType != 7) {
+			if (down.tileType != 7 && starty < height-9) {
 				if (down.tileType == 0) {
 					starty++;
 				} else if (down.tileType != 2) {
