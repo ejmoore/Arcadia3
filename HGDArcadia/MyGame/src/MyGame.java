@@ -18,7 +18,7 @@ public class MyGame extends Game {
 	int starty = 0;
 	long startTime = System.currentTimeMillis();
 	private final int width = 40;
-	private final int height = 100;
+	private final int height = 1000;
 	private final int tileSizeW = WIDTH / 8;
 	private final int tileSizeH = HEIGHT / 8;
 
