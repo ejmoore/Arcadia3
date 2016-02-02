@@ -80,13 +80,17 @@ public class MyGame extends Game {
 				if (left.tileType == 0) {
 					// startx--;
 					deltaX += .1;
-					if (deltaX > 1) {
+					if (deltaX > .5) {
 						startx--;
-						deltaX = 0;
+						deltaX = -0.5f;
 					}
 				} else if (down.tileType != 0) {
 					left.tileType = 0;
-					startx--;
+					deltaX += .1;
+					if (deltaX > .5) {
+						startx--;
+						deltaX = -0.5f;
+					}
 				}
 			}
 		} // Move left if player hit left
@@ -95,23 +99,35 @@ public class MyGame extends Game {
 				if (right.tileType == 0) {
 					//startx++;
 					deltaX -= .1;
-					if (deltaX < -1) {
+					if (deltaX < -.5) {
 						startx++;
 						deltaX = 0;
 					}
 				} else if (down.tileType != 0) {
 					right.tileType = 0;
-					startx++;
+					deltaX -= .1;
+					if (deltaX < -.5) {
+						startx++;
+						deltaX = 0;
+					}
 				}
 			}
 		} // Move right if player hit right
 		if (p1.pressed(Button.D)) {
 			if (down.tileType != 7 && starty < height-9) {
 				if (down.tileType == 0) {
-					starty++;
+					deltaY -= .1;
+					if (deltaY < -.5) {
+						starty++;
+						deltaY = -0.5f;
+					}
 				} else {
 					down.tileType = 0;
-					starty++;
+					deltaY -= .1;
+					if (deltaY < -.5) {
+						starty++;
+						deltaY = -0.5f;
+					}
 				}
 			}
 		}

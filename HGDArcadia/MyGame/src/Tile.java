@@ -17,7 +17,7 @@ public class Tile {
 		this.tileSizeH = tileSizeH;
 	}
 	
-	public void drawTile(Graphics2D g, int x, int y) {
+	public void drawTile(Graphics2D g, float x, float y) {
 		if (tileType == 0) {
 			g.setColor(Color.WHITE);
 		} else if(tileType == 1 ){
@@ -45,6 +45,6 @@ public class Tile {
 		} else {
 			g.setColor(Color.YELLOW);
 		}
-		g.fillRect(x * tileSizeW,y * tileSizeH, tileSizeW, tileSizeH);
+		g.fillRect((int)(x * tileSizeW),(int)(y * tileSizeH), tileSizeW, tileSizeH);
 	}
 }
