@@ -24,6 +24,8 @@ public class MyGame extends Game {
 	private final int tileSizeW = WIDTH / 9;
 	private final int tileSizeH = HEIGHT / 8;
 	Ship ship = new Ship(WIDTH, HEIGHT, tileSizeH, tileSizeW);
+	int diggingTime = 0;
+	boolean digging = false;
 
 	public MyGame() {
 		try {
@@ -187,6 +189,14 @@ public class MyGame extends Game {
 
 	public void createMap() {
 		InitializeMap map1 = new InitializeMap(width, height);
+	}
+	
+	public boolean dig(Tile tile) {
+		float moveX = (ship.shipX-tile.col*tileSizeW)/30;
+		
+		
+		
+		return false;
 	}
 
 	@Override
