@@ -78,40 +78,50 @@ public class MyGame extends Game {
 		Tile down = tiles[startx + 5][starty + 5];
 		Tile up = tiles[startx + 5][starty + 3];
 		if (p1.pressed(Button.L)) {
-			if (left.tileType != 7) {
+			if(deltaX < 0){
+				deltaX += .1;
+				if(deltaX > 0){
+					deltaX = 0;
+				}
+			}
+			if (left.tileType != 7 ) {
 				if (left.tileType == 0) {
 					// startx--;
 					deltaX += .1;
-					if (deltaX > 1) {
+					if (deltaX > 0.5) {
 						startx--;
-						deltaX = 0;
+						deltaX = -0.5f;
 					}
-				} else if (down.tileType != 0) {
+				} else if (down.tileType != 0 && deltaX == 0) {
 					left.tileType = 0;
 					deltaX += .1;
-					if (deltaX > 1) {
-						startx--;
-						deltaX = 0;
-					}
 				}
 			}
 		} // Move left if player hit left
 		if (p1.pressed(Button.R)) {
+			if(deltaX > 0){
+				deltaX -= .1;
+				if(deltaX < 0){
+					deltaX = 0;
+				}
+			}
 			if (right.tileType != 7) {
 				if (right.tileType == 0) {
 					// startx++;
 					deltaX -= .1;
-					if (deltaX < -1) {
+					if (deltaX < -0.5) {
 						startx++;
-						deltaX = 0;
+						deltaX = 0.5f;
 					}
-				} else if (down.tileType != 0) {
+				} else if (down.tileType != 0 && deltaX == 0) {
 					right.tileType = 0;
 					deltaX -= .1;
-					if (deltaX < -1) {
-						startx++;
-						deltaX = 0;
-					}
+
+				}
+			}  else if(deltaX != 0){
+				deltaX -= .1;
+				if(deltaX < 0){
+					deltaX = 0;
 				}
 			}
 		} // Move right if player hit right
@@ -149,12 +159,12 @@ public class MyGame extends Game {
 
 		ship.drawShip(g);
 
-		try {
-			Thread.sleep(60);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			Thread.sleep(60);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 
 	public void createMap() {
