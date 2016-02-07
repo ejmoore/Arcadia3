@@ -136,11 +136,12 @@ public class MyGame extends Game {
 		if (p1.pressed(Button.U)) {
 			if (up.tileType != 7) {
 				if (starty > 1) {
-					if (up.tileType == 0)
+					if (up.tileType == 0) {
 						deltaY += .05;
-					if (deltaY < 1) {
-						starty--;
-						deltaY = 0;
+						if (deltaY < 1) {
+							starty--;
+							deltaY = 0;
+						}
 					}
 				}
 			}
