@@ -55,8 +55,18 @@ public class MyGame extends Game {
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 
+		Tile upleft = tiles[startx + 4][starty + 3];
+		Tile downleft = tiles[startx + 4][starty + 5];
+		Tile upright = tiles[startx + 6][starty + 3];
+		Tile downright = tiles[startx + 6][starty + 5];
+		Tile left = tiles[startx + 4][starty + 4];
+		Tile right = tiles[startx + 6][starty + 4];
+		Tile down = tiles[startx + 5][starty + 5];
+		Tile up = tiles[startx + 5][starty + 3];
+		
 		// if (System.currentTimeMillis() - startTime > 1) {
-		if (tiles[startx + 5][starty + 5].tileType == 0) {
+		if (tiles[startx + 5][starty + 5].tileType == 0 && ((int) (deltaX * 10) == 0
+				|| ((downleft.tileType == 0 || deltaX < 0) && (downright.tileType == 0 || deltaX > 0)))) {
 			deltaY -= .1;
 			if (deltaY < -1) {
 				starty++;
@@ -66,14 +76,7 @@ public class MyGame extends Game {
 			deltaY -= .1;
 		}
 
-		Tile upleft = tiles[startx + 4][starty + 3];
-		Tile downleft = tiles[startx + 4][starty + 5];
-		Tile upright = tiles[startx + 6][starty + 3];
-		Tile downright = tiles[startx + 6][starty + 5];
-		Tile left = tiles[startx + 4][starty + 4];
-		Tile right = tiles[startx + 6][starty + 4];
-		Tile down = tiles[startx + 5][starty + 5];
-		Tile up = tiles[startx + 5][starty + 3];
+		
 		if (p1.pressed(Button.L)) {
 			if (deltaX < 0) {
 				deltaX += .1;
@@ -127,7 +130,8 @@ public class MyGame extends Game {
 			}
 		} // Move right if player hit right
 		if (p1.pressed(Button.D)) {
-			if (down.tileType != 7 && starty < height - 9) {
+			if (down.tileType != 7 && starty < height - 9 && ((int) (deltaX * 10) == 0
+					|| ((downleft.tileType == 0 || deltaX < 0) && (downright.tileType == 0 || deltaX > 0)))) {
 				if (down.tileType == 0) {
 					deltaY -= .1;
 					if (deltaY < -.5) {
