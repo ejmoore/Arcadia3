@@ -21,7 +21,7 @@ public class MyGame extends Game {
 	long startTime = System.currentTimeMillis();
 	private final int width = 40;
 	private final int height = 1000;
-	private final int tileSizeW = WIDTH / 8;
+	private final int tileSizeW = WIDTH / 9;
 	private final int tileSizeH = HEIGHT / 8;
 	Ship ship = new Ship(WIDTH, HEIGHT, tileSizeH, tileSizeW);
 
@@ -52,8 +52,9 @@ public class MyGame extends Game {
 	public void tick(Graphics2D g, Input p1, Input p2, Sound s) {
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
-		 if (System.currentTimeMillis() - startTime > 1) {
-		if (tiles[startx + 4][starty + 5].tileType == 0) {
+
+		// if (System.currentTimeMillis() - startTime > 1) {
+		if (tiles[startx + 5][starty + 5].tileType == 0) {
 			deltaY -= .1;
 			if (deltaY < -1) {
 				starty++;
@@ -62,54 +63,64 @@ public class MyGame extends Game {
 		} else if (deltaY > .1) {
 			deltaY -= .1;
 		}
-		 startTime = System.currentTimeMillis();
-		 }
 
-
-
-		Tile left = tiles[startx + 3][starty + 4];
-		Tile upleft = tiles[startx + 3][starty + 3];
-		Tile downleft = tiles[startx + 3][starty +5];
-		Tile right = tiles[startx + 5][starty + 4];
-		Tile upright = tiles[startx + 5][starty + 3];
-		Tile downright = tiles[startx + 5][starty + 5];
-		Tile down = tiles[startx + 4][starty + 5];
-		Tile up = tiles[startx + 4][starty + 3];
+		Tile upleft = tiles[startx + 4][starty + 3];
+		Tile downleft = tiles[startx + 4][starty + 5];
+		Tile upright = tiles[startx + 6][starty + 3];
+		Tile downright = tiles[startx + 6][starty + 5];
+		Tile left = tiles[startx + 4][starty + 4];
+		Tile right = tiles[startx + 6][starty + 4];
+		Tile down = tiles[startx + 5][starty + 5];
+		Tile up = tiles[startx + 5][starty + 3];
 		if (p1.pressed(Button.L)) {
-			if (left.tileType != 7 && ((int) (deltaY*10) == 0 || (upleft.tileType == 0 && deltaY > 0) || (upleft.tileType == 0 && deltaY < 0))) {
+			if (deltaX < 0) {
+				deltaX += .1;
+				if (deltaX > 0) {
+					deltaX = 0;
+				}
+			}
+			if (left.tileType != 7 && ((int) (deltaY * 10) == 0 || (upleft.tileType == 0 && deltaY > 0)
+					|| (upleft.tileType == 0 && deltaY < 0))) {
 				if (left.tileType == 0) {
 					// startx--;
 					deltaX += .1;
-					if (deltaX > 1) {
+					if (deltaX > 0.5) {
 						startx--;
-						deltaX = 0;
+						deltaX = -0.5f;
 					}
-				} else if (down.tileType != 0) {
+				} else if (down.tileType != 0 && deltaX == 0) {
 					left.tileType = 0;
 					deltaX += .1;
-					if (deltaX > 1) {
-						startx--;
-						deltaX = 0;
-					}
 				}
 			}
+
 		} // Move left if player hit left
 		if (p1.pressed(Button.R)) {
-			if (right.tileType != 7 && (int) (deltaY*10) == 0 || (upright.tileType == 0 && deltaY > 0) || (upright.tileType == 0 && deltaY < 0)) {
+
+			if (deltaX > 0) {
+				deltaX -= .1;
+				if (deltaX < 0) {
+					deltaX = 0;
+				}
+			}
+			if (right.tileType != 7 && (int) (deltaY * 10) == 0 || (upright.tileType == 0 && deltaY > 0)
+					|| (upright.tileType == 0 && deltaY < 0)) {
 				if (right.tileType == 0) {
 					// startx++;
 					deltaX -= .1;
-					if (deltaX < -1) {
+					if (deltaX < -0.5) {
 						startx++;
-						deltaX = 0;
+						deltaX = 0.5f;
 					}
-				} else if (down.tileType != 0) {
+				} else if (down.tileType != 0 && deltaX == 0) {
 					right.tileType = 0;
 					deltaX -= .1;
-					if (deltaX < -1) {
-						startx++;
-						deltaX = 0;
-					}
+
+				}
+			} else if (deltaX != 0) {
+				deltaX -= .1;
+				if (deltaX < 0) {
+					deltaX = 0;
 				}
 			}
 		} // Move right if player hit right
@@ -132,7 +143,8 @@ public class MyGame extends Game {
 			}
 		}
 		if (p1.pressed(Button.U)) {
-			if (up.tileType != 7 && ( (int) (deltaX*10) == 0 || ((upleft.tileType == 0 || deltaX < 0) && (upright.tileType ==0 || deltaX > 0)))) {
+			if (up.tileType != 7 && ((int) (deltaX * 10) == 0
+					|| ((upleft.tileType == 0 || deltaX < 0) && (upright.tileType == 0 || deltaX > 0)))) {
 				if (starty > 1) {
 					if (up.tileType == 0) {
 						deltaY += .2;
@@ -150,7 +162,7 @@ public class MyGame extends Game {
 				}
 			}
 		} // Move up if player hit up
-		
+
 		float k = -1 + deltaX;
 		for (int i = startx; i <= startx + 10; i++) {
 			float h = -1 + deltaY;
@@ -162,15 +174,15 @@ public class MyGame extends Game {
 		}
 
 		System.out.println(deltaY + " " + starty + " " + deltaX + " " + startx);
-		
+
 		ship.drawShip(g);
 
-		try {
-			Thread.sleep(60);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		// try {
+		// Thread.sleep(60);
+		// } catch (InterruptedException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
 	}
 
 	public void createMap() {

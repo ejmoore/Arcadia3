@@ -20,6 +20,6 @@ public class Ship {
 	void drawShip (Graphics2D g) {
 		g.setColor(Color.MAGENTA);
 		// drawImage(g, ship, WIDTH / 2, HEIGHT / 2, 0);
-		g.fillOval(WIDTH / 2 - tileSizeW, HEIGHT / 2 - tileSizeH, tileSizeW, tileSizeH);
+		g.fillOval(WIDTH / 2 - tileSizeW/2 - 5, HEIGHT / 2 - tileSizeH, tileSizeW+1, tileSizeH);
 	}
 }
