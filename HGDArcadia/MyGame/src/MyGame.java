@@ -52,9 +52,13 @@ public class MyGame extends Game {
 	public void tick(Graphics2D g, Input p1, Input p2, Sound s) {
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
-		if (System.currentTimeMillis() - startTime > 100) {
+		if (System.currentTimeMillis() - startTime > 10) {
 			if (tiles[startx + 4][starty + 5].tileType == 0) {
-				starty++;
+				deltaY -= .1;
+				if (deltaY < -1) {
+					starty++;
+					deltaY = 0;
+				}
 			}
 			startTime = System.currentTimeMillis();
 		}
@@ -116,15 +120,15 @@ public class MyGame extends Game {
 		if (p1.pressed(Button.D)) {
 			if (down.tileType != 7 && starty < height-9) {
 				if (down.tileType == 0) {
-//					deltaY -= .1;
-//					if (deltaY < -.5) {
-//						starty++;
-//						deltaY = -0.5f;
-//					}
+					deltaY -= .1;
+					if (deltaY < -.5) {
+						starty++;
+						deltaY = 0;
+					}
 				} else {
 					down.tileType = 0;
 					deltaY -= .1;
-					if (deltaY < 0) {
+					if (deltaY < -.5) {
 						starty++;
 						deltaY = 0;
 					}
