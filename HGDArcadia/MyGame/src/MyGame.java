@@ -63,7 +63,7 @@ public class MyGame extends Game {
 		for (int i = startx; i <= startx + 10; i++) {
 			float h = -1 + deltaY;
 			for (int j = starty; j <= starty + 10; j++) {
-				tiles[i][j].drawTile(g, k, h);
+				tiles[i][j].drawTile(g, (k), (h));
 				h++;
 			}
 			k++;
@@ -116,17 +116,17 @@ public class MyGame extends Game {
 		if (p1.pressed(Button.D)) {
 			if (down.tileType != 7 && starty < height-9) {
 				if (down.tileType == 0) {
-					deltaY -= .1;
-					if (deltaY < -.5) {
-						starty++;
-						deltaY = -0.5f;
-					}
+//					deltaY -= .1;
+//					if (deltaY < -.5) {
+//						starty++;
+//						deltaY = -0.5f;
+//					}
 				} else {
 					down.tileType = 0;
 					deltaY -= .1;
-					if (deltaY < -.5) {
+					if (deltaY < 0) {
 						starty++;
-						deltaY = -0.5f;
+						deltaY = 0;
 					}
 				}
 			}
