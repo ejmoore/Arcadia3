@@ -52,16 +52,16 @@ public class MyGame extends Game {
 	public void tick(Graphics2D g, Input p1, Input p2, Sound s) {
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
-		if (System.currentTimeMillis() - startTime > 10) {
-			if (tiles[startx + 4][starty + 5].tileType == 0) {
-				deltaY -= .1;
-				if (deltaY < -1) {
-					starty++;
-					deltaY = 0;
-				}
+		// if (System.currentTimeMillis() - startTime > 1) {
+		if (tiles[startx + 4][starty + 5].tileType == 0) {
+			deltaY -= .1;
+			if (deltaY < -1) {
+				starty++;
+				deltaY = 0;
 			}
-			startTime = System.currentTimeMillis();
 		}
+		// startTime = System.currentTimeMillis();
+		// }
 
 		float k = -1 + deltaX;
 		for (int i = startx; i <= startx + 10; i++) {
@@ -73,8 +73,6 @@ public class MyGame extends Game {
 			k++;
 		}
 
-		ship.drawShip(g);
-
 		Tile left = tiles[startx + 3][starty + 4];
 		Tile right = tiles[startx + 5][starty + 4];
 		Tile down = tiles[startx + 4][starty + 5];
@@ -84,16 +82,16 @@ public class MyGame extends Game {
 				if (left.tileType == 0) {
 					// startx--;
 					deltaX += .1;
-					if (deltaX > .5) {
+					if (deltaX > 1) {
 						startx--;
-						deltaX = -0.5f;
+						deltaX = 0;
 					}
 				} else if (down.tileType != 0) {
 					left.tileType = 0;
 					deltaX += .1;
-					if (deltaX > .5) {
+					if (deltaX > 1) {
 						startx--;
-						deltaX = -0.5f;
+						deltaX = 0;
 					}
 				}
 			}
@@ -101,16 +99,16 @@ public class MyGame extends Game {
 		if (p1.pressed(Button.R)) {
 			if (right.tileType != 7) {
 				if (right.tileType == 0) {
-					//startx++;
+					// startx++;
 					deltaX -= .1;
-					if (deltaX < -.5) {
+					if (deltaX < -1) {
 						startx++;
 						deltaX = 0;
 					}
 				} else if (down.tileType != 0) {
 					right.tileType = 0;
 					deltaX -= .1;
-					if (deltaX < -.5) {
+					if (deltaX < -1) {
 						startx++;
 						deltaX = 0;
 					}
@@ -118,7 +116,7 @@ public class MyGame extends Game {
 			}
 		} // Move right if player hit right
 		if (p1.pressed(Button.D)) {
-			if (down.tileType != 7 && starty < height-9) {
+			if (down.tileType != 7 && starty < height - 9) {
 				if (down.tileType == 0) {
 					deltaY -= .1;
 					if (deltaY < -.5) {
@@ -137,11 +135,19 @@ public class MyGame extends Game {
 		}
 		if (p1.pressed(Button.U)) {
 			if (up.tileType != 7) {
-				if (up.tileType == 0)
-					if (starty != 0)
+				if (starty > 1) {
+					if (up.tileType == 0)
+						deltaY += .05;
+					if (deltaY < 1) {
 						starty--;
+						deltaY = 0;
+					}
+				}
 			}
 		} // Move up if player hit up
+
+		ship.drawShip(g);
+
 		try {
 			Thread.sleep(60);
 		} catch (InterruptedException e) {
