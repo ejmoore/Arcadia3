@@ -21,7 +21,7 @@ public class MyGame extends Game {
 	long startTime = System.currentTimeMillis();
 	private final int width = 40;
 	private final int height = 1000;
-	private final int tileSizeW = WIDTH / 8;
+	private final int tileSizeW = WIDTH / 9;
 	private final int tileSizeH = HEIGHT / 8;
 	Ship ship = new Ship(WIDTH, HEIGHT, tileSizeH, tileSizeW);
 
@@ -53,7 +53,7 @@ public class MyGame extends Game {
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		// if (System.currentTimeMillis() - startTime > 1) {
-		if (tiles[startx + 4][starty + 5].tileType == 0) {
+		if (tiles[startx + 5][starty + 5].tileType == 0) {
 			deltaY -= .1;
 			if (deltaY < -1) {
 				starty++;
@@ -73,10 +73,10 @@ public class MyGame extends Game {
 			k++;
 		}
 
-		Tile left = tiles[startx + 3][starty + 4];
-		Tile right = tiles[startx + 5][starty + 4];
-		Tile down = tiles[startx + 4][starty + 5];
-		Tile up = tiles[startx + 4][starty + 3];
+		Tile left = tiles[startx + 4][starty + 4];
+		Tile right = tiles[startx + 6][starty + 4];
+		Tile down = tiles[startx + 5][starty + 5];
+		Tile up = tiles[startx + 5][starty + 3];
 		if (p1.pressed(Button.L)) {
 			if (left.tileType != 7) {
 				if (left.tileType == 0) {
