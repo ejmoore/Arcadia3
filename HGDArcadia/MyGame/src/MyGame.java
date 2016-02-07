@@ -26,6 +26,8 @@ public class MyGame extends Game {
 	Ship ship = new Ship(WIDTH, HEIGHT, tileSizeH, tileSizeW);
 	int diggingTime = 0;
 	boolean digging = false;
+	Tile digTile = null;
+	int diggingDirection = 0;
 
 	public MyGame() {
 		try {
@@ -63,111 +65,114 @@ public class MyGame extends Game {
 		Tile right = tiles[startx + 6][starty + 4];
 		Tile down = tiles[startx + 5][starty + 5];
 		Tile up = tiles[startx + 5][starty + 3];
-		
-		// if (System.currentTimeMillis() - startTime > 1) {
-		if (tiles[startx + 5][starty + 5].tileType == 0 && ((int) (deltaX * 10) == 0
-				|| ((downleft.tileType == 0 || deltaX < 0) && (downright.tileType == 0 || deltaX > 0)))) {
-			deltaY -= .1;
-			if (deltaY < -1) {
-				starty++;
-				deltaY = 0;
-			}
-		} else if (deltaY > .1) {
-			deltaY -= .1;
-		}
 
-		
-		if (p1.pressed(Button.L)) {
-			if (deltaX < 0) {
-				deltaX += .1;
-				if (deltaX > 0) {
-					deltaX = 0;
-				}
-			}
-			if (left.tileType != 7 && ((int) (deltaY * 10) == 0 || (upleft.tileType == 0 && deltaY > 0)
-					|| (upleft.tileType == 0 && deltaY < 0))) {
-				if (left.tileType == 0) {
-					// startx--;
-					deltaX += .1;
-					if (deltaX > 0.5) {
-						startx--;
-						deltaX = -0.5f;
-					}
-				} else if (down.tileType != 0 && deltaX == 0) {
-					left.tileType = 0;
-					deltaX += .1;
-				}
-			}
-
-		} // Move left if player hit left
-		if (p1.pressed(Button.R)) {
-
-			if (deltaX > 0) {
-				deltaX -= .1;
-				if (deltaX < 0) {
-					deltaX = 0;
-				}
-			}
-			if (right.tileType != 7 && (int) (deltaY * 10) == 0 || (upright.tileType == 0 && deltaY > 0)
-					|| (upright.tileType == 0 && deltaY < 0)) {
-				if (right.tileType == 0) {
-					// startx++;
-					deltaX -= .1;
-					if (deltaX < -0.5) {
-						startx++;
-						deltaX = 0.5f;
-					}
-				} else if (down.tileType != 0 && deltaX == 0) {
-					right.tileType = 0;
-					deltaX -= .1;
-
-				}
-			} else if (deltaX != 0) {
-				deltaX -= .1;
-				if (deltaX < 0) {
-					deltaX = 0;
-				}
-			}
-		} // Move right if player hit right
-		if (p1.pressed(Button.D)) {
-			if (down.tileType != 7 && starty < height - 9 && ((int) (deltaX * 10) == 0
+		if (!digging) {
+			// if (System.currentTimeMillis() - startTime > 1) {
+			if (tiles[startx + 5][starty + 5].tileType == 0 && ((int) (deltaX * 10) == 0
 					|| ((downleft.tileType == 0 || deltaX < 0) && (downright.tileType == 0 || deltaX > 0)))) {
-				if (down.tileType == 0) {
-					deltaY -= .1;
-					if (deltaY < -.5) {
-						starty++;
-						deltaY = 0;
+				deltaY -= .1;
+				if (deltaY < -1) {
+					starty++;
+					deltaY = 0;
+				}
+			} else if (deltaY > .1) {
+				deltaY -= .1;
+			}
+
+			if (p1.pressed(Button.L)) {
+				if (deltaX < 0) {
+					deltaX += .1;
+					if (deltaX > 0) {
+						deltaX = 0;
 					}
-				} else {
-					down.tileType = 0;
-					deltaY -= .1;
-					if (deltaY < -.5) {
-						starty++;
-						deltaY = 0;
+				}
+				if (left.tileType != 7 && ((int) (deltaY * 10) == 0 || (upleft.tileType == 0 && deltaY > 0)
+						|| (upleft.tileType == 0 && deltaY < 0))) {
+					if (left.tileType == 0) {
+						deltaX += .1;
+						if (deltaX > 0.5) {
+							startx--;
+							deltaX = -0.5f;
+						}
+					} else if (down.tileType != 0 && deltaX == 0) {
+						left.tileType = 0;
+						digTile = left;
+						diggingDirection = 1;
+						digging = dig(digTile, diggingDirection);
+					}
+				}
+
+			} // Move left if player hit left
+			if (p1.pressed(Button.R)) {
+
+				if (deltaX > 0) {
+					deltaX -= .1;
+					if (deltaX < 0) {
+						deltaX = 0;
+					}
+				}
+				if (right.tileType != 7 && (int) (deltaY * 10) == 0 || (upright.tileType == 0 && deltaY > 0)
+						|| (upright.tileType == 0 && deltaY < 0)) {
+					if (right.tileType == 0) {
+						deltaX -= .1;
+						if (deltaX < -0.5) {
+							startx++;
+							deltaX = 0.5f;
+						}
+					} else if (down.tileType != 0 && deltaX == 0) {
+						right.tileType = 0;
+						digTile = right;
+						diggingDirection = 2;
+						digging = dig(digTile, diggingDirection);
+					}
+				} else if (deltaX != 0) {
+					deltaX -= .1;
+					if (deltaX < 0) {
+						deltaX = 0;
+					}
+				}
+			} // Move right if player hit right
+			if (p1.pressed(Button.D)) {
+				if (down.tileType != 7 && starty < height - 9 && ((int) (deltaX * 10) == 0
+						|| ((downleft.tileType == 0 || deltaX < 0) && (downright.tileType == 0 || deltaX > 0)))) {
+					if (down.tileType == 0) {
+						deltaY -= .1;
+						if (deltaY < -.5) {
+							starty++;
+							deltaY = 0;
+						}
+					} else {
+						down.tileType = 0;
+						digTile = down;
+						diggingDirection = 3;
+						digging = dig(digTile, diggingDirection);
 					}
 				}
 			}
+			if (p1.pressed(Button.U)) {
+				if (up.tileType != 7 && ((int) (deltaX * 10) == 0
+						|| ((upleft.tileType == 0 || deltaX < 0) && (upright.tileType == 0 || deltaX > 0)))) {
+					if (starty > 1) {
+						if (up.tileType == 0) {
+							deltaY += .2;
+							if (deltaY > 1) {
+								starty--;
+								deltaY = 0;
+							}
+						} else if (down.tileType == 0) {
+							deltaY += .1;
+							if (deltaY > 1) {
+								starty--;
+								deltaY = 0;
+							}
+						}
+					}
+				}
+			} // Move up if player hit up
 		}
-		if (p1.pressed(Button.U)) {
-			if (up.tileType != 7 && ((int) (deltaX * 10) == 0
-					|| ((upleft.tileType == 0 || deltaX < 0) && (upright.tileType == 0 || deltaX > 0)))) {
-				if (starty > 1) {
-					if (up.tileType == 0) {
-						deltaY += .2;
-						if (deltaY > 1) {
-							starty--;
-							deltaY = 0;
-						}
-					} else if (down.tileType == 0) {
-						deltaY += .1;
-						if (deltaY > 1) {
-							starty--;
-							deltaY = 0;
-						}
-					}
-				}
-			}
-		} // Move up if player hit up
+		else {
+			digging = dig(digTile, diggingDirection);
+		}
 
 		float k = -1 + deltaX;
 		for (int i = startx; i <= startx + 10; i++) {
@@ -178,8 +183,6 @@ public class MyGame extends Game {
 			}
 			k++;
 		}
-
-		System.out.println(deltaY + " " + starty + " " + deltaX + " " + startx);
 
 		ship.drawShip(g);
 
@@ -194,13 +197,49 @@ public class MyGame extends Game {
 	public void createMap() {
 		InitializeMap map1 = new InitializeMap(width, height);
 	}
-	
-	public boolean dig(Tile tile) {
-		float moveX = (ship.shipX-tile.col*tileSizeW)/30;
-		
-		
-		
-		return false;
+
+	float moveDeltaX = 0;
+	float moveDeltaY = 0;
+
+	public boolean dig(Tile tile, int d) {
+		digging = true;
+		if (diggingTime == 0) {
+			if (d == 3) { //down
+				moveDeltaY = -1 / 30.0f;
+			}
+			else if (d == 2) { //right
+				moveDeltaX = -1 / 30.0f;
+			}
+			else { //left
+				moveDeltaX = 1 / 30.0f;
+			}
+		}
+		diggingTime++;
+
+		deltaX += moveDeltaX;
+		deltaY += moveDeltaY;
+
+
+		if (diggingTime == 29) {
+			moveDeltaX = 0;
+			moveDeltaY = 0;
+			if (d == 3) { //down
+				starty++;
+				deltaY = 0;
+			}
+			else if (d == 2) { //right
+				startx++;
+				deltaX = 0;
+			}
+			else { //left
+				startx--;
+				deltaX = 0;
+			}
+			
+			diggingTime = 0;
+			return false;
+		}
+		return true;
 	}
 
 	@Override
