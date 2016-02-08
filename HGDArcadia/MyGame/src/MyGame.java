@@ -95,7 +95,6 @@ public class MyGame extends Game {
 							deltaX = -0.5f;
 						}
 					} else if (down.tileType != 0 && deltaX == 0) {
-						left.tileType = 0;
 						digTile = left;
 						diggingDirection = 1;
 						digging = dig(digTile, diggingDirection);
@@ -120,7 +119,6 @@ public class MyGame extends Game {
 							deltaX = 0.5f;
 						}
 					} else if (down.tileType != 0 && deltaX == 0) {
-						right.tileType = 0;
 						digTile = right;
 						diggingDirection = 2;
 						digging = dig(digTile, diggingDirection);
@@ -142,7 +140,6 @@ public class MyGame extends Game {
 							deltaY = 0;
 						}
 					} else {
-						down.tileType = 0;
 						digTile = down;
 						diggingDirection = 3;
 						digging = dig(digTile, diggingDirection);
@@ -186,12 +183,6 @@ public class MyGame extends Game {
 
 		ship.drawShip(g);
 
-		// try {
-		// Thread.sleep(60);
-		// } catch (InterruptedException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
 	}
 
 	public void createMap() {
@@ -204,6 +195,9 @@ public class MyGame extends Game {
 	public boolean dig(Tile tile, int d) {
 		digging = true;
 		if (diggingTime == 0) {
+			ship.inventory[tile.tileType]++;
+			if (tile.tileType > 1) ship.checkInventory();
+			tile.tileType = 0;
 			if (d == 3) { //down
 				moveDeltaY = -1 / 30.0f;
 			}
