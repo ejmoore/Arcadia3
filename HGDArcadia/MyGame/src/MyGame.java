@@ -54,9 +54,24 @@ public class MyGame extends Game {
 
 	@Override
 	public void tick(Graphics2D g, Input p1, Input p2, Sound s) {
-		g.setColor(Color.WHITE);
+		g.setColor(Color.WHITE); //Set the background color and draw it
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 
+		checkMovement(p1,p2,s); //Executes all code involving movement and digging
+
+		drawTiles(g); //Draws all the tiles
+
+		ship.drawShip(g); //Draws the ship
+	}
+	
+	/*
+	 * Checks to see if, how, where, and when the ship can dig or move
+	 * 
+	 * @param p1 Player 1 controls
+	 * @param p2 Player 2 controls
+	 * @param s Sound to be played while digging or moving
+	 */
+	public void checkMovement(Input p1, Input p2, Sound s) {
 		Tile upleft = tiles[startx + 4][starty + 3];
 		Tile downleft = tiles[startx + 4][starty + 5];
 		Tile upright = tiles[startx + 6][starty + 3];
@@ -170,7 +185,14 @@ public class MyGame extends Game {
 		else {
 			digging = dig(digTile, diggingDirection);
 		}
+	}
 
+	/*
+	 * Draws all the tiles on the map within view range of the ship
+	 * 
+	 * @param g Graphics Object
+	 */
+	public void drawTiles(Graphics2D g) {
 		float k = -1 + deltaX;
 		for (int i = startx; i <= startx + 10; i++) {
 			float h = -1 + deltaY;
@@ -180,18 +202,24 @@ public class MyGame extends Game {
 			}
 			k++;
 		}
-
-		ship.drawShip(g);
-
 	}
-
+	
+	/*
+	 * Creates a new map.txt file
+	 */
 	public void createMap() {
 		InitializeMap map1 = new InitializeMap(width, height);
 	}
 
-	float moveDeltaX = 0;
+	float moveDeltaX = 0; //Used in dig method to find out how far to move across each tile
 	float moveDeltaY = 0;
 
+	/*
+	 * Removes the tile being dug out and moves the ship accordingly
+	 * 
+	 * @param tile Tile being dug out
+	 * @param d Direction ship is moving
+	 */
 	public boolean dig(Tile tile, int d) {
 		digging = true;
 		if (diggingTime == 0) {
@@ -242,6 +270,9 @@ public class MyGame extends Game {
 
 	}
 
+	/*
+	 * Banner being displayed on the Arcadia launcher
+	 */
 	@Override
 	public Image banner() {
 		// 512x128
