@@ -30,6 +30,7 @@ public class MyGame extends Game {
 	int diggingDirection = 0;
 
 	public MyGame() {
+		System.out.println(tileSizeW + " : " + tileSizeH);
 		try {
 			banner = ImageIO.read(MyGame.class.getResource("banner.png"));
 		} catch (IOException e) {
