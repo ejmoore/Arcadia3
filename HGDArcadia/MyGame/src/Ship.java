@@ -11,8 +11,8 @@ public class Ship {
 	int tileSizeW;
 	int money;
 	int[] inventory = new int[17];
-	int fuel = 10000;
-	int maxFuel = 10000;
+	int fuel = 100;
+	int maxFuel = 100;
 	float fuelRatio;
 	String s;
 
@@ -21,15 +21,10 @@ public class Ship {
 		HEIGHT = height;
 		tileSizeH = tileH;
 		tileSizeW = tileW;
-		money = 0;
-		for (int i = 0; i <= 16; i++) {
-			inventory[i] = 0;
-		}
 	}
-
-	public void drawInterface(Graphics2D g) {
-		fuelRatio = (float) (((float) maxFuel - fuel) / maxFuel);
-		// System.out.println(fuel);
+	
+	public void drawInterface (Graphics2D g) {
+		fuelRatio = (float)(((float)maxFuel-fuel)/maxFuel);
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(WIDTH / 18, HEIGHT - (HEIGHT / 9), WIDTH / 3, HEIGHT / 16);
 		g.setColor(new Color((int) (255 * fuelRatio), (int) (255 * (1 - fuelRatio)), 0));

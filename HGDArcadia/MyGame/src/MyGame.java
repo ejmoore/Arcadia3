@@ -29,11 +29,13 @@ public class MyGame extends Game {
 	Tile digTile = null;
 	int diggingDirection = 0;
 	Building[] buildings = new Building[3];
+	Scanner map = null;
 
 	
 	int[] notMineable = {7,98};
 	int[] passables = {0,97,99};
 	
+	public static boolean loadingGame = false;
 	
 	public MyGame() {
 		//System.out.println(tileSizeW + " : " + tileSizeH);
@@ -44,18 +46,15 @@ public class MyGame extends Game {
 			e.printStackTrace();
 		}
 		createMap();
-		Scanner map = null;
 		try {
 			map = new Scanner(new File("map.txt"));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		for (int j = 0; j < height; j++) {
-			for (int i = 0; i < width + 15; i++) {
-				tiles[i][j] = new Tile(map.nextInt(), i, j, tileSizeW, tileSizeH);
-			}
-		}
+		
+		createTiles();
+		
 		buildings[0] = new Store();
 		buildings[1] = new SaveLocation(tiles);
 	}
@@ -65,11 +64,19 @@ public class MyGame extends Game {
 		g.setColor(Color.WHITE); // Set the background color and draw it
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 
+		if (loadingGame)
+			createTiles();
+		
 		if (buildings[0].isInside()) {
 			buildings[0].buildingControls(p1, p2);
 			buildings[0].drawBuilding(g);
+		} 
+		else if (buildings[1].isInside()) {
+			buildings[1].buildingControls(p1, p2);
+			buildings[1].drawBuilding(g);
 		} else {
-			checkMovement(p1, p2, s); // Executes all code involving movement anddigging
+			if (ship.fuel != 0)
+				checkMovement(p1, p2, s); // Executes all code involving movement anddigging
 			drawTiles(g); // Draws all the tiles
 			ship.drawShip(g); // Draws the ship
 			ship.drawInterface(g); // Draws the interface
@@ -122,7 +129,7 @@ public class MyGame extends Game {
 				}
 			} else if (player.tileType == 97) {
 				if (p1.pressed(Button.D)) {
-					((SaveLocation) buildings[1]).saveTheGame();
+					buildings[1].enter();
 				}
 			}
 
@@ -239,6 +246,14 @@ public class MyGame extends Game {
 		}
 	}
 
+	public void createTiles() {
+		for (int j = 0; j < height; j++) {
+			for (int i = 0; i < width + 15; i++) {
+				tiles[i][j] = new Tile(map.nextInt(), i, j, tileSizeW, tileSizeH);
+			}
+		}
+	}
+	
 	/*
 	 * Draws all the tiles on the map within view range of the ship
 	 * 
