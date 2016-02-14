@@ -28,7 +28,6 @@ public class MyGame extends Game {
 	boolean digging = false;
 	Tile digTile = null;
 	int diggingDirection = 0;
-	float fuelRatio = 0;
 
 	public MyGame() {
 		System.out.println(tileSizeW + " : " + tileSizeH);
@@ -66,13 +65,7 @@ public class MyGame extends Game {
 
 		ship.drawShip(g); // Draws the ship
 		
-		fuelRatio = (float)(((float)ship.maxFuel-ship.fuel)/ship.maxFuel);
-		System.out.println(ship.fuel);
-		g.setColor(Color.DARK_GRAY);
-		g.fillRect(WIDTH/18, HEIGHT-(HEIGHT/9), WIDTH/3, HEIGHT/16);
-		g.setColor(new Color((int)(255*fuelRatio), (int)(255*(1-fuelRatio)), 0));
-		//g.setColor(Color.GREEN);
-		g.fillRect(WIDTH/18, HEIGHT-(HEIGHT/9), (int)((WIDTH/3)*(float)(1- fuelRatio)), HEIGHT/16);
+		ship.drawInterface(g);
 	}
 
 	/*
