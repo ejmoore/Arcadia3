@@ -35,6 +35,7 @@ public class MyGame extends Game {
 	int[] notMineable = {7,98};
 	int[] passables = {0,97,99};
 	
+	public static boolean loadingGame = false;
 	
 	public MyGame() {
 		//System.out.println(tileSizeW + " : " + tileSizeH);
@@ -63,9 +64,16 @@ public class MyGame extends Game {
 		g.setColor(Color.WHITE); // Set the background color and draw it
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 
+		if (loadingGame)
+			createTiles();
+		
 		if (buildings[0].isInside()) {
 			buildings[0].buildingControls(p1, p2);
 			buildings[0].drawBuilding(g);
+		} 
+		else if (buildings[1].isInside()) {
+			buildings[1].buildingControls(p1, p2);
+			buildings[1].drawBuilding(g);
 		} else {
 			if (ship.fuel != 0)
 				checkMovement(p1, p2, s); // Executes all code involving movement anddigging
@@ -108,7 +116,7 @@ public class MyGame extends Game {
 			}
 			else if (player.tileType == 97) {
 				if (p1.pressed(Button.D)) {
-					((SaveLocation) buildings[1]).saveTheGame();
+					buildings[1].enter();
 				}
 			}
 			if ((isPassable(down.tileType))
