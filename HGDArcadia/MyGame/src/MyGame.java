@@ -272,6 +272,10 @@ public class MyGame extends Game {
 		return true;
 	}
 
+	public void saveTheGame(){
+		
+	}
+	
 	@Override
 	public void reset() {
 		// TODO Auto-generated method stub
