@@ -11,7 +11,7 @@ public class Ship {
 	int tileSizeW;
 	int money;
 	int[] inventory = new int[17];
-	int fuel = 10;
+	int fuel = 100;
 	int maxFuel = 100;
 	float fuelRatio;
 	String s;
