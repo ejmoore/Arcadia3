@@ -66,7 +66,9 @@ public class InitializeMap {
 			for (int i = 0; i <= width; i++) {
 				if (x == 7 && i == 1) {
 					writer.print("99 ");
-				} else {
+				} else if(x ==7 && i == 6){
+					writer.print("97 ");
+				}else {
 					writer.print("00 ");
 				}
 			}
@@ -84,7 +86,7 @@ public class InitializeMap {
 				writer.print("07 ");
 			}
 			for (int i = 0; i <= width; i++) {
-				if (x == 0 && (i == 1 || i == 0 || i == 2)) {
+				if (x == 0 && (i == 1 || i == 0 || i == 2 || i == 5 || i == 6|| i == 7)) {
 					writer.print("98 ");
 				} else {
 					writer.print("01 ");

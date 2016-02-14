@@ -4,8 +4,8 @@ import arcadia.Input;
 
 public interface Building {
 	
-	static final int HEIGHT = 1024;
-	static final int WIDTH = 576;
+	static final int HEIGHT = 576;
+	static final int WIDTH = 1024;
 	
 	public void buildingControls(Input p1, Input p2);
 	
