@@ -11,10 +11,11 @@ public class Ship {
 	int tileSizeW;
 	int money;
 	int[] inventory = new int[17];
-	int fuel = 100;
-	int maxFuel = 100;
+	int fuel = 10000;
+	int maxFuel = 10000;
 	float fuelRatio;
 	String s;
+	int topOre = 4;
 
 	public Ship(int width, int height, int tileH, int tileW) {
 		WIDTH = width;
@@ -35,23 +36,33 @@ public class Ship {
 		g.fillRect(WIDTH - (WIDTH / 12), HEIGHT / 8 + HEIGHT / 32, WIDTH / 18, HEIGHT / 12);
 		g.fillRect(WIDTH - (WIDTH / 12), HEIGHT / 4 + HEIGHT / 32, WIDTH / 18, HEIGHT / 12);
 		
-		g.setColor(new Color(220, 0, 220, 200));
+		Color color1 = new Color(255, 215, 0, 200);
+		Color color2 = new Color(200, 200, 200, 200);
+		Color color3 = new Color(255, 100, 40, 200);
+		for ( int i = 16; i > 4; i--){
+			if (inventory[i] != 0){
+				topOre = i+1;
+				System.out.println(topOre);
+				break;
+			}
+		}
+		g.setColor(color1);
 		g.fillRect(WIDTH - (WIDTH / (72 / 5)), HEIGHT / (64 / 3), WIDTH / 32, HEIGHT / 20);
 		
-		g.setColor(new Color(255, 0, 0, 200));
+		g.setColor(color2);
 		g.fillRect(WIDTH - (WIDTH / (72 / 5)), HEIGHT / 8 + HEIGHT / (64 / 3), WIDTH / 32, HEIGHT / 20);
 
-		g.setColor(new Color(0, 0, 255, 200));
+		g.setColor(color3);
 		g.fillRect(WIDTH - (WIDTH / (72 / 5)), HEIGHT/4 + HEIGHT / (64 / 3), WIDTH / 32, HEIGHT / 20);
 		
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 40));
-		s = Integer.toString(inventory[4]);
-		g.drawString(s, WIDTH - (WIDTH / (72 / 5)) + WIDTH / 145, HEIGHT / (64 / 3) + HEIGHT / 20);
-		s = Integer.toString(inventory[3]);
-		g.drawString(s, WIDTH - (WIDTH / (72 / 5)) + WIDTH / 145, HEIGHT / (64 / 3) + HEIGHT / 20 + HEIGHT/8);
-		s = Integer.toString(inventory[2]);
-		g.drawString(s, WIDTH - (WIDTH / (72 / 5)) + WIDTH / 145, HEIGHT / (64 / 3) + HEIGHT / 20 + HEIGHT/4);
+		s = Integer.toString(inventory[topOre]);
+		g.drawString(s, WIDTH - (WIDTH / (72 / 5)), HEIGHT / (64 / 3) + HEIGHT / 20);
+		s = Integer.toString(inventory[topOre-1]);
+		g.drawString(s, WIDTH - (WIDTH / (72 / 5)), HEIGHT / (64 / 3) + HEIGHT / 20 + HEIGHT/8);
+		s = Integer.toString(inventory[topOre -2]);
+		g.drawString(s, WIDTH - (WIDTH / (72 / 5)), HEIGHT / (64 / 3) + HEIGHT / 20 + HEIGHT/4);
 	}
 
 	// WIDTH/18 = 1/2 block,
