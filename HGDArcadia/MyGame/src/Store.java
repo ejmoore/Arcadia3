@@ -1,6 +1,8 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import arcadia.Input;
+
 public class Store implements Building{
 
 	int x = -1;
@@ -29,7 +31,7 @@ public class Store implements Building{
 	}
 
 	@Override
-	public void buildingControls() {
+	public void buildingControls(Input p1, Input p2) {
 		// TODO Auto-generated method stub
 		
 	}

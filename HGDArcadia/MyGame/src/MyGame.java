@@ -28,7 +28,13 @@ public class MyGame extends Game {
 	boolean digging = false;
 	Tile digTile = null;
 	int diggingDirection = 0;
+	SaveLocation save = null;
 
+	
+	int[] notMineable = {7,98};
+	int[] passables = {0,97,99};
+	
+	
 	public MyGame() {
 		System.out.println(tileSizeW + " : " + tileSizeH);
 		try {
@@ -50,7 +56,7 @@ public class MyGame extends Game {
 				tiles[i][j] = new Tile(map.nextInt(), i, j, tileSizeW, tileSizeH);
 			}
 		}
-
+		save = new SaveLocation(tiles);
 	}
 
 	@Override
@@ -86,18 +92,18 @@ public class MyGame extends Game {
 		Tile up = tiles[startx + 5][starty + 3];
 		Tile player = tiles[startx + 5][starty + 4];
 
+		
 		if (!digging) {
 			// if (System.currentTimeMillis() - startTime > 1) {
 
-			if (player.tileType == 99) {
+			if (player.tileType == 97) {
 				if (p1.pressed(Button.D)) {
-					saveTheGame();
+					save.saveTheGame();
 				}
 			}
-
-			if ((down.tileType == 0 || down.tileType == 99)
-					&& ((int) (deltaX * 10) == 0 || (((downleft.tileType == 0 || downleft.tileType == 99) || deltaX < 0)
-							&& ((downright.tileType == 0 || downright.tileType == 99) || deltaX > 0)))) {
+			if ((isPassable(down.tileType) || down.tileType == 97)
+					&& ((int) (deltaX * 10) == 0 || (((isPassable(down.tileType)) || deltaX < 0)
+							&& ((isPassable(down.tileType)) || deltaX > 0)))) {
 				deltaY -= .1;
 				if (deltaY < -1) {
 					starty++;
@@ -114,9 +120,9 @@ public class MyGame extends Game {
 						deltaX = 0;
 					}
 				}
-				if (left.tileType != 7 && left.tileType != 98 && ((int) (deltaY * 10) == 0
+				if (isMineable(left.tileType) && ((int) (deltaY * 10) == 0
 						|| (upleft.tileType == 0 && deltaY > 0) || (upleft.tileType == 0 && deltaY < 0))) {
-					if (left.tileType == 0 || left.tileType == 99) {
+					if (isPassable(left.tileType)) {
 						deltaX += .1;
 						if (deltaX > 0.5) {
 							startx--;
@@ -138,9 +144,9 @@ public class MyGame extends Game {
 						deltaX = 0;
 					}
 				}
-				if (right.tileType != 7 && right.tileType != 98 && (int) (deltaY * 10) == 0
+				if (isMineable(right.tileType) && (int) (deltaY * 10) == 0
 						|| (upright.tileType == 0 && deltaY > 0) || (upright.tileType == 0 && deltaY < 0)) {
-					if (right.tileType == 0 || right.tileType == 99) {
+					if (isPassable(right.tileType)) {
 						deltaX -= .1;
 						if (deltaX < -0.5) {
 							startx++;
@@ -159,9 +165,9 @@ public class MyGame extends Game {
 				}
 			} // Move right if player hit right
 			if (p1.pressed(Button.D)) {
-				if (down.tileType != 7 && down.tileType != 98 && starty < height - 9 && ((int) (deltaX * 10) == 0
+				if (isMineable(down.tileType) && starty < height - 9 && ((int) (deltaX * 10) == 0
 						|| ((downleft.tileType == 0 || deltaX < 0) && (downright.tileType == 0 || deltaX > 0)))) {
-					if (down.tileType == 0 || down.tileType == 99) {
+					if (isPassable(down.tileType)) {
 						deltaY -= .1;
 						if (deltaY < -.5) {
 							starty++;
@@ -175,7 +181,7 @@ public class MyGame extends Game {
 				}
 			}
 			if (p1.pressed(Button.U)) {
-				if (up.tileType != 7 && up.tileType != 98 && ((int) (deltaX * 10) == 0
+				if (isMineable(up.tileType) && ((int) (deltaX * 10) == 0
 						|| ((upleft.tileType == 0 || deltaX < 0) && (upright.tileType == 0 || deltaX > 0)))) {
 					if (starty > 1) {
 						if (up.tileType == 0) {
@@ -274,49 +280,25 @@ public class MyGame extends Game {
 		return true;
 	}
 
-	public void saveTheGame() {
-		PrintWriter writer = null;
-		try {
-			writer = new PrintWriter("mapSave.txt", "UTF-8");
-		} catch (FileNotFoundException | UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		for (int y = 0; y < 1000; y++) {
-			for (int x = 0; x < 54; x++) {
-				int next = tiles[x][y].tileType;
-				if (next < 10) {
-					writer.print("0" + tiles[x][y].tileType + " ");
-				} else {
-					writer.print(tiles[x][y].tileType + " ");
-				}
+	public boolean isMineable(int tile){
+		boolean mineable = true;
+		for (int i = 0; i < notMineable.length; i++){
+			if(notMineable[i] == tile){
+				mineable = false;
 			}
-			writer.println();
 		}
+		return mineable;
 	}
-
-	public void loadGame() {
-		PrintWriter writer = null;
-		try {
-			writer = new PrintWriter("map.txt", "UTF-8");
-		} catch (FileNotFoundException | UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		Scanner map = null;
-		try {
-			map = new Scanner(new File("mapSave.txt"));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		for (int x = 0; x < 55; x++) {
-			for (int y = 0; y < 1001; y++) {
-				writer.println(map.nextInt());
+	
+	public boolean isPassable(int tile){
+		boolean passable = false;;
+		for (int i = 0;i < passables.length; i++){
+			if(passables[i] == tile){
+				passable = true;
 			}
-			writer.println();
 		}
-
+		return passable;
 	}
-
 	@Override
 	public void reset() {
 		// TODO Auto-generated method stub
