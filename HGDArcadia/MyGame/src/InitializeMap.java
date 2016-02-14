@@ -55,9 +55,25 @@ public class InitializeMap {
 			e.printStackTrace();
 		}
 
-		Zone air = new Zone(0, 8);
+		Zone air = new Zone(0, 7);
 		air.airSpawnRate = 100;
-		zoneWrite(air);
+		for (int x = 0; x <= 7; x++) {
+			for (int i = 0; i < 7; i++) {
+				writer.print("07 ");
+			}
+			for (int i = 0; i < width; i++) {
+				if (x == 7 && i == 1) {
+					writer.print("99 ");
+				} else {
+					writer.print("00 ");
+				}
+			}
+
+			for (int i = 0; i <= 7; i++) {
+				writer.print("07 ");
+			}
+			writer.println();
+		}
 
 		Zone crust = new Zone(8, 10);
 		crust.dirtSpawnRate = 100;
@@ -143,15 +159,15 @@ public class InitializeMap {
 		zone9.ore6SpawnRate = 5;
 		zoneWrite(zone9);
 
-		 Zone zone10 = new Zone(341, 380);
-		 zone10.dirtSpawnRate = 50;
-		 zone10.airSpawnRate = 10;
-		 zone10.ore2SpawnRate = 5;
-		 zone10.ore3SpawnRate = 15;
-		 zone10.ore4SpawnRate = 10;
-		 zone10.ore5SpawnRate = 5;
-		 zone10.ore6SpawnRate = 5;
-		 zoneWrite(zone10);
+		Zone zone10 = new Zone(341, 380);
+		zone10.dirtSpawnRate = 50;
+		zone10.airSpawnRate = 10;
+		zone10.ore2SpawnRate = 5;
+		zone10.ore3SpawnRate = 15;
+		zone10.ore4SpawnRate = 10;
+		zone10.ore5SpawnRate = 5;
+		zone10.ore6SpawnRate = 5;
+		zoneWrite(zone10);
 
 		Zone zone11 = new Zone(381, 420);
 		zone11.dirtSpawnRate = 50;
@@ -196,7 +212,7 @@ public class InitializeMap {
 				writer.print("07 ");
 			}
 			for (int x = 0; x <= width; x++) {
-				int tileNum = randomGenerator.nextInt(99)+1;
+				int tileNum = randomGenerator.nextInt(99) + 1;
 				if (tileNum >= 0 && tileNum <= n1) {
 					writer.print("00 ");
 				} else if (tileNum > n1 && tileNum <= n2) {

@@ -55,21 +55,24 @@ public class MyGame extends Game {
 
 	@Override
 	public void tick(Graphics2D g, Input p1, Input p2, Sound s) {
-		g.setColor(Color.WHITE); //Set the background color and draw it
+		g.setColor(Color.WHITE); // Set the background color and draw it
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 
-		checkMovement(p1,p2,s); //Executes all code involving movement and digging
+		checkMovement(p1, p2, s); // Executes all code involving movement and
+									// digging
 
-		drawTiles(g); //Draws all the tiles
+		drawTiles(g); // Draws all the tiles
 
-		ship.drawShip(g); //Draws the ship
+		ship.drawShip(g); // Draws the ship
 	}
-	
+
 	/*
 	 * Checks to see if, how, where, and when the ship can dig or move
 	 * 
 	 * @param p1 Player 1 controls
+	 * 
 	 * @param p2 Player 2 controls
+	 * 
 	 * @param s Sound to be played while digging or moving
 	 */
 	public void checkMovement(Input p1, Input p2, Sound s) {
@@ -81,11 +84,18 @@ public class MyGame extends Game {
 		Tile right = tiles[startx + 6][starty + 4];
 		Tile down = tiles[startx + 5][starty + 5];
 		Tile up = tiles[startx + 5][starty + 3];
+		Tile player = tiles[startx + 5][starty + 4];
 
 		if (!digging) {
 			// if (System.currentTimeMillis() - startTime > 1) {
-			if (tiles[startx + 5][starty + 5].tileType == 0 && ((int) (deltaX * 10) == 0
-					|| ((downleft.tileType == 0 || deltaX < 0) && (downright.tileType == 0 || deltaX > 0)))) {
+
+			if (player.tileType == 99) {
+				System.out.println("You are at the store!");
+			}
+
+			if ((down.tileType == 0 || down.tileType == 99)
+					&& ((int) (deltaX * 10) == 0 || (((downleft.tileType == 0 || downleft.tileType == 99) || deltaX < 0)
+							&& ((downright.tileType == 0 || downright.tileType == 99) || deltaX > 0)))) {
 				deltaY -= .1;
 				if (deltaY < -1) {
 					starty++;
@@ -104,7 +114,7 @@ public class MyGame extends Game {
 				}
 				if (left.tileType != 7 && ((int) (deltaY * 10) == 0 || (upleft.tileType == 0 && deltaY > 0)
 						|| (upleft.tileType == 0 && deltaY < 0))) {
-					if (left.tileType == 0) {
+					if (left.tileType == 0 || left.tileType == 99) {
 						deltaX += .1;
 						if (deltaX > 0.5) {
 							startx--;
@@ -128,7 +138,7 @@ public class MyGame extends Game {
 				}
 				if (right.tileType != 7 && (int) (deltaY * 10) == 0 || (upright.tileType == 0 && deltaY > 0)
 						|| (upright.tileType == 0 && deltaY < 0)) {
-					if (right.tileType == 0) {
+					if (right.tileType == 0 || right.tileType == 99) {
 						deltaX -= .1;
 						if (deltaX < -0.5) {
 							startx++;
@@ -149,7 +159,7 @@ public class MyGame extends Game {
 			if (p1.pressed(Button.D)) {
 				if (down.tileType != 7 && starty < height - 9 && ((int) (deltaX * 10) == 0
 						|| ((downleft.tileType == 0 || deltaX < 0) && (downright.tileType == 0 || deltaX > 0)))) {
-					if (down.tileType == 0) {
+					if (down.tileType == 0 || down.tileType == 99) {
 						deltaY -= .1;
 						if (deltaY < -.5) {
 							starty++;
@@ -182,8 +192,7 @@ public class MyGame extends Game {
 					}
 				}
 			} // Move up if player hit up
-		}
-		else {
+		} else {
 			digging = dig(digTile, diggingDirection);
 		}
 	}
@@ -204,7 +213,7 @@ public class MyGame extends Game {
 			k++;
 		}
 	}
-	
+
 	/*
 	 * Creates a new map.txt file
 	 */
@@ -212,28 +221,29 @@ public class MyGame extends Game {
 		InitializeMap map1 = new InitializeMap(width, height);
 	}
 
-	float moveDeltaX = 0; //Used in dig method to find out how far to move across each tile
+	float moveDeltaX = 0; // Used in dig method to find out how far to move
+							// across each tile
 	float moveDeltaY = 0;
 
 	/*
 	 * Removes the tile being dug out and moves the ship accordingly
 	 * 
 	 * @param tile Tile being dug out
+	 * 
 	 * @param d Direction ship is moving
 	 */
 	public boolean dig(Tile tile, int d) {
 		digging = true;
 		if (diggingTime == 0) {
 			ship.inventory[tile.tileType]++;
-			if (tile.tileType > 1) ship.checkInventory();
+			if (tile.tileType > 1)
+				ship.checkInventory();
 			tile.tileType = 0;
-			if (d == 3) { //down
+			if (d == 3) { // down
 				moveDeltaY = -1 / 30.0f;
-			}
-			else if (d == 2) { //right
+			} else if (d == 2) { // right
 				moveDeltaX = -1 / 30.0f;
-			}
-			else { //left
+			} else { // left
 				moveDeltaX = 1 / 30.0f;
 			}
 		}
@@ -242,23 +252,20 @@ public class MyGame extends Game {
 		deltaX += moveDeltaX;
 		deltaY += moveDeltaY;
 
-
 		if (diggingTime == 29) {
 			moveDeltaX = 0;
 			moveDeltaY = 0;
-			if (d == 3) { //down
+			if (d == 3) { // down
 				starty++;
 				deltaY = 0;
-			}
-			else if (d == 2) { //right
+			} else if (d == 2) { // right
 				startx++;
 				deltaX = 0;
-			}
-			else { //left
+			} else { // left
 				startx--;
 				deltaX = 0;
 			}
-			
+
 			diggingTime = 0;
 			return false;
 		}
