@@ -11,8 +11,8 @@ public class Ship {
 	int tileSizeW;
 	int money;
 	int[] inventory = new int[17];
-	int fuel = 10000;
-	int maxFuel = 10000;
+	int fuel = 10;
+	int maxFuel = 100;
 	float fuelRatio;
 	String s;
 
@@ -21,10 +21,6 @@ public class Ship {
 		HEIGHT = height;
 		tileSizeH = tileH;
 		tileSizeW = tileW;
-		money = 0;
-		for (int i = 0; i <= 16; i++) {
-			inventory[i] = 0;
-		}
 	}
 
 	public void drawInterface(Graphics2D g) {
