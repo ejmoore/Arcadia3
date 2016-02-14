@@ -21,16 +21,22 @@ public class MyGame extends Game {
 	long startTime = System.currentTimeMillis();
 	private final int width = 40;
 	private final int height = 1000;
-	private final int tileSizeW = WIDTH / 9;
-	private final int tileSizeH = HEIGHT / 8;
-	Ship ship = new Ship(WIDTH, HEIGHT, tileSizeH, tileSizeW);
+	private static final int tileSizeW = WIDTH / 9;
+	private static final int tileSizeH = HEIGHT / 8;
+	public static Ship ship = new Ship(WIDTH, HEIGHT, tileSizeH, tileSizeW);
 	int diggingTime = 0;
 	boolean digging = false;
 	Tile digTile = null;
 	int diggingDirection = 0;
+	Building[] buildings = new Building[3];
 
+	
+	int[] notMineable = {7,98};
+	int[] passables = {0,97,99};
+	
+	
 	public MyGame() {
-		System.out.println(tileSizeW + " : " + tileSizeH);
+		//System.out.println(tileSizeW + " : " + tileSizeH);
 		try {
 			banner = ImageIO.read(MyGame.class.getResource("banner.png"));
 		} catch (IOException e) {
@@ -50,7 +56,8 @@ public class MyGame extends Game {
 				tiles[i][j] = new Tile(map.nextInt(), i, j, tileSizeW, tileSizeH);
 			}
 		}
-
+		buildings[0] = new Store();
+		buildings[1] = new SaveLocation(tiles);
 	}
 
 	@Override
@@ -58,12 +65,15 @@ public class MyGame extends Game {
 		g.setColor(Color.WHITE); // Set the background color and draw it
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 
-		checkMovement(p1, p2, s); // Executes all code involving movement and
-									// digging
-
-		drawTiles(g); // Draws all the tiles
-
-		ship.drawShip(g); // Draws the ship
+		if (buildings[0].isInside()) {
+			buildings[0].buildingControls(p1, p2);
+			buildings[0].drawBuilding(g);
+		} else {
+			checkMovement(p1, p2, s); // Executes all code involving movement anddigging
+			drawTiles(g); // Draws all the tiles
+			ship.drawShip(g); // Draws the ship
+			ship.drawInterface(g); // Draws the interface
+		}
 	}
 
 	/*
@@ -75,6 +85,7 @@ public class MyGame extends Game {
 	 * 
 	 * @param s Sound to be played while digging or moving
 	 */
+	
 	public void checkMovement(Input p1, Input p2, Sound s) {
 		Tile upleft = tiles[startx + 4][starty + 3];
 		Tile downleft = tiles[startx + 4][starty + 5];
@@ -86,25 +97,32 @@ public class MyGame extends Game {
 		Tile up = tiles[startx + 5][starty + 3];
 		Tile player = tiles[startx + 5][starty + 4];
 
+		
 		if (!digging) {
 
 			if (player.tileType == 99) {
-				System.out.println("You are at the store!");
+				if (p1.pressed(Button.D)) {
+					//saveTheGame();
+					buildings[0].enter();
+				}
 			}
 
-			if (!p1.pressed(Button.U) && (down.tileType == 0 || down.tileType == 99)
-					&& (Math.abs(deltaX) < .2 || (((downleft.tileType == 0 || downleft.tileType == 99) && deltaX >= .2)
-							|| ((downright.tileType == 0 || downright.tileType == 99) && deltaX <= -.2)))) {
+			if (!p1.pressed(Button.U) && isPassable(down.tileType)
+					&& (Math.abs(deltaX) < .1 || ((isPassable(downleft.tileType) && deltaX >= .2)
+							|| (isPassable(downright.tileType) && deltaX <= -.2)))) {
 				deltaY -= .1;
 				if (deltaY < -1) {
 					starty++;
 					deltaY = 0;
 				}
-				System.out.println("deltaY: " + deltaY);
 			} else if (deltaY > 0) {
 				deltaY -= .1;
 				if (deltaY < 0) {
 					deltaY = 0;
+				}
+			} else if (player.tileType == 97) {
+				if (p1.pressed(Button.D)) {
+					((SaveLocation) buildings[1]).saveTheGame();
 				}
 			}
 
@@ -113,21 +131,23 @@ public class MyGame extends Game {
 					deltaX += .1;
 					if (deltaX > 0) {
 						deltaX = 0;
+						ship.fuel --;
 					}
 				}
-				else if (left.tileType != 7 && left.tileType != 98 && (Math.abs(deltaY) < .1
+				else if (isMineable(left.tileType) && (Math.abs(deltaY) < .1
 						|| (upleft.tileType == 0 && deltaY > 0) || (downleft.tileType == 0 && deltaY < 0))) {
-					if (left.tileType == 0 || left.tileType == 99) {
+					if (isPassable(left.tileType)) {
 						deltaX += .1;
 						if (deltaX > 0.5) {
 							startx--;
 							deltaX = -0.5f;
+							ship.fuel --;
 						}
-						System.out.println("deltaX" + deltaX);
 					} else if (down.tileType != 0 && Math.abs(deltaX) < 0.01 && Math.abs(deltaY) < 0.01) {
 						digTile = left;
 						diggingDirection = 1;
 						digging = dig(digTile, diggingDirection);
+						ship.fuel --;
 					}
 				}
 
@@ -138,46 +158,62 @@ public class MyGame extends Game {
 					deltaX -= .1;
 					if (deltaX < 0) {
 						deltaX = 0;
+						ship.fuel --;
 					}
 				}
-				else if (right.tileType != 7 && right.tileType != 98 && (Math.abs(deltaY) < .1
+				else if (isMineable(right.tileType) && (Math.abs(deltaY) < .1
 						|| (upright.tileType == 0 && deltaY > 0) || (downright.tileType == 0 && deltaY < 0))) {
-					if (right.tileType == 0 || right.tileType == 99) {
+					if (isPassable(right.tileType)) {
 						deltaX -= .1;
 						if (deltaX < -0.5) {
 							startx++;
 							deltaX = 0.5f;
+							ship.fuel --;
 						}
-					} else if (down.tileType != 0 && deltaX == 0) {
+					} else if (down.tileType != 0 && Math.abs(deltaX) < 0.01 && Math.abs(deltaY) < 0.01) {
 						digTile = right;
 						diggingDirection = 2;
 						digging = dig(digTile, diggingDirection);
+						ship.fuel --;
 					}
 				} else if (deltaX != 0) {
 					deltaX -= .1;
 					if (deltaX < 0) {
 						deltaX = 0;
+						ship.fuel --;
 					}
 				}
 			} // Move right if player hit right
 			if (p1.pressed(Button.D)) {
-				if (down.tileType != 7 && down.tileType != 98 && starty < height - 9 && ((int) (deltaX * 10) == 0
+				if (isMineable(down.tileType) && starty < height - 9 && ((int) (deltaX * 10) == 0
 						|| ((downleft.tileType == 0 || deltaX < 0) && (downright.tileType == 0 || deltaX > 0)))) {
-					if (down.tileType == 0 || down.tileType == 99) {
+					if (isPassable(down.tileType)) {
 						deltaY -= .1;
 						if (deltaY < -.5) {
 							starty++;
 							deltaY = 0;
+							ship.fuel --;
 						}
 					} else {
 						digTile = down;
 						diggingDirection = 3;
 						digging = dig(digTile, diggingDirection);
+						ship.fuel --;
 					}
 				}
 			}
 			if (p1.pressed(Button.U)) {
-				if (up.tileType != 7 && up.tileType != 98 && (Math.abs(deltaX) < .1
+				if (deltaY < 0) {
+					deltaY += .1;
+					if (deltaY > 1) {
+						starty--;
+						deltaY = 0;
+						ship.fuel --;
+					}
+					
+					
+				}
+				if (isPassable(up.tileType) && (Math.abs(deltaX) < .1
 						|| ((upleft.tileType == 0 && deltaX > 0) || (upright.tileType == 0 && deltaX < 0)))) {
 					if (starty > 1) {
 						if (up.tileType == 0) {
@@ -185,12 +221,14 @@ public class MyGame extends Game {
 							if (deltaY > 1) {
 								starty--;
 								deltaY = 0;
+								ship.fuel --;
 							}
 						} else if (down.tileType == 0) {
 							deltaY += .1;
 							if (deltaY > 1) {
 								starty--;
 								deltaY = 0;
+								ship.fuel --;
 							}
 						}
 					}
@@ -276,6 +314,25 @@ public class MyGame extends Game {
 		return true;
 	}
 
+	public boolean isMineable(int tile){
+		boolean mineable = true;
+		for (int i = 0; i < notMineable.length; i++){
+			if(notMineable[i] == tile){
+				mineable = false;
+			}
+		}
+		return mineable;
+	}
+	
+	public boolean isPassable(int tile){
+		boolean passable = false;
+		for (int i = 0;i < passables.length; i++){
+			if(passables[i] == tile){
+				passable = true;
+			}
+		}
+		return passable;
+	}
 	@Override
 	public void reset() {
 		// TODO Auto-generated method stub

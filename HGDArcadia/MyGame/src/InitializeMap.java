@@ -55,34 +55,54 @@ public class InitializeMap {
 			e.printStackTrace();
 		}
 
+		// 0-7 now spawns printing one building one away from the boarder on the
+		// left above the ground
 		Zone air = new Zone(0, 7);
 		air.airSpawnRate = 100;
 		for (int x = 0; x <= 7; x++) {
 			for (int i = 0; i < 7; i++) {
 				writer.print("07 ");
 			}
-			for (int i = 0; i < width; i++) {
+			for (int i = 0; i <= width; i++) {
 				if (x == 7 && i == 1) {
 					writer.print("99 ");
-				} else {
+				} else if(x ==7 && i == 6){
+					writer.print("97 ");
+				}else {
 					writer.print("00 ");
 				}
 			}
 
-			for (int i = 0; i <= 7; i++) {
+			for (int i = 0; i < 7; i++) {
 				writer.print("07 ");
 			}
 			writer.println();
 		}
 
+		// 8-10 now makes row 8 columns 0-2 of tiletype 98 a un-mineable dirt
 		Zone crust = new Zone(8, 10);
-		crust.dirtSpawnRate = 100;
-		zoneWrite(crust);
+		for (int x = 0; x <= 2; x++) {
+			for (int i = 0; i < 7; i++) {
+				writer.print("07 ");
+			}
+			for (int i = 0; i <= width; i++) {
+				if (x == 0 && (i == 1 || i == 0 || i == 2 || i == 5 || i == 6|| i == 7)) {
+					writer.print("98 ");
+				} else {
+					writer.print("01 ");
+				}
+			}
+
+			for (int i = 0; i < 7; i++) {
+				writer.print("07 ");
+			}
+			writer.println();
+		}
 
 		Zone zone1 = new Zone(11, 20);
 		zone1.dirtSpawnRate = 80;
-		zone1.airSpawnRate = 15;
-		zone1.ore1SpawnRate = 5;
+		zone1.airSpawnRate = 5;
+		zone1.ore1SpawnRate = 15;
 		zoneWrite(zone1);
 
 		Zone zone2 = new Zone(21, 60);
