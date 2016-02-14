@@ -67,7 +67,8 @@ public class MyGame extends Game {
 			buildings[0].buildingControls(p1, p2);
 			buildings[0].drawBuilding(g);
 		} else {
-			checkMovement(p1, p2, s); // Executes all code involving movement anddigging
+			if (ship.fuel != 0)
+				checkMovement(p1, p2, s); // Executes all code involving movement anddigging
 			drawTiles(g); // Draws all the tiles
 			ship.drawShip(g); // Draws the ship
 			ship.drawInterface(g); // Draws the interface
