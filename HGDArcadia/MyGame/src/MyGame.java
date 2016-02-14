@@ -95,7 +95,7 @@ public class MyGame extends Game {
 
 			if ((down.tileType == 0 || down.tileType == 99)
 					&& ((int) (deltaX * 10) == 0 || (((downleft.tileType == 0 || downleft.tileType == 99) || deltaX < 0)
-							&& ((downright.tileType == 0 || downright.tileType == 99) || deltaX > 0)))) {
+							&& ((downright.tileType == 0 || downright.tileType == 99)|| deltaX > 0)))) {
 				deltaY -= .1;
 				if (deltaY < -1) {
 					starty++;
@@ -112,7 +112,7 @@ public class MyGame extends Game {
 						deltaX = 0;
 					}
 				}
-				if (left.tileType != 7 && ((int) (deltaY * 10) == 0 || (upleft.tileType == 0 && deltaY > 0)
+				if (left.tileType != 7 && left.tileType != 98 && ((int) (deltaY * 10) == 0 || (upleft.tileType == 0 && deltaY > 0)
 						|| (upleft.tileType == 0 && deltaY < 0))) {
 					if (left.tileType == 0 || left.tileType == 99) {
 						deltaX += .1;
@@ -136,7 +136,7 @@ public class MyGame extends Game {
 						deltaX = 0;
 					}
 				}
-				if (right.tileType != 7 && (int) (deltaY * 10) == 0 || (upright.tileType == 0 && deltaY > 0)
+				if (right.tileType != 7 && right.tileType != 98 && (int) (deltaY * 10) == 0 || (upright.tileType == 0 && deltaY > 0)
 						|| (upright.tileType == 0 && deltaY < 0)) {
 					if (right.tileType == 0 || right.tileType == 99) {
 						deltaX -= .1;
@@ -157,7 +157,7 @@ public class MyGame extends Game {
 				}
 			} // Move right if player hit right
 			if (p1.pressed(Button.D)) {
-				if (down.tileType != 7 && starty < height - 9 && ((int) (deltaX * 10) == 0
+				if (down.tileType != 7 && down.tileType!=98 && starty < height - 9 && ((int) (deltaX * 10) == 0
 						|| ((downleft.tileType == 0 || deltaX < 0) && (downright.tileType == 0 || deltaX > 0)))) {
 					if (down.tileType == 0 || down.tileType == 99) {
 						deltaY -= .1;
@@ -173,7 +173,7 @@ public class MyGame extends Game {
 				}
 			}
 			if (p1.pressed(Button.U)) {
-				if (up.tileType != 7 && ((int) (deltaX * 10) == 0
+				if (up.tileType != 7 && up.tileType!=98 && ((int) (deltaX * 10) == 0
 						|| ((upleft.tileType == 0 || deltaX < 0) && (upright.tileType == 0 || deltaX > 0)))) {
 					if (starty > 1) {
 						if (up.tileType == 0) {
