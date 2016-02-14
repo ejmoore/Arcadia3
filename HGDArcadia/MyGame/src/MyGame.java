@@ -29,6 +29,7 @@ public class MyGame extends Game {
 	Tile digTile = null;
 	int diggingDirection = 0;
 	Building[] buildings = new Building[3];
+	Scanner map = null;
 
 	
 	int[] notMineable = {7,98};
@@ -44,18 +45,15 @@ public class MyGame extends Game {
 			e.printStackTrace();
 		}
 		createMap();
-		Scanner map = null;
 		try {
 			map = new Scanner(new File("map.txt"));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		for (int j = 0; j < height; j++) {
-			for (int i = 0; i < width + 15; i++) {
-				tiles[i][j] = new Tile(map.nextInt(), i, j, tileSizeW, tileSizeH);
-			}
-		}
+		
+		createTiles();
+		
 		buildings[0] = new Store();
 		buildings[1] = new SaveLocation(tiles);
 	}
@@ -227,6 +225,14 @@ public class MyGame extends Game {
 		}
 	}
 
+	public void createTiles() {
+		for (int j = 0; j < height; j++) {
+			for (int i = 0; i < width + 15; i++) {
+				tiles[i][j] = new Tile(map.nextInt(), i, j, tileSizeW, tileSizeH);
+			}
+		}
+	}
+	
 	/*
 	 * Draws all the tiles on the map within view range of the ship
 	 * 
