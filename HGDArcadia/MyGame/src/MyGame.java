@@ -87,22 +87,25 @@ public class MyGame extends Game {
 		Tile player = tiles[startx + 5][starty + 4];
 
 		if (!digging) {
-			// if (System.currentTimeMillis() - startTime > 1) {
 
 			if (player.tileType == 99) {
 				System.out.println("You are at the store!");
 			}
 
-			if ((down.tileType == 0 || down.tileType == 99)
-					&& ((int) (deltaX * 10) == 0 || (((downleft.tileType == 0 || downleft.tileType == 99) || deltaX < 0)
-							&& ((downright.tileType == 0 || downright.tileType == 99)|| deltaX > 0)))) {
+			if (!p1.pressed(Button.U) && (down.tileType == 0 || down.tileType == 99)
+					&& (Math.abs(deltaX) < .2 || (((downleft.tileType == 0 || downleft.tileType == 99) && deltaX >= .2)
+							|| ((downright.tileType == 0 || downright.tileType == 99) && deltaX <= -.2)))) {
 				deltaY -= .1;
 				if (deltaY < -1) {
 					starty++;
 					deltaY = 0;
 				}
-			} else if (deltaY > .1) {
+				System.out.println("deltaY: " + deltaY);
+			} else if (deltaY > 0) {
 				deltaY -= .1;
+				if (deltaY < 0) {
+					deltaY = 0;
+				}
 			}
 
 			if (p1.pressed(Button.L)) {
@@ -112,15 +115,16 @@ public class MyGame extends Game {
 						deltaX = 0;
 					}
 				}
-				if (left.tileType != 7 && left.tileType != 98 && ((int) (deltaY * 10) == 0 || (upleft.tileType == 0 && deltaY > 0)
-						|| (upleft.tileType == 0 && deltaY < 0))) {
+				else if (left.tileType != 7 && left.tileType != 98 && (Math.abs(deltaY) < .1
+						|| (upleft.tileType == 0 && deltaY > 0) || (downleft.tileType == 0 && deltaY < 0))) {
 					if (left.tileType == 0 || left.tileType == 99) {
 						deltaX += .1;
 						if (deltaX > 0.5) {
 							startx--;
 							deltaX = -0.5f;
 						}
-					} else if (down.tileType != 0 && deltaX == 0) {
+						System.out.println("deltaX" + deltaX);
+					} else if (down.tileType != 0 && Math.abs(deltaX) < 0.01 && Math.abs(deltaY) < 0.01) {
 						digTile = left;
 						diggingDirection = 1;
 						digging = dig(digTile, diggingDirection);
@@ -136,8 +140,8 @@ public class MyGame extends Game {
 						deltaX = 0;
 					}
 				}
-				if (right.tileType != 7 && right.tileType != 98 && (int) (deltaY * 10) == 0 || (upright.tileType == 0 && deltaY > 0)
-						|| (upright.tileType == 0 && deltaY < 0)) {
+				else if (right.tileType != 7 && right.tileType != 98 && (Math.abs(deltaY) < .1
+						|| (upright.tileType == 0 && deltaY > 0) || (downright.tileType == 0 && deltaY < 0))) {
 					if (right.tileType == 0 || right.tileType == 99) {
 						deltaX -= .1;
 						if (deltaX < -0.5) {
@@ -157,7 +161,7 @@ public class MyGame extends Game {
 				}
 			} // Move right if player hit right
 			if (p1.pressed(Button.D)) {
-				if (down.tileType != 7 && down.tileType!=98 && starty < height - 9 && ((int) (deltaX * 10) == 0
+				if (down.tileType != 7 && down.tileType != 98 && starty < height - 9 && ((int) (deltaX * 10) == 0
 						|| ((downleft.tileType == 0 || deltaX < 0) && (downright.tileType == 0 || deltaX > 0)))) {
 					if (down.tileType == 0 || down.tileType == 99) {
 						deltaY -= .1;
@@ -173,8 +177,8 @@ public class MyGame extends Game {
 				}
 			}
 			if (p1.pressed(Button.U)) {
-				if (up.tileType != 7 && up.tileType!=98 && ((int) (deltaX * 10) == 0
-						|| ((upleft.tileType == 0 || deltaX < 0) && (upright.tileType == 0 || deltaX > 0)))) {
+				if (up.tileType != 7 && up.tileType != 98 && (Math.abs(deltaX) < .1
+						|| ((upleft.tileType == 0 && deltaX > 0) || (upright.tileType == 0 && deltaX < 0)))) {
 					if (starty > 1) {
 						if (up.tileType == 0) {
 							deltaY += .2;
