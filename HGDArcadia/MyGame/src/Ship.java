@@ -22,10 +22,9 @@ public class Ship {
 		tileSizeH = tileH;
 		tileSizeW = tileW;
 	}
-
-	public void drawInterface(Graphics2D g) {
-		fuelRatio = (float) (((float) maxFuel - fuel) / maxFuel);
-		// System.out.println(fuel);
+	
+	public void drawInterface (Graphics2D g) {
+		fuelRatio = (float)(((float)maxFuel-fuel)/maxFuel);
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(WIDTH / 18, HEIGHT - (HEIGHT / 9), WIDTH / 3, HEIGHT / 16);
 		g.setColor(new Color((int) (255 * fuelRatio), (int) (255 * (1 - fuelRatio)), 0));
