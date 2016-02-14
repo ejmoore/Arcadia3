@@ -9,6 +9,8 @@ public class Ship {
 	int tileSizeH;
 	int tileSizeW;
 	int[] inventory = new int[17];
+	int fuel = 100;
+	int maxFuel = 100;
 	
 	
 	public Ship(int width, int height, int tileH, int tileW){
