@@ -15,11 +15,13 @@ public class Tile {
 	int tileSizeH;
 	static Image dirt;
 	static Image blueOre;
+	static Image greenOre;
 
 	static {
 		try {
 			dirt = ImageIO.read(MyGame.class.getResource("dirt.png"));
 			blueOre = ImageIO.read(MyGame.class.getResource("BlueOre.png"));
+			greenOre = ImageIO.read(MyGame.class.getResource("GreenOre.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -68,6 +70,8 @@ public class Tile {
 			g.drawImage(dirt, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
 		} else if (tileType == 2) {
 			g.drawImage(blueOre, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
+		} else if (tileType == 3) {
+			g.drawImage(greenOre, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
 		}
 	}
 }

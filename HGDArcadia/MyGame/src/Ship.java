@@ -42,7 +42,7 @@ public class Ship {
 		for ( int i = 16; i > 4; i--){
 			if (inventory[i] != 0){
 				topOre = i+1;
-				System.out.println(topOre);
+				//System.out.println(topOre);
 				break;
 			}
 		}

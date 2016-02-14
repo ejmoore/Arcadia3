@@ -293,8 +293,6 @@ public class MyGame extends Game {
 		digging = true;
 		if (diggingTime == 0) {
 			ship.inventory[tile.tileType]++;
-			if (tile.tileType > 1)
-				ship.checkInventory();
 			tile.tileType = 0;
 			if (d == 3) { // down
 				moveDeltaY = -1 / 30.0f;
