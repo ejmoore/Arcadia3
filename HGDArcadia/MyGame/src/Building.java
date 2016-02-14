@@ -12,4 +12,6 @@ public interface Building {
 	public void drawBuilding(Graphics2D g);
 	
 	public boolean isInside();
+	
+	public void enter();
 }
