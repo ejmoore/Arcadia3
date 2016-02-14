@@ -8,6 +8,7 @@ public class Ship {
 	int HEIGHT;
 	int tileSizeH;
 	int tileSizeW;
+	int money;
 	int[] inventory = new int[17];
 	
 	
@@ -16,6 +17,10 @@ public class Ship {
 		HEIGHT = height;
 		tileSizeH = tileH;
 		tileSizeW = tileW;
+		money = 0;
+		for (int i = 0; i <= 16; i++) {
+			inventory[i] = 0;
+		}
 	}
 	
 	void drawShip (Graphics2D g) {

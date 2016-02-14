@@ -21,16 +21,17 @@ public class MyGame extends Game {
 	long startTime = System.currentTimeMillis();
 	private final int width = 40;
 	private final int height = 1000;
-	private final int tileSizeW = WIDTH / 9;
-	private final int tileSizeH = HEIGHT / 8;
-	Ship ship = new Ship(WIDTH, HEIGHT, tileSizeH, tileSizeW);
+	private static final int tileSizeW = WIDTH / 9;
+	private static final int tileSizeH = HEIGHT / 8;
+	public static Ship ship = new Ship(WIDTH, HEIGHT, tileSizeH, tileSizeW);
 	int diggingTime = 0;
 	boolean digging = false;
 	Tile digTile = null;
 	int diggingDirection = 0;
+	Building[] buildings = new Building[3];
 
 	public MyGame() {
-		System.out.println(tileSizeW + " : " + tileSizeH);
+		//System.out.println(tileSizeW + " : " + tileSizeH);
 		try {
 			banner = ImageIO.read(MyGame.class.getResource("banner.png"));
 		} catch (IOException e) {
@@ -51,6 +52,7 @@ public class MyGame extends Game {
 			}
 		}
 
+		buildings[0] = new Store();
 	}
 
 	@Override
@@ -58,12 +60,14 @@ public class MyGame extends Game {
 		g.setColor(Color.WHITE); // Set the background color and draw it
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 
-		checkMovement(p1, p2, s); // Executes all code involving movement and
-									// digging
-
-		drawTiles(g); // Draws all the tiles
-
-		ship.drawShip(g); // Draws the ship
+		if (buildings[0].isInside()) {
+			buildings[0].buildingControls(p1, p2);
+			buildings[0].drawBuilding(g);
+		} else {
+			checkMovement(p1, p2, s); // Executes all code involving movement anddigging
+			drawTiles(g); // Draws all the tiles
+			ship.drawShip(g); // Draws the ship
+		}
 	}
 
 	/*
@@ -91,7 +95,8 @@ public class MyGame extends Game {
 
 			if (player.tileType == 99) {
 				if (p1.pressed(Button.D)) {
-					saveTheGame();
+					//saveTheGame();
+					buildings[0].enter();
 				}
 			}
 
