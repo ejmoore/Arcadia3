@@ -75,4 +75,10 @@ public class SaveLocation implements Building {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void enter() {
+		// TODO Auto-generated method stub
+		
+	}
 }

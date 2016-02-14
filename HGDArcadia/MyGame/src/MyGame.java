@@ -70,6 +70,8 @@ public class MyGame extends Game {
 		drawTiles(g); // Draws all the tiles
 
 		ship.drawShip(g); // Draws the ship
+		
+		ship.drawInterface(g);
 	}
 
 	/*
@@ -81,6 +83,7 @@ public class MyGame extends Game {
 	 * 
 	 * @param s Sound to be played while digging or moving
 	 */
+	
 	public void checkMovement(Input p1, Input p2, Sound s) {
 		Tile upleft = tiles[startx + 4][starty + 3];
 		Tile downleft = tiles[startx + 4][starty + 5];
@@ -101,7 +104,7 @@ public class MyGame extends Game {
 					save.saveTheGame();
 				}
 			}
-			if ((isPassable(down.tileType) || down.tileType == 97)
+			if ((isPassable(down.tileType))
 					&& ((int) (deltaX * 10) == 0 || (((isPassable(down.tileType)) || deltaX < 0)
 							&& ((isPassable(down.tileType)) || deltaX > 0)))) {
 				deltaY -= .1;
@@ -118,6 +121,7 @@ public class MyGame extends Game {
 					deltaX += .1;
 					if (deltaX > 0) {
 						deltaX = 0;
+						ship.fuel --;
 					}
 				}
 				if (isMineable(left.tileType) && ((int) (deltaY * 10) == 0
@@ -127,11 +131,13 @@ public class MyGame extends Game {
 						if (deltaX > 0.5) {
 							startx--;
 							deltaX = -0.5f;
+							ship.fuel --;
 						}
 					} else if (down.tileType != 0 && deltaX == 0) {
 						digTile = left;
 						diggingDirection = 1;
 						digging = dig(digTile, diggingDirection);
+						ship.fuel --;
 					}
 				}
 
@@ -142,6 +148,7 @@ public class MyGame extends Game {
 					deltaX -= .1;
 					if (deltaX < 0) {
 						deltaX = 0;
+						ship.fuel --;
 					}
 				}
 				if (isMineable(right.tileType) && (int) (deltaY * 10) == 0
@@ -151,16 +158,19 @@ public class MyGame extends Game {
 						if (deltaX < -0.5) {
 							startx++;
 							deltaX = 0.5f;
+							ship.fuel --;
 						}
 					} else if (down.tileType != 0 && deltaX == 0) {
 						digTile = right;
 						diggingDirection = 2;
 						digging = dig(digTile, diggingDirection);
+						ship.fuel --;
 					}
 				} else if (deltaX != 0) {
 					deltaX -= .1;
 					if (deltaX < 0) {
 						deltaX = 0;
+						ship.fuel --;
 					}
 				}
 			} // Move right if player hit right
@@ -172,11 +182,13 @@ public class MyGame extends Game {
 						if (deltaY < -.5) {
 							starty++;
 							deltaY = 0;
+							ship.fuel --;
 						}
 					} else {
 						digTile = down;
 						diggingDirection = 3;
 						digging = dig(digTile, diggingDirection);
+						ship.fuel --;
 					}
 				}
 			}
@@ -189,12 +201,14 @@ public class MyGame extends Game {
 							if (deltaY > 1) {
 								starty--;
 								deltaY = 0;
+								ship.fuel --;
 							}
 						} else if (down.tileType == 0) {
 							deltaY += .1;
 							if (deltaY > 1) {
 								starty--;
 								deltaY = 0;
+								ship.fuel --;
 							}
 						}
 					}
