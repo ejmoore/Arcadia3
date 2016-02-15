@@ -11,8 +11,8 @@ public class Ship {
 	int tileSizeW;
 	int money;
 	int[] inventory = new int[17];
-	int fuel = 10000;
-	int maxFuel = 10000;
+	int fuel = 1000;
+	int maxFuel = 1000;
 	float fuelRatio;
 	String s;
 	int topOre = 4;
@@ -41,8 +41,7 @@ public class Ship {
 		Color color3 = new Color(255, 100, 40, 200);
 		for ( int i = 16; i > 4; i--){
 			if (inventory[i] != 0){
-				topOre = i+1;
-				//System.out.println(topOre);
+				topOre = i;
 				break;
 			}
 		}
@@ -53,7 +52,7 @@ public class Ship {
 		g.fillRect(WIDTH - (WIDTH / (72 / 5)), HEIGHT / 8 + HEIGHT / (64 / 3), WIDTH / 32, HEIGHT / 20);
 
 		g.setColor(color3);
-		g.fillRect(WIDTH - (WIDTH / (72 / 5)), HEIGHT/4 + HEIGHT / (64 / 3), WIDTH / 32, HEIGHT / 20);
+		g.fillRect(WIDTH - (WIDTH / (72 / 5)), HEIGHT / 4 + HEIGHT / (64 / 3), WIDTH / 32, HEIGHT / 20);
 		
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 40));
