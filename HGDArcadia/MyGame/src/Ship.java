@@ -1,6 +1,10 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class Ship {
 	int shipX = 5;
@@ -16,6 +20,20 @@ public class Ship {
 	float fuelRatio;
 	String s;
 	int topOre = 4;
+	
+	static Image shipImage;
+	
+	static {
+		try {
+		shipImage = ImageIO.read(MyGame.class.getResource("Drill.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void drawShip(Graphics2D g) {
+		g.drawImage(shipImage, WIDTH / 2 - tileSizeW / 2 - 5, HEIGHT / 2 - tileSizeH, tileSizeW + 1, tileSizeH, null);
+	}
 
 	public Ship(int width, int height, int tileH, int tileW) {
 		WIDTH = width;
@@ -65,12 +83,6 @@ public class Ship {
 	}
 
 	// WIDTH/18 = 1/2 block,
-
-	public void drawShip(Graphics2D g) {
-		g.setColor(Color.MAGENTA);
-		// drawImage(g, ship, WIDTH / 2, HEIGHT / 2, 0);
-		g.fillOval(WIDTH / 2 - tileSizeW / 2 - 5, HEIGHT / 2 - tileSizeH, tileSizeW + 1, tileSizeH);
-	}
 
 	public void checkInventory() {
 		for (int i = 2; i < inventory.length; i++) {
