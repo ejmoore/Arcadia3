@@ -30,6 +30,7 @@ public class MyGame extends Game {
 	int diggingDirection = 0;
 	Building[] buildings = new Building[3];
 	Scanner map = null;
+	char lastDirection;
 
 	
 	int[] notMineable = {7,98};
@@ -78,7 +79,7 @@ public class MyGame extends Game {
 			if (ship.fuel != 0)
 				checkMovement(p1, p2, s); // Executes all code involving movement anddigging
 			drawTiles(g); // Draws all the tiles
-			ship.drawShip(g); // Draws the ship
+			ship.drawShip(lastDirection, g); // Draws the ship
 			ship.drawInterface(g); // Draws the interface
 		}
 	}
@@ -117,6 +118,7 @@ public class MyGame extends Game {
 			if (!p1.pressed(Button.U) && isPassable(down.tileType)
 					&& (Math.abs(deltaX) < .1 || ((isPassable(downleft.tileType) && deltaX >= .2)
 							|| (isPassable(downright.tileType) && deltaX <= -.2)))) {
+				lastDirection = 'u';
 				deltaY -= .1;
 				if (deltaY < -1) {
 					starty++;
@@ -134,6 +136,7 @@ public class MyGame extends Game {
 			}
 
 			if (p1.pressed(Button.L)) {
+				lastDirection = 'l';
 				if (deltaX < 0) {
 					deltaX += .1;
 					if (deltaX > 0) {
@@ -160,7 +163,7 @@ public class MyGame extends Game {
 
 			} // Move left if player hit left
 			if (p1.pressed(Button.R)) {
-
+				lastDirection = 'r';
 				if (deltaX > 0) {
 					deltaX -= .1;
 					if (deltaX < 0) {
@@ -192,6 +195,7 @@ public class MyGame extends Game {
 				}
 			} // Move right if player hit right
 			if (p1.pressed(Button.D)) {
+				lastDirection = 'd';
 				if (isMineable(down.tileType) && starty < height - 9 && ((int) (deltaX * 10) == 0
 						|| ((downleft.tileType == 0 || deltaX < 0) && (downright.tileType == 0 || deltaX > 0)))) {
 					if (isPassable(down.tileType)) {

@@ -22,17 +22,36 @@ public class Ship {
 	int topOre = 4;
 	
 	static Image shipImage;
+	static Image shipUpImage;
+	static Image shipLeftImage;
+	static Image shipRightImage;
 	
 	static {
 		try {
 		shipImage = ImageIO.read(MyGame.class.getResource("Drill.png"));
+		shipUpImage = ImageIO.read(MyGame.class.getResource("UpDrill.png"));
+		shipLeftImage = ImageIO.read(MyGame.class.getResource("LeftDrill.png"));
+		shipRightImage = ImageIO.read(MyGame.class.getResource("RightDrill.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void drawShip(Graphics2D g) {
-		g.drawImage(shipImage, WIDTH / 2 - tileSizeW / 2 - 5, HEIGHT / 2 - tileSizeH, tileSizeW + 1, tileSizeH, null);
+	public void drawShip(char direction, Graphics2D g) {
+		Image temp = null;
+		if (direction == 'd') {
+			temp = shipImage;
+		}
+		else if (direction == 'u') {
+			temp = shipUpImage;
+		}
+		else if (direction == 'l') {
+			temp = shipLeftImage;
+		}
+		else if (direction == 'r') {
+			temp = shipRightImage;
+		}
+		g.drawImage(temp, WIDTH / 2 - tileSizeW / 2 - 5, HEIGHT / 2 - tileSizeH, tileSizeW + 1, tileSizeH, null);
 	}
 
 	public Ship(int width, int height, int tileH, int tileW) {
