@@ -235,40 +235,58 @@ public class InitializeMap {
 			for (int x = 0; x <= width; x++) {
 				int tileNum = randomGenerator.nextInt(99) + 1;
 				if (tileNum >= 0 && tileNum <= n1) {
+					//Air
 					writer.print("00 ");
 				} else if (tileNum > n1 && tileNum <= n2) {
+					//Dirt
 					writer.print("01 ");
 				} else if (tileNum > n2 && tileNum <= n3) {
+					//ore1
 					writer.print("02 ");
 				} else if (tileNum > n3 && tileNum <= n4) {
+					//ore2
 					writer.print("03 ");
 				} else if (tileNum > n4 && tileNum <= n5) {
+					//ore3
 					writer.print("04 ");
 				} else if (tileNum > n5 && tileNum <= n6) {
+					//ore4
 					writer.print("05 ");
 				} else if (tileNum > n6 && tileNum <= n7) {
+					//ore5
 					writer.print("06 ");
 				} else if (tileNum > n7 && tileNum <= n8) {
+					//ore6
 					writer.print("08 ");
 				} else if (tileNum > n8 && tileNum <= n9) {
+					//ore7
 					writer.print("09 ");
 				} else if (tileNum > n9 && tileNum <= n10) {
+					//ore8
 					writer.print("10 ");
 				} else if (tileNum > n10 && tileNum <= n11) {
+					//ore9
 					writer.print("11 ");
 				} else if (tileNum > n11 && tileNum <= n12) {
+					//ore10
 					writer.print("12 ");
 				} else if (tileNum > n12 && tileNum <= n13) {
+					//ore11
 					writer.print("13 ");
 				} else if (tileNum > n13 && tileNum <= n14) {
+					//ore12
 					writer.print("14 ");
 				} else if (tileNum > n14 && tileNum <= n15) {
+					//ore13
 					writer.print("15 ");
 				} else if (tileNum > n15 && tileNum <= n16) {
+					//ore14
 					writer.print("16 ");
 				} else if (tileNum > n16 && tileNum <= n17) {
+					//ore15
 					writer.print("17 ");
 				} else if (tileNum > n17 && tileNum <= n18) {
+					//wall
 					writer.print("07 ");
 				}
 			}

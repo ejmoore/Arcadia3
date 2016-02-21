@@ -20,6 +20,8 @@ public class Ship {
 	float fuelRatio;
 	String s;
 	int topOre = 4;
+	int maxInventory = 10;
+	public static int curInventory = 0;
 	
 	static Image shipImage;
 	static Image shipUpImage;
