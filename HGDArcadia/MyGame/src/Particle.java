@@ -14,7 +14,7 @@ public class Particle {
 	long cooldown = 0;
 	
 	public Particle(int x, int y) {
-		angle = ran.nextInt(50)/100.0f -.244;
+		angle = ran.nextInt(50)/100.0f +1.309;
 		this.x = x;
 		this.y = y;
 		velocity = 20;

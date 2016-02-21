@@ -137,14 +137,6 @@ public class MyGame extends Game {
 
 			if (p1.pressed(Button.L)) {
 				lastDirection = 'l';
-				if (particles.size() >= 56) {
-					for (int i = 50; i < 55; i++) {
-						particles.remove(i);
-					}
-				}
-				for (int i = 0; i < 5; i++) {
-					particles.add(0, new Particle(500, 250));
-				}
 				if (deltaX < 0) {
 					deltaX += .1;
 					if (deltaX > 0) {
@@ -225,6 +217,16 @@ public class MyGame extends Game {
 				}
 			}
 			if (p1.pressed(Button.U)) {
+				lastDirection = 'u';
+				if (particles.size() >= 106) {
+					for (int i = particles.size()-5; i < particles.size(); i++) {
+						particles.remove(i);
+					}
+				}
+				for (int i = 0; i < 5; i++) {
+					particles.add(0, new Particle(550, 260));
+					particles.add(0, new Particle(455, 260));
+				}
 				if (deltaY < 0) {
 					deltaY += .1;
 					if (deltaY > 1) {
