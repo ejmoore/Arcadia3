@@ -141,6 +141,7 @@ public class MyGame extends Game {
 					if (deltaX > 0) {
 						deltaX = 0;
 						ship.fuel--;
+						
 					}
 				} else if (isMineable(left.tileType)
 						&& (Math.abs(deltaY) < .1
