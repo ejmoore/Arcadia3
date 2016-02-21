@@ -116,8 +116,8 @@ public class MyGame extends Game {
 			}
 
 			if (!p1.pressed(Button.U)
-					&& isPassable(down.tileType)
-					&& (Math.abs(deltaX) < .1 || ((isPassable(downleft.tileType) && deltaX >= .2) || (isPassable(downright.tileType) && deltaX <= -.2)))) {
+					&& (isPassable(down.tileType)
+					&& (Math.abs(deltaX) < .2) || ((isPassable(downleft.tileType) && deltaX >= .2) || (isPassable(downright.tileType) && deltaX <= -.2)))) {
 				lastDirection = 'u';
 				deltaY -= .1;
 				if (deltaY < -1) {
