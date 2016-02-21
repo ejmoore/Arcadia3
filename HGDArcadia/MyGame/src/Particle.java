@@ -17,7 +17,7 @@ public class Particle {
 		angle = ran.nextInt(50)/100.0f +1.309;
 		this.x = x;
 		this.y = y;
-		velocity = 20;
+		velocity = Math.random() * 20;
 		acceleration = -1;
 	}
 	
