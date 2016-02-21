@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,21 +10,33 @@ import arcadia.Input;
 
 public class SaveLocation implements Building {
 	Tile[][] tiles = null;
-
+	int activeButton = 0;
+	boolean inside = false;
+	
 	public SaveLocation(Tile[][] tile) {
 		tiles = tile;
 	}
 
 	@Override
 	public void drawBuilding(Graphics2D g) {
-		// TODO Auto-generated method stub
+		g.setColor(Color.BLACK);
+		g.fillRect(0,0,WIDTH,HEIGHT);
+		if (activeButton == 0)
+			g.setColor(Color.CYAN);
+		else
+			g.setColor(Color.GRAY);
+		g.fillRect(102, 125, 820, 125);
+		if (activeButton == 1)
+			g.setColor(Color.CYAN);
+		else
+			g.setColor(Color.GRAY);
+		g.fillRect(102, 375, 820, 125);
 
 	}
 
 	@Override
 	public boolean isInside() {
-		// TODO Auto-generated method stub
-		return false;
+		return inside;
 	}
 
 	public void saveTheGame() {
