@@ -18,6 +18,9 @@ public class MyGame extends Game {
 	int starty = 0;
 	float deltaX = 0;
 	float deltaY = 0;
+	float accel = 0.01f;
+	float upSpeed = 0;
+	float downSpeed = 0;
 	long startTime = System.currentTimeMillis();
 	private final int width = 40;
 	private final int height = 1000;
@@ -117,12 +120,16 @@ public class MyGame extends Game {
 				}
 			}
 
-			if (!p1.pressed(Button.U)
-					&& isPassable(down.tileType)
-					&& (Math.abs(deltaX) < .2 || ((isPassable(downleft.tileType) && deltaX >= .2) || (isPassable(downright.tileType) && deltaX <= -.2)))) {
-
+			if (!isPassable(down.tileType) && deltaY == 0)
+				downSpeed = 0;
+			
+if (!p1.pressed(Button.U)
+		&& isPassable(down.tileType)
+		&& (Math.abs(deltaX) < .2 || ((isPassable(downleft.tileType) && deltaX >= .2) || (isPassable(downright.tileType) && deltaX <= -.2)))) {
+				upSpeed = 0;
 				lastDirection = 'u';
-				deltaY -= .1;
+				deltaY -= (downSpeed);
+				downSpeed += accel;
 				if (deltaY < -1) {
 					starty++;
 					deltaY = 0;
@@ -215,6 +222,7 @@ public class MyGame extends Game {
 				}
 			}
 			if (p1.pressed(Button.U)) {
+				downSpeed = 0;
 				lastDirection = 'u';
 				if (particles.size() >= 106) {
 					for (int i = particles.size() - 5; i < particles.size(); i++) {
@@ -226,7 +234,7 @@ public class MyGame extends Game {
 					particles.add(0, new Particle(455, 260));
 				}
 				if (deltaY < 0) {
-					deltaY += .1;
+					deltaY += upSpeed;
 					if (deltaY > 1) {
 						starty--;
 						deltaY = 0;
@@ -238,14 +246,16 @@ public class MyGame extends Game {
 						|| ((upleft.tileType == 0 && deltaX > 0) || (upright.tileType == 0 && deltaX < 0)))) {
 					if (starty > 1) {
 						if (up.tileType == 0) {
-							deltaY += .2;
+							upSpeed += accel;
+							deltaY += upSpeed;
 							if (deltaY > 1) {
 								starty--;
 								deltaY = 0;
 								ship.fuel--;
 							}
 						} else if (down.tileType == 0) {
-							deltaY += .1;
+							upSpeed += accel;
+							deltaY += upSpeed;
 							if (deltaY > 1) {
 								starty--;
 								deltaY = 0;
