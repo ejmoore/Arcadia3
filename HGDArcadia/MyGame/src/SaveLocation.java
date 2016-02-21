@@ -6,13 +6,14 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 
+import arcadia.Button;
 import arcadia.Input;
 
 public class SaveLocation implements Building {
 	Tile[][] tiles = null;
 	int activeButton = 0;
 	boolean inside = false;
-	
+
 	public SaveLocation(Tile[][] tile) {
 		tiles = tile;
 	}
@@ -20,7 +21,7 @@ public class SaveLocation implements Building {
 	@Override
 	public void drawBuilding(Graphics2D g) {
 		g.setColor(Color.BLACK);
-		g.fillRect(0,0,WIDTH,HEIGHT);
+		g.fillRect(0, 0, WIDTH, HEIGHT);
 		if (activeButton == 0)
 			g.setColor(Color.CYAN);
 		else
@@ -31,7 +32,6 @@ public class SaveLocation implements Building {
 		else
 			g.setColor(Color.GRAY);
 		g.fillRect(102, 375, 820, 125);
-
 	}
 
 	@Override
@@ -59,7 +59,6 @@ public class SaveLocation implements Building {
 		}
 	}
 
-
 	public void loadGame() {
 		PrintWriter writer = null;
 		try {
@@ -82,16 +81,33 @@ public class SaveLocation implements Building {
 		}
 
 	}
-	
+
 	@Override
 	public void buildingControls(Input p1, Input p2) {
-		// TODO Auto-generated method stub
-		
+		if (p1.pressed(Button.D)) {
+			activeButton = 1;
+		}
+
+		if (p1.pressed(Button.U)) {
+			activeButton = 0;
+		}
+
+		if (p1.pressed(Button.B)) {
+			inside = false;
+		}
+
+		if (p1.pressed(Button.A)) {
+			if (activeButton == 0) {
+				saveTheGame();
+			} else if (activeButton == 1) {
+				loadGame();
+				MyGame.loadingGame = true;
+			}
+		}
 	}
 
 	@Override
 	public void enter() {
-		// TODO Auto-generated method stub
-		
+		inside = true;
 	}
 }

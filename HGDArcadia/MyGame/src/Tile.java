@@ -1,7 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -13,13 +12,18 @@ public class Tile {
 	int col;
 	int tileSizeW;
 	int tileSizeH;
+	static Image store;
 	static Image dirt;
+	static Image blueOre;
+	static Image greenOre;
 
 	static {
 		try {
 			dirt = ImageIO.read(MyGame.class.getResource("dirt.png"));
+			blueOre = ImageIO.read(MyGame.class.getResource("BlueOre.png"));
+			greenOre = ImageIO.read(MyGame.class.getResource("GreenOre.png"));
+			store = ImageIO.read(MyGame.class.getResource("Store.png"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -64,6 +68,12 @@ public class Tile {
 				tileSizeH+4);
 		if (tileType == 1 || tileType == 98) {
 			g.drawImage(dirt, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
+		} else if (tileType == 2) {
+			g.drawImage(blueOre, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
+		} else if (tileType == 3) {
+			g.drawImage(greenOre, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
+		} else if (tileType == 99) {
+			g.drawImage(store, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
 		}
 	}
 }
