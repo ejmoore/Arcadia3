@@ -13,7 +13,7 @@ import shooter.Shooter;
 public class MyGame extends Game {
 
 	Image banner;
-	Tile[][] tiles = new Tile[55][1001];
+	public static Tile[][] tiles = new Tile[55][1001];
 	int startx = 10;
 	int starty = 0;
 	float deltaX = 0;
@@ -21,8 +21,8 @@ public class MyGame extends Game {
 	long startTime = System.currentTimeMillis();
 	private final int width = 40;
 	private final int height = 1000;
-	private static final int tileSizeW = WIDTH / 9;
-	private static final int tileSizeH = HEIGHT / 8;
+	public static final int tileSizeW = WIDTH / 9;
+	public static final int tileSizeH = HEIGHT / 8;
 	public static Ship ship = new Ship(WIDTH, HEIGHT, tileSizeH, tileSizeW);
 	int diggingTime = 0;
 	boolean digging = false;
@@ -57,7 +57,7 @@ public class MyGame extends Game {
 		createTiles();
 
 		buildings[0] = new Store();
-		buildings[1] = new SaveLocation(tiles);
+		buildings[1] = new SaveLocation(tiles, height, width);
 	}
 
 	@Override
@@ -110,7 +110,6 @@ public class MyGame extends Game {
 		if (!digging) {
 			if (player.tileType == 99) {
 				if (p1.pressed(Button.D)) {
-					// saveTheGame();
 					buildings[0].enter();
 				}
 			}
@@ -263,10 +262,18 @@ public class MyGame extends Game {
 	}
 
 	public void createTiles() {
+		try {
+			map = new Scanner(new File("map.txt"));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		for (int j = 0; j < height; j++) {
 			for (int i = 0; i < width + 15; i++) {
-				tiles[i][j] = new Tile(map.nextInt(), i, j, tileSizeW,
-						tileSizeH);
+				if(map.hasNext()){
+					tiles[i][j] = new Tile(map.nextInt(), i, j, tileSizeW,
+							tileSizeH);
+				}
 			}
 		}
 	}

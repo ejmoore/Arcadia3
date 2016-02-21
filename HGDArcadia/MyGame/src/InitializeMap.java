@@ -82,6 +82,7 @@ public class InitializeMap {
 		// 8-10 now makes row 8 columns 0-2 of tiletype 98 a un-mineable dirt
 		Zone crust = new Zone(8, 10);
 		for (int x = 0; x <= 2; x++) {
+			
 			for (int i = 0; i < 7; i++) {
 				writer.print("07 ");
 			}
