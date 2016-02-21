@@ -13,6 +13,7 @@ public class Tile {
 	int tileSizeW;
 	int tileSizeH;
 	static Image store;
+	static Image saveLocation;
 	static Image dirt;
 	static Image blueOre;
 	static Image greenOre;
@@ -23,6 +24,7 @@ public class Tile {
 			blueOre = ImageIO.read(MyGame.class.getResource("BlueOre.png"));
 			greenOre = ImageIO.read(MyGame.class.getResource("GreenOre.png"));
 			store = ImageIO.read(MyGame.class.getResource("Store.png"));
+			saveLocation = ImageIO.read(MyGame.class.getResource("SaveLocation.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -62,7 +64,7 @@ public class Tile {
 		} else if (tileType == 7) {
 			g.setColor(Color.BLACK);
 		} else {
-			g.setColor(Color.YELLOW);
+			g.setColor(Color.WHITE);
 		}
 		g.fillRect((int) (x * tileSizeW), (int) (y * tileSizeH), tileSizeW,
 				tileSizeH+4);
@@ -74,6 +76,8 @@ public class Tile {
 			g.drawImage(greenOre, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
 		} else if (tileType == 99) {
 			g.drawImage(store, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
+		} else if (tileType == 97) {
+			g.drawImage(saveLocation, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
 		}
 	}
 }
