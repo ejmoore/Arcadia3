@@ -24,6 +24,12 @@ public class Ship {
 	String s;
 	int topOre = 4;
 
+
+	int maxInventory = 10;
+	public static int curInventory = 0;
+	float drill = 1;
+	
+
 	static Image shipImage;
 	static Image shipUpImage;
 	static Image shipLeftImage;
