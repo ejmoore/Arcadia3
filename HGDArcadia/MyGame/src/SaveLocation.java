@@ -13,9 +13,13 @@ public class SaveLocation implements Building {
 	Tile[][] tiles = null;
 	int activeButton = 0;
 	boolean inside = false;
+	int height;
+	int width;
 
-	public SaveLocation(Tile[][] tile) {
+	public SaveLocation(Tile[][] tile, int h, int w) {
 		tiles = tile;
+		height = h;
+		width = w;
 	}
 
 	@Override
@@ -46,8 +50,8 @@ public class SaveLocation implements Building {
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		for (int y = 0; y < 1000; y++) {
-			for (int x = 0; x < 54; x++) {
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width + 15; x++) {
 				int next = tiles[x][y].tileType;
 				if (next < 10) {
 					writer.print("0" + tiles[x][y].tileType + " ");
@@ -59,13 +63,15 @@ public class SaveLocation implements Building {
 		}
 	}
 
-	public void loadGame() {
+	public Tile[][] loadGame() {
 		PrintWriter writer = null;
 		try {
 			writer = new PrintWriter("map.txt", "UTF-8");
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+
 			e.printStackTrace();
 		}
+
 		Scanner map = null;
 		try {
 			map = new Scanner(new File("mapSave.txt"));
@@ -73,13 +79,23 @@ public class SaveLocation implements Building {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		for (int x = 0; x < 55; x++) {
-			for (int y = 0; y < 1001; y++) {
-				writer.println(map.nextInt());
+
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width + 15; x++) {
+				if (map.hasNextInt()) {
+					int tileNum = map.nextInt();
+					if (tileNum < 10){
+						writer.print("0" + tileNum+ " ");
+					}else{
+						writer.print(tileNum+ " ");
+					}
+				}
 			}
 			writer.println();
 		}
-
+		MyGame.loadingGame = true;
+		createTiles();
+		return tiles;
 	}
 
 	@Override
@@ -93,6 +109,7 @@ public class SaveLocation implements Building {
 		}
 
 		if (p1.pressed(Button.B)) {
+			MyGame.loadingGame = false;
 			inside = false;
 		}
 
@@ -100,12 +117,28 @@ public class SaveLocation implements Building {
 			if (activeButton == 0) {
 				saveTheGame();
 			} else if (activeButton == 1) {
-				loadGame();
-				MyGame.loadingGame = true;
+				MyGame.tiles = loadGame();
 			}
 		}
 	}
 
+	Scanner map = null;
+	public void createTiles() {
+		try {
+			map = new Scanner(new File("map.txt"));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for (int j = 0; j < height; j++) {
+			for (int i = 0; i < width + 15; i++) {
+				if(map.hasNext()){
+					tiles[i][j] = new Tile(map.nextInt(), i, j, MyGame.tileSizeW,
+							MyGame.tileSizeH);
+				}
+			}
+		}
+	}
 	@Override
 	public void enter() {
 		inside = true;
