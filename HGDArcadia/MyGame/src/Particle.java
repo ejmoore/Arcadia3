@@ -31,7 +31,7 @@ public class Particle {
 	public void updateParticle() {
 		if (System.nanoTime() >= cooldown) {
 			velocity += acceleration;
-			cooldown = System.nanoTime() + 125000000;
+			cooldown = System.nanoTime() + 31250000;
 			x += Math.cos(angle) * velocity;
 			y += Math.sin(angle) * velocity;
 		}
