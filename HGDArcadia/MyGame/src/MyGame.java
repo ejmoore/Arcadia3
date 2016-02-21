@@ -57,10 +57,10 @@ public class MyGame extends Game {
 
 		createTiles();
 		createOres();
-		
+
 		buildings[0] = new Store();
 		buildings[1] = new SaveLocation(tiles, height, width);
-		
+
 	}
 
 	@Override
@@ -313,12 +313,15 @@ public class MyGame extends Game {
 	public boolean dig(Tile tile, int d) {
 		digging = true;
 		if (diggingTime == 0) {
-			if(ship.curInventory + tileData[tile.tileType].getStorageSpace() < ship.maxInventory){
-				ship.inventory[tile.tileType]++;
-				ship.curInventory+=tileData[tile.tileType].getStorageSpace();
-				System.out.println("Current Inventory: " + ship.curInventory + ", Max Inventory: " + ship.maxInventory);
-			}else{
-				System.out.println("Ship's Inventory was too full to store ore");
+			if (tile.tileType != 1) {
+				if (ship.curInventory + tileData[tile.tileType].getStorageSpace() <= ship.maxInventory) {
+					ship.inventory[tile.tileType]++;
+					ship.curInventory += tileData[tile.tileType].getStorageSpace();
+					System.out.println(
+							"Current Inventory: " + ship.curInventory + ", Max Inventory: " + ship.maxInventory);
+				} else {
+					System.out.println("Ship's Inventory was too full to store ore");
+				}
 			}
 			tile.tileType = 0;
 			if (d == 3) { // down
