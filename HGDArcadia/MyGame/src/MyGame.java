@@ -35,6 +35,7 @@ public class MyGame extends Game {
 	Scanner map = null;
 	char lastDirection;
 	ArrayList<Particle> particles = new ArrayList<Particle>();
+	public static OreData[] tileData = new OreData[16];
 
 	int[] notMineable = { 7, 98 };
 	int[] passables = { 0, 97, 99 };
@@ -58,9 +59,11 @@ public class MyGame extends Game {
 		}
 
 		createTiles();
+		createOres();
 
 		buildings[0] = new Store();
 		buildings[1] = new SaveLocation(tiles, height, width);
+
 	}
 
 	@Override
@@ -120,9 +123,9 @@ public class MyGame extends Game {
 			if (!isPassable(down.tileType) && deltaY == 0)
 				downSpeed = 0;
 			
-			if (!p1.pressed(Button.U) && isPassable(down.tileType)
-					&& (Math.abs(deltaX) < .2 || ((isPassable(downleft.tileType) && deltaX >= .2)
-							|| (isPassable(downright.tileType) && deltaX <= -.2)))) {
+if (!p1.pressed(Button.U)
+		&& isPassable(down.tileType)
+		&& (Math.abs(deltaX) < .2 || ((isPassable(downleft.tileType) && deltaX >= .2) || (isPassable(downright.tileType) && deltaX <= -.2)))) {
 				upSpeed = 0;
 				lastDirection = 'u';
 				deltaY -= (downSpeed);
@@ -321,7 +324,16 @@ public class MyGame extends Game {
 	public boolean dig(Tile tile, int d) {
 		digging = true;
 		if (diggingTime == 0) {
-			ship.inventory[tile.tileType]++;
+			if (tile.tileType != 1) {
+				if (ship.curInventory + tileData[tile.tileType].getStorageSpace() <= ship.maxInventory) {
+					ship.inventory[tile.tileType]++;
+					ship.curInventory += tileData[tile.tileType].getStorageSpace();
+					System.out.println(
+							"Current Inventory: " + ship.curInventory + ", Max Inventory: " + ship.maxInventory);
+				} else {
+					System.out.println("Ship's Inventory was too full to store ore");
+				}
+			}
 			tile.tileType = 0;
 			if (d == 3) { // down
 				moveDeltaY = -1 / 30.0f;
@@ -374,6 +386,41 @@ public class MyGame extends Game {
 			}
 		}
 		return passable;
+	}
+
+	public void createOres() {
+		OreData dirt = new OreData(0, 0, 1);
+		OreData ore1 = new OreData(5, 1, 2);
+		OreData ore2 = new OreData(10, 1, 3);
+		OreData ore3 = new OreData(20, 1, 4);
+		OreData ore4 = new OreData(40, 1, 5);
+		OreData ore5 = new OreData(80, 1, 6);
+		OreData ore6 = new OreData(160, 1, 8);
+		OreData ore7 = new OreData(320, 1, 9);
+		OreData ore8 = new OreData(640, 1, 10);
+		OreData ore9 = new OreData(1280, 1, 11);
+		OreData ore10 = new OreData(2560, 1, 12);
+		OreData ore11 = new OreData(5120, 1, 13);
+		OreData ore12 = new OreData(10240, 1, 14);
+		OreData ore13 = new OreData(20480, 1, 15);
+		OreData ore14 = new OreData(40960, 1, 16);
+		OreData ore15 = new OreData(81920, 1, 17);
+		tileData[0] = dirt;
+		tileData[1] = ore1;
+		tileData[2] = ore2;
+		tileData[3] = ore3;
+		tileData[4] = ore4;
+		tileData[5] = ore5;
+		tileData[6] = ore6;
+		tileData[7] = ore7;
+		tileData[8] = ore8;
+		tileData[9] = ore9;
+		tileData[10] = ore10;
+		tileData[11] = ore11;
+		tileData[12] = ore12;
+		tileData[13] = ore13;
+		tileData[14] = ore14;
+		tileData[15] = ore15;
 	}
 
 	@Override

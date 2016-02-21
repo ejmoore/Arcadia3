@@ -1,10 +1,15 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
+
+import javax.imageio.ImageIO;
 
 import arcadia.Button;
 import arcadia.Input;
@@ -15,7 +20,18 @@ public class SaveLocation implements Building {
 	boolean inside = false;
 	int height;
 	int width;
-
+	static Image storeButton;
+	static Font storeFont;
+	
+	static {
+		storeFont = new Font("Jokerman", Font.PLAIN, 105);
+		try {
+			storeButton = ImageIO.read(MyGame.class.getResource("StoreButton.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public SaveLocation(Tile[][] tile, int h, int w) {
 		tiles = tile;
 		height = h;
@@ -25,17 +41,25 @@ public class SaveLocation implements Building {
 	@Override
 	public void drawBuilding(Graphics2D g) {
 		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, WIDTH, HEIGHT);
+		g.fillRect(0,0,WIDTH,HEIGHT);
 		if (activeButton == 0)
 			g.setColor(Color.CYAN);
 		else
 			g.setColor(Color.GRAY);
 		g.fillRect(102, 125, 820, 125);
+		g.drawImage(storeButton, 112, 135, 800, 105, null);
+		g.setColor(Color.WHITE);
+		g.setFont(storeFont);
+		g.drawString("Save", 402, 225);
 		if (activeButton == 1)
 			g.setColor(Color.CYAN);
 		else
 			g.setColor(Color.GRAY);
 		g.fillRect(102, 375, 820, 125);
+		g.drawImage(storeButton, 112, 385, 800, 105, null);
+		g.setColor(Color.WHITE);
+		g.setFont(storeFont);
+		g.drawString("Load", 402, 475);
 	}
 
 	@Override
