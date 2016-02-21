@@ -32,7 +32,7 @@ public class MyGame extends Game {
 	Scanner map = null;
 	char lastDirection;
 	ArrayList<Particle> particles = new ArrayList<Particle>();
-	public static OreData[] tileData = new OreData[16];
+	public static OreData[] tileData = new OreData[20];
 
 	int[] notMineable = { 7, 98 };
 	int[] passables = { 0, 97, 99 };
@@ -313,6 +313,7 @@ public class MyGame extends Game {
 	 */
 	public boolean dig(Tile tile, int d) {
 		digging = true;
+		int digtime = tileData[tile.tileType].getTough();
 		if (diggingTime == 0) {
 			if (tile.tileType != 1) {
 				if (ship.curInventory + tileData[tile.tileType].getStorageSpace() <= ship.maxInventory) {
@@ -326,11 +327,11 @@ public class MyGame extends Game {
 			}
 			tile.tileType = 0;
 			if (d == 3) { // down
-				moveDeltaY = -1 / 30.0f;
+				moveDeltaY = (float) (-1 / (float)digtime/ship.drill);
 			} else if (d == 2) { // right
-				moveDeltaX = -1 / 30.0f;
+				moveDeltaX = (float) (-1 / (float) digtime/ship.drill);
 			} else { // left
-				moveDeltaX = 1 / 30.0f;
+				moveDeltaX = - (float) (-1 / (float) digtime/ship.drill);
 			}
 		}
 		diggingTime++;
@@ -338,7 +339,7 @@ public class MyGame extends Game {
 		deltaX += moveDeltaX;
 		deltaY += moveDeltaY;
 
-		if (diggingTime == 29) {
+		if (diggingTime == digtime-1) {
 			moveDeltaX = 0;
 			moveDeltaY = 0;
 			if (d == 3) { // down
@@ -379,38 +380,40 @@ public class MyGame extends Game {
 	}
 
 	public void createOres() {
-		OreData dirt = new OreData(0, 0, 1);
-		OreData ore1 = new OreData(5, 1, 2);
-		OreData ore2 = new OreData(10, 1, 3);
-		OreData ore3 = new OreData(20, 1, 4);
-		OreData ore4 = new OreData(40, 1, 5);
-		OreData ore5 = new OreData(80, 1, 6);
-		OreData ore6 = new OreData(160, 1, 8);
-		OreData ore7 = new OreData(320, 1, 9);
-		OreData ore8 = new OreData(640, 1, 10);
-		OreData ore9 = new OreData(1280, 1, 11);
-		OreData ore10 = new OreData(2560, 1, 12);
-		OreData ore11 = new OreData(5120, 1, 13);
-		OreData ore12 = new OreData(10240, 1, 14);
-		OreData ore13 = new OreData(20480, 1, 15);
-		OreData ore14 = new OreData(40960, 1, 16);
-		OreData ore15 = new OreData(81920, 1, 17);
-		tileData[0] = dirt;
-		tileData[1] = ore1;
-		tileData[2] = ore2;
-		tileData[3] = ore3;
-		tileData[4] = ore4;
-		tileData[5] = ore5;
-		tileData[6] = ore6;
-		tileData[7] = ore7;
-		tileData[8] = ore8;
-		tileData[9] = ore9;
-		tileData[10] = ore10;
-		tileData[11] = ore11;
-		tileData[12] = ore12;
-		tileData[13] = ore13;
-		tileData[14] = ore14;
-		tileData[15] = ore15;
+		OreData	air	= new OreData(0,0,0,50);
+		OreData dirt = new OreData(0, 0, 1, 50);
+		OreData ore1 = new OreData(5, 1, 2, 100);
+		OreData ore2 = new OreData(10, 1, 3, 50);
+		OreData ore3 = new OreData(20, 1, 4, 50);
+		OreData ore4 = new OreData(40, 1, 5, 50);
+		OreData ore5 = new OreData(80, 1, 6, 50);
+		OreData ore6 = new OreData(160, 1, 8, 50);
+		OreData ore7 = new OreData(320, 1, 9, 50);
+		OreData ore8 = new OreData(640, 1, 10, 50);
+		OreData ore9 = new OreData(1280, 1, 11, 50);
+		OreData ore10 = new OreData(2560, 1, 12, 50);
+		OreData ore11 = new OreData(5120, 1, 13, 50);
+		OreData ore12 = new OreData(10240, 1, 14, 50);
+		OreData ore13 = new OreData(20480, 1, 15, 50);
+		OreData ore14 = new OreData(40960, 1, 16, 50);
+		OreData ore15 = new OreData(81920, 1, 17, 50);
+		tileData[0] = air;
+		tileData[1] = dirt;
+		tileData[2] = ore1;
+		tileData[3] = ore2;
+		tileData[4] = ore3;
+		tileData[5] = ore4;
+		tileData[6] = ore5;
+		tileData[8] = ore6;
+		tileData[9] = ore7;
+		tileData[10] = ore8;
+		tileData[11] = ore9;
+		tileData[12] = ore10;
+		tileData[13] = ore11;
+		tileData[14] = ore12;
+		tileData[15] = ore13;
+		tileData[16] = ore14;
+		tileData[17] = ore15;
 	}
 
 	@Override

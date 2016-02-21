@@ -3,11 +3,14 @@ public class OreData {
 	private int value;
 	private int storageSpace;
 	private int tileType;
+	public int danktoughness;
 	
-	public OreData (int v, int ss, int tt){
+	
+	public OreData (int v, int ss, int tt, int tough){
 		value = v;
 		storageSpace = ss;
 		tileType = tt;
+		danktoughness = tough;
 	}
 	public int getValue(){
 		return value;
@@ -17,5 +20,8 @@ public class OreData {
 	}
 	public int getTileType(){
 		return tileType;
+	}
+	public  int getTough(){
+		return danktoughness;
 	}
 }
