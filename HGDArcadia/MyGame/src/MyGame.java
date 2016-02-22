@@ -315,6 +315,7 @@ if (!p1.pressed(Button.U)
 							// across each tile
 	float moveDeltaY = 0;
 
+	int digtime;
 	/*
 	 * Removes the tile being dug out and moves the ship accordingly
 	 * 
@@ -324,8 +325,9 @@ if (!p1.pressed(Button.U)
 	 */
 	public boolean dig(Tile tile, int d) {
 		digging = true;
-		int digtime = tileData[tile.tileType].getTough();
+		
 		if (diggingTime == 0) {
+			digtime = tileData[tile.tileType].getTough();
 			if (tile.tileType != 1) {
 				if (ship.curInventory + tileData[tile.tileType].getStorageSpace() <= ship.maxInventory) {
 					ship.inventory[tile.tileType]++;
