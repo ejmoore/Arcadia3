@@ -17,6 +17,8 @@ public class Tile {
 	static Image dirt;
 	static Image blueOre;
 	static Image greenOre;
+	static Image dirtBackground;
+	static Image skyBackground;
 
 	static {
 		try {
@@ -25,6 +27,8 @@ public class Tile {
 			greenOre = ImageIO.read(MyGame.class.getResource("GreenOre.png"));
 			store = ImageIO.read(MyGame.class.getResource("Store.png"));
 			saveLocation = ImageIO.read(MyGame.class.getResource("SaveLocation.png"));
+			dirtBackground = ImageIO.read(MyGame.class.getResource("DirtBackground.png"));
+			skyBackground = ImageIO.read(MyGame.class.getResource("SkyBackground.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -77,7 +81,14 @@ public class Tile {
 		} else if (tileType == 99) {
 			g.drawImage(store, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
 		} else if (tileType == 97) {
+			g.drawImage(skyBackground, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
 			g.drawImage(saveLocation, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
+		} else if (tileType == 0) {
+			if (col < 8) {
+				g.drawImage(skyBackground, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
+			} else {
+				g.drawImage(dirtBackground, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
+			}
 		}
 	}
 }
