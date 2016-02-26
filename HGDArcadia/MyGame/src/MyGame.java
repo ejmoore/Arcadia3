@@ -38,7 +38,7 @@ public class MyGame extends Game {
 	public static OreData[] tileData = new OreData[20];
 
 	int[] notMineable = { 7, 98 };
-	int[] passables = { 0, 97, 99 };
+	int[] passables = { 0, 96, 97, 99 };
 
 	public static boolean loadingGame = false;
 
@@ -63,6 +63,7 @@ public class MyGame extends Game {
 
 		buildings[0] = new Store();
 		buildings[1] = new SaveLocation(tiles, height, width);
+		buildings[2] = new CraftingBuilding();
 
 	}
 
@@ -80,6 +81,9 @@ public class MyGame extends Game {
 		} else if (buildings[1].isInside()) {
 			buildings[1].buildingControls(p1, p2);
 			buildings[1].drawBuilding(g);
+		} else if (buildings[2].isInside()) {
+			buildings[2].buildingControls(p1,p2);
+			buildings[2].drawBuilding(g);
 		} else {
 			if (ship.fuel != 0)
 				checkMovement(p1, p2, s); // Executes all code involving
@@ -119,6 +123,16 @@ public class MyGame extends Game {
 					buildings[0].enter();
 				}
 			}
+			else if (player.tileType == 97) {
+				if (p1.pressed(Button.D)) {
+					buildings[1].enter();
+				}
+			}
+			else if (player.tileType == 96) {
+				if (p1.pressed(Button.D)) {
+					buildings[2].enter();
+				}
+			}
 
 			if (!isPassable(down.tileType) && deltaY == 0)
 				downSpeed = 0;
@@ -139,11 +153,11 @@ if (!p1.pressed(Button.U)
 				if (deltaY < 0) {
 					deltaY = 0;
 				}
-			} else if (player.tileType == 97) {
-				if (p1.pressed(Button.D)) {
-					buildings[1].enter();
-				}
-			}
+			} //else if (player.tileType == 97) {
+				//if (p1.pressed(Button.D)) {
+					//buildings[1].enter();
+				//}
+			//}
 
 			if (p1.pressed(Button.L)) {
 				lastDirection = 'l';
