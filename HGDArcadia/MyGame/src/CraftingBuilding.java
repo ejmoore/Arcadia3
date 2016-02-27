@@ -35,6 +35,7 @@ public class CraftingBuilding implements Building {
 
 			g.setColor(Color.WHITE);
 			g.fillRect(WIDTH / 2 - 113, 50, 226, 144); // Preview
+			MyGame.ship.drawShip('r', g, 2, 52, 166);
 
 		}
 
@@ -55,6 +56,7 @@ public class CraftingBuilding implements Building {
 
 			g.setColor(Color.WHITE);
 			g.fillRect(WIDTH / 2 - 113, 50, 226, 144); // Preview
+			MyGame.ship.drawShip('r', g, 2, 52, 166);
 		}
 
 		public void drawMenu3(Graphics2D g) { // Fuel Upgrade
@@ -74,6 +76,7 @@ public class CraftingBuilding implements Building {
 
 			g.setColor(Color.WHITE);
 			g.fillRect(WIDTH / 2 - 113, 50, 226, 144); // Preview
+			MyGame.ship.drawShip('r', g, 2, 52, 166);
 		}
 
 		public void drawMenu4(Graphics2D g) { // Cargo Bay upgrade
@@ -93,6 +96,7 @@ public class CraftingBuilding implements Building {
 
 			g.setColor(Color.WHITE);
 			g.fillRect(WIDTH / 2 - 113, 50, 226, 144); // Preview
+			MyGame.ship.drawShip('r', g, 2, 52, 166);
 		}
 		
 		public void menuControls(Input p1, Input p2) {

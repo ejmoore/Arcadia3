@@ -88,7 +88,7 @@ public class MyGame extends Game {
 			if (ship.fuel != 0)
 				checkMovement(p1, p2, s); // Executes all code involving movement and digging
 			drawTiles(g); // Draws all the tiles
-			ship.drawShip(lastDirection, g); // Draws the ship
+			ship.drawShip(lastDirection, g, 1, 0, 0); // Draws the ship
 			ship.drawInterface(g); // Draws the interface
 		}
 

@@ -14,6 +14,7 @@ public class Tile {
 	int tileSizeH;
 	static Image store;
 	static Image saveLocation;
+	static Image craftingBuilding;
 	static Image dirt;
 	static Image blueOre;
 	static Image greenOre;
@@ -29,6 +30,7 @@ public class Tile {
 			saveLocation = ImageIO.read(MyGame.class.getResource("SaveLocation.png"));
 			dirtBackground = ImageIO.read(MyGame.class.getResource("DirtBackground.png"));
 			skyBackground = ImageIO.read(MyGame.class.getResource("SkyBackground.png"));
+			craftingBuilding = ImageIO.read(MyGame.class.getResource("CraftingBuilding.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -83,6 +85,9 @@ public class Tile {
 		} else if (tileType == 97) {
 			g.drawImage(skyBackground, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
 			g.drawImage(saveLocation, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
+		} else if (tileType == 96) {
+			g.drawImage(skyBackground, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
+			g.drawImage(craftingBuilding, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
 		} else if (tileType == 0) {
 			if (col < 8) {
 				g.drawImage(skyBackground, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
