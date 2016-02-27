@@ -82,6 +82,7 @@ public class Store implements Building{
 		if (p1.pressed(Button.A)) {
 			if (activeButton == 0) {
 				for (int i = 2; i <= 16; i++) {
+					if (i == 9) { break; }
 					if(i < 7){
 					MyGame.ship.money += MyGame.ship.inventory[i] * MyGame.tileData[i-1].getValue();
 					MyGame.ship.curInventory -= MyGame.ship.inventory[i] * MyGame.tileData[i-1].getStorageSpace();
