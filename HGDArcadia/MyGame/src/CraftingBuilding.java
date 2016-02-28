@@ -16,12 +16,14 @@ public class CraftingBuilding implements Building {
 	public class SubMenu {
 		int menu = 0;
 		int activeButton = 0; // 1 for Depth 3 for Health
-		int upgrade1 = 1;
-		int upgrade2 = 1;
+		int upgrade1 = 0;
+		int upgrade2 = 0;
 		int upgradeCount = 0;
+		String name;
 
-		public SubMenu(int m) {
+		public SubMenu(int m, String s) {
 			menu = m;
+			name = s;
 		}
 
 		public void drawMenu1(Graphics2D g) { // Hull Upgrade
@@ -164,8 +166,8 @@ public class CraftingBuilding implements Building {
 					e.printStackTrace();
 				}
 			} else if (p1.pressed(Button.D)) {
-				if (activeButton == 1 && upgrade1 > 1) { upgrade1--; }
-				else if (activeButton == 3 && upgrade2 > 1) { upgrade2--; }
+				if (activeButton == 1 && upgrade1 > 0) { upgrade1--; }
+				else if (activeButton == 3 && upgrade2 > 0) { upgrade2--; }
 				try {
 					Thread.sleep(100);
 				} catch (InterruptedException e) {
@@ -174,7 +176,7 @@ public class CraftingBuilding implements Building {
 			} else if (p1.pressed(Button.A)) {
 				upgradeCount++;
 				if (upgradeCount >= 60) {
-					buyUpgrade(null,upgrade1,upgrade2);
+					buyUpgrade(name,upgrade1,upgrade2);
 					upgradeCount = 0;
 				}
 			}
@@ -187,13 +189,13 @@ public class CraftingBuilding implements Building {
 		if (currentMenu == null) {
 			if (p1.pressed(Button.A)) {
 				if (activeButton == 1) {
-					currentMenu = new SubMenu(1);
+					currentMenu = new SubMenu(1, "Hull");
 				} else if (activeButton == 2) {
-					currentMenu = new SubMenu(2);
+					currentMenu = new SubMenu(2, "Drill");
 				} else if (activeButton == 3) {
-					currentMenu = new SubMenu(3);
+					currentMenu = new SubMenu(3, "Fuel");
 				} else if (activeButton == 4) {
-					currentMenu = new SubMenu(4);
+					currentMenu = new SubMenu(4, "Cargo Bay");
 				}
 			}
 			if (p1.pressed(Button.R) && activeButton < 4) {
@@ -291,14 +293,15 @@ public class CraftingBuilding implements Building {
 	}
 	
 	private void buyUpgrade(String upgrade, int upgrade1, int upgrade2) {
-		if (MyGame.ship.inventory[upgrade1+1] < 10) {
+		System.out.println(MyGame.ship.inventory[2]);
+		if (MyGame.ship.inventory[upgrade1+1] < 10 && upgrade1+1 > 1) {
 			System.out.println("YOU'RE TOO POOR");
 			return;
-		} else { MyGame.ship.inventory[upgrade1+1] -= 10; }
-		if (MyGame.ship.inventory[upgrade2+1] < 10) {
+		} else { MyGame.ship.inventory[upgrade1+1] -= 10; MyGame.ship.curInventory -= 10; }
+		if (MyGame.ship.inventory[upgrade2+1] < 10 && upgrade2+1 > 1) {
 			System.out.println("YOU'RE TOO POOR");
 			return;
-		} else { MyGame.ship.inventory[upgrade2+1] -= 10; }
+		} else { MyGame.ship.inventory[upgrade2+1] -= 10; MyGame.ship.curInventory -= 10; }
 		if (upgrade.equals("Cargo Bay")) {
 			MyGame.ship.maxInventory = cargoInventory[upgrade1];
 			MyGame.ship.maxItemSlots = itemSlots[upgrade2];

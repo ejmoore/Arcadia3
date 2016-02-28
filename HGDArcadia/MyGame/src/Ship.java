@@ -25,9 +25,15 @@ public class Ship {
 	String cash;
 	int topOre = 4;
 
-	int maxInventory = 10;
+
+
+	public int maxInventory = 10;
 	public static int curInventory = 0;
-	float drill = 1;
+	int drill = 0;
+	
+	public int maxItemSlots = 1;
+	public static int curItemSlots = 0;
+
 
 	static Image shipImage;
 	static Image shipUpImage;
