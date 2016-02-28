@@ -9,6 +9,9 @@ public class CraftingBuilding implements Building {
 	boolean inside = false;
 	public SubMenu currentMenu = null;
 	int activeButton = 1;
+	
+	int[] cargoInventory = {10,20,30,40,50,60,70,80,90,100,110,120,130,140,150};
+	int[] itemSlots = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
 
 	public class SubMenu {
 		int menu = 0;
@@ -201,7 +204,7 @@ public class CraftingBuilding implements Building {
 					e.printStackTrace();
 				}
 			}
-			if (p1.pressed(Button.L) && activeButton > 1) {
+			if (p1.pressed(Button.L) && activeButton > 0) {
 				activeButton -= 1;
 				try {
 					Thread.sleep(100);
@@ -288,6 +291,18 @@ public class CraftingBuilding implements Building {
 	}
 	
 	private void buyUpgrade(String upgrade, int upgrade1, int upgrade2) {
+		if (MyGame.ship.inventory[upgrade1+1] < 10) {
+			System.out.println("YOU'RE TOO POOR");
+			return;
+		} else { MyGame.ship.inventory[upgrade1+1] -= 10; }
+		if (MyGame.ship.inventory[upgrade2+1] < 10) {
+			System.out.println("YOU'RE TOO POOR");
+			return;
+		} else { MyGame.ship.inventory[upgrade2+1] -= 10; }
+		if (upgrade.equals("Cargo Bay")) {
+			MyGame.ship.maxInventory = cargoInventory[upgrade1];
+			MyGame.ship.maxItemSlots = itemSlots[upgrade2];
+		}
 		System.out.println("UPGRADE PURCHASED");
 	}
 
