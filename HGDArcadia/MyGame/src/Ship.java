@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+
 public class Ship {
 	int shipX = 5;
 	int shipY = 5;
@@ -24,8 +25,6 @@ public class Ship {
 	String s;
 	String cash;
 	int topOre = 4;
-
-
 
 	public int maxInventory = 10;
 	public static int curInventory = 0;
@@ -145,6 +144,7 @@ public class Ship {
 		g.drawString("HEALTH", WIDTH / 17, (HEIGHT - (HEIGHT / 8) - 2));
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
 		g.drawString("FUEL", WIDTH / 17, HEIGHT - (HEIGHT / 16));
+		
 
 	}
 
