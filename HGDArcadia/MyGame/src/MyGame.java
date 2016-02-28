@@ -19,8 +19,7 @@ public class MyGame extends Game {
 	float deltaX = 0;
 	float deltaY = 0;
 	float accel = 0.01f;
-	float upSpeed = 0;
-	float downSpeed = 0;
+	float speed = 0;
 	long startTime = System.currentTimeMillis();
 	private final int width = 40;
 	private final int height = 1000;
@@ -37,7 +36,7 @@ public class MyGame extends Game {
 	ArrayList<Particle> particles = new ArrayList<Particle>();
 	public static OreData[] tileData = new OreData[20];
 
-	int[] notMineable = { 7, 98 };
+	static ArrayList<Integer> notMineable = new ArrayList<Integer>(10);
 	int[] passables = { 0, 96, 97, 99 };
 
 	public static boolean loadingGame = false;
@@ -64,6 +63,12 @@ public class MyGame extends Game {
 		buildings[1] = new SaveLocation(tiles, height, width);
 		buildings[2] = new CraftingBuilding();
 		buildings[3] = new InventoryScreen();
+		
+		notMineable.add(7);
+		notMineable.add(98);
+		for(int i = 3; i<20; i++){
+		notMineable.add(i);
+		}
 
 	}
 
@@ -90,6 +95,7 @@ public class MyGame extends Game {
 			}
 		}
 
+<<<<<<< HEAD
 		// if (buildings[0].isInside()) {
 		// buildings[0].buildingControls(p1, p2);
 		// buildings[0].drawBuilding(g);
@@ -107,6 +113,8 @@ public class MyGame extends Game {
 		// ship.drawShip(lastDirection, g, 1, 0, 0); // Draws the ship
 		// ship.drawInterface(g); // Draws the interface
 		// }
+=======
+>>>>>>> eb49ab66fd920363e79264e6a27808b948a9852e
 
 		Particle.drawParticles(particles, g);
 	}
@@ -147,6 +155,7 @@ public class MyGame extends Game {
 				}
 			}
 
+<<<<<<< HEAD
 			if (!isPassable(down.tileType) && deltaY == 0) {
 				downSpeed = 0;
 			}
@@ -158,14 +167,27 @@ public class MyGame extends Game {
 					&& (Math.abs(deltaX) < .2 || ((isPassable(downleft.tileType) && deltaX >= .2)
 							|| (isPassable(downright.tileType) && deltaX <= -.2)))) {
 				upSpeed = 0;
+=======
+			if (!isPassable(down.tileType) && deltaY == 0)
+				speed = 0;
+
+			if (!p1.pressed(Button.U) && isPassable(down.tileType)
+					&& (Math.abs(deltaX) < .2 || ((isPassable(downleft.tileType) && deltaX >= .2)
+							|| (isPassable(downright.tileType) && deltaX <= -.2)))) {
+				if ((starty == 1 || !isPassable(up.tileType)) && deltaY == 0 && speed < 0)
+					speed = 0;
+>>>>>>> eb49ab66fd920363e79264e6a27808b948a9852e
 				lastDirection = 'u';
-				deltaY -= (downSpeed);
-				downSpeed += accel;
+				deltaY -= (speed);
+				speed += accel;
 				if (deltaY < -1) {
 					starty++;
 					deltaY = 0;
+				} else if (deltaY > 1) {
+					starty--;
+					deltaY = 0;
 				}
-			} else if (deltaY > 0) {
+			} else if (!p1.pressed(Button.U) && deltaY > 0) {
 				deltaY -= .1;
 				if (deltaY < 0) {
 					deltaY = 0;
@@ -254,7 +276,6 @@ public class MyGame extends Game {
 				}
 			}
 			if (p1.pressed(Button.U)) {
-				downSpeed = 0;
 				lastDirection = 'u';
 				if (particles.size() >= 106) {
 					for (int i = particles.size() - 5; i < particles.size(); i++) {
@@ -265,8 +286,12 @@ public class MyGame extends Game {
 					particles.add(0, new Particle(550, 260));
 					particles.add(0, new Particle(455, 260));
 				}
-				if (deltaY < 0) {
-					deltaY += upSpeed;
+				if (deltaY < 0 && !isPassable(up.tileType)) {
+					if ((deltaY + speed) > 0){
+						speed = 0;
+						deltaY = 0;
+					}
+					deltaY += speed;
 					if (deltaY > 1) {
 						starty--;
 						deltaY = 0;
@@ -278,18 +303,26 @@ public class MyGame extends Game {
 						|| ((upleft.tileType == 0 && deltaX > 0) || (upright.tileType == 0 && deltaX < 0)))) {
 					if (starty > 1) {
 						if (up.tileType == 0) {
-							upSpeed += accel;
-							deltaY += upSpeed;
+							speed -= accel;
+							deltaY -= speed;
 							if (deltaY > 1) {
 								starty--;
 								deltaY = 0;
 								ship.fuel--;
+							} else if (deltaY < -1) {
+								starty++;
+								deltaY = 0;
+								ship.fuel--;
 							}
 						} else if (down.tileType == 0) {
-							upSpeed += accel;
-							deltaY += upSpeed;
+							speed -= accel;
+							deltaY -= speed;
 							if (deltaY > 1) {
 								starty--;
+								deltaY = 0;
+								ship.fuel--;
+							} else if (deltaY < -1) {
+								starty++;
 								deltaY = 0;
 								ship.fuel--;
 							}
@@ -358,7 +391,7 @@ public class MyGame extends Game {
 		digging = true;
 
 		if (diggingTime == 0) {
-			digtime = tileData[tile.tileType].getTough();
+			digtime = (tileData[tile.tileType].getTough() - ship.drill < 10 ? 10 : tileData[tile.tileType].getTough() - ship.drill);
 			if (tile.tileType != 1) {
 				if (ship.curInventory + tileData[tile.tileType].getStorageSpace() <= ship.maxInventory) {
 					ship.inventory[tile.tileType]++;
@@ -371,11 +404,20 @@ public class MyGame extends Game {
 			}
 			tile.tileType = 0;
 			if (d == 3) { // down
+<<<<<<< HEAD
 				moveDeltaY = (float) (-1 / (float) digtime / ship.drill);
 			} else if (d == 2) { // right
 				moveDeltaX = (float) (-1 / (float) digtime / ship.drill);
 			} else { // left
 				moveDeltaX = -(float) (-1 / (float) digtime / ship.drill);
+=======
+
+				moveDeltaY = (float) (-1 / (float)digtime);
+			} else if (d == 2) { // right
+				moveDeltaX = (float) (-1 / (float) digtime);
+			} else { // left
+				moveDeltaX = - (float) (-1 / (float) digtime);
+>>>>>>> eb49ab66fd920363e79264e6a27808b948a9852e
 			}
 		}
 		diggingTime++;
@@ -405,8 +447,8 @@ public class MyGame extends Game {
 
 	public boolean isMineable(int tile) {
 		boolean mineable = true;
-		for (int i = 0; i < notMineable.length; i++) {
-			if (notMineable[i] == tile) {
+		for (int i = 0; i < notMineable.size(); i++) {
+			if (notMineable.get(i) == tile) {
 				mineable = false;
 			}
 		}
