@@ -36,7 +36,7 @@ public class MyGame extends Game {
 	ArrayList<Particle> particles = new ArrayList<Particle>();
 	public static OreData[] tileData = new OreData[20];
 
-	ArrayList<Integer> notMineable = new ArrayList<Integer>(10);
+	static ArrayList<Integer> notMineable = new ArrayList<Integer>(10);
 	int[] passables = { 0, 96, 97, 99 };
 
 	public static boolean loadingGame = false;
@@ -358,7 +358,7 @@ public class MyGame extends Game {
 		digging = true;
 
 		if (diggingTime == 0) {
-			digtime = tileData[tile.tileType].getTough() - ship.drill < 10 ? 10 : tileData[tile.tileType].getTough() - ship.drill;
+			digtime = (tileData[tile.tileType].getTough() - ship.drill < 10 ? 10 : tileData[tile.tileType].getTough() - ship.drill);
 			if (tile.tileType != 1) {
 				if (ship.curInventory + tileData[tile.tileType].getStorageSpace() <= ship.maxInventory) {
 					ship.inventory[tile.tileType]++;
