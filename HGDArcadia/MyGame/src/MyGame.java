@@ -30,7 +30,7 @@ public class MyGame extends Game {
 	boolean digging = false;
 	Tile digTile = null;
 	int diggingDirection = 0;
-	Building[] buildings = new Building[3];
+	Building[] buildings = new Building[4];
 	Scanner map = null;
 	char lastDirection;
 	ArrayList<Particle> particles = new ArrayList<Particle>();
@@ -53,7 +53,6 @@ public class MyGame extends Game {
 		try {
 			map = new Scanner(new File("map.txt"));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -63,6 +62,7 @@ public class MyGame extends Game {
 		buildings[0] = new Store();
 		buildings[1] = new SaveLocation(tiles, height, width);
 		buildings[2] = new CraftingBuilding();
+		buildings[3] = new InventoryScreen();
 		
 		notMineable.add(7);
 		notMineable.add(98);
@@ -80,8 +80,8 @@ public class MyGame extends Game {
 		if (loadingGame)
 			createTiles();
 
-		for (int i = 0; i <= 3; i++) {
-			if (i == 3) {
+		for (int i = 0; i <= 4; i++) {
+			if (i == 4) {
 				if (ship.fuel != 0)
 					checkMovement(p1, p2, s); // Executes all code involving
 												// movement and digging
@@ -95,6 +95,26 @@ public class MyGame extends Game {
 			}
 		}
 
+<<<<<<< HEAD
+		// if (buildings[0].isInside()) {
+		// buildings[0].buildingControls(p1, p2);
+		// buildings[0].drawBuilding(g);
+		// } else if (buildings[1].isInside()) {
+		// buildings[1].buildingControls(p1, p2);
+		// buildings[1].drawBuilding(g);
+		// } else if (buildings[2].isInside()) {
+		// buildings[2].buildingControls(p1,p2);
+		// buildings[2].drawBuilding(g);
+		// } else {
+		// if (ship.fuel != 0)
+		// checkMovement(p1, p2, s); // Executes all code involving movement and
+		// digging
+		// drawTiles(g); // Draws all the tiles
+		// ship.drawShip(lastDirection, g, 1, 0, 0); // Draws the ship
+		// ship.drawInterface(g); // Draws the interface
+		// }
+=======
+>>>>>>> eb49ab66fd920363e79264e6a27808b948a9852e
 
 		Particle.drawParticles(particles, g);
 	}
@@ -135,6 +155,19 @@ public class MyGame extends Game {
 				}
 			}
 
+<<<<<<< HEAD
+			if (!isPassable(down.tileType) && deltaY == 0) {
+				downSpeed = 0;
+			}
+			if (p1.pressed(Button.C)) {
+				System.out.println("ayyyy");
+				buildings[3].enter();
+			}
+			if (!p1.pressed(Button.U) && isPassable(down.tileType)
+					&& (Math.abs(deltaX) < .2 || ((isPassable(downleft.tileType) && deltaX >= .2)
+							|| (isPassable(downright.tileType) && deltaX <= -.2)))) {
+				upSpeed = 0;
+=======
 			if (!isPassable(down.tileType) && deltaY == 0)
 				speed = 0;
 
@@ -143,6 +176,7 @@ public class MyGame extends Game {
 							|| (isPassable(downright.tileType) && deltaX <= -.2)))) {
 				if ((starty == 1 || !isPassable(up.tileType)) && deltaY == 0 && speed < 0)
 					speed = 0;
+>>>>>>> eb49ab66fd920363e79264e6a27808b948a9852e
 				lastDirection = 'u';
 				deltaY -= (speed);
 				speed += accel;
@@ -305,7 +339,6 @@ public class MyGame extends Game {
 		try {
 			map = new Scanner(new File("map.txt"));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		for (int j = 0; j < height; j++) {
@@ -371,12 +404,20 @@ public class MyGame extends Game {
 			}
 			tile.tileType = 0;
 			if (d == 3) { // down
+<<<<<<< HEAD
+				moveDeltaY = (float) (-1 / (float) digtime / ship.drill);
+			} else if (d == 2) { // right
+				moveDeltaX = (float) (-1 / (float) digtime / ship.drill);
+			} else { // left
+				moveDeltaX = -(float) (-1 / (float) digtime / ship.drill);
+=======
 
 				moveDeltaY = (float) (-1 / (float)digtime);
 			} else if (d == 2) { // right
 				moveDeltaX = (float) (-1 / (float) digtime);
 			} else { // left
 				moveDeltaX = - (float) (-1 / (float) digtime);
+>>>>>>> eb49ab66fd920363e79264e6a27808b948a9852e
 			}
 		}
 		diggingTime++;

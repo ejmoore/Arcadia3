@@ -92,7 +92,6 @@ public class Store implements Building {
 				}
 			}
 			System.out.println(MyGame.ship.money);
-			
 		}
 	}
 
