@@ -31,7 +31,7 @@ public class MyGame extends Game {
 	boolean digging = false;
 	Tile digTile = null;
 	int diggingDirection = 0;
-	Building[] buildings = new Building[3];
+	Building[] buildings = new Building[4];
 	Scanner map = null;
 	char lastDirection;
 	ArrayList<Particle> particles = new ArrayList<Particle>();
@@ -54,7 +54,6 @@ public class MyGame extends Game {
 		try {
 			map = new Scanner(new File("map.txt"));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -64,6 +63,7 @@ public class MyGame extends Game {
 		buildings[0] = new Store();
 		buildings[1] = new SaveLocation(tiles, height, width);
 		buildings[2] = new CraftingBuilding();
+		buildings[3] = new InventoryScreen();
 
 	}
 
@@ -75,37 +75,38 @@ public class MyGame extends Game {
 		if (loadingGame)
 			createTiles();
 
-		for (int i = 0; i <= 3; i++) {
-			if (i == 3) {
+		for (int i = 0; i <= 4; i++) {
+			if (i == 4) {
 				if (ship.fuel != 0)
-					checkMovement(p1, p2, s); // Executes all code involving movement and digging
+					checkMovement(p1, p2, s); // Executes all code involving
+												// movement and digging
 				drawTiles(g); // Draws all the tiles
 				ship.drawShip(lastDirection, g, 1, 0, 0); // Draws the ship
 				ship.drawInterface(g); // Draws the interface
-			}
-			else if (buildings[i].isInside()) {
-				buildings[i].buildingControls(p1,p2);
+			} else if (buildings[i].isInside()) {
+				buildings[i].buildingControls(p1, p2);
 				buildings[i].drawBuilding(g);
 				break;
 			}
 		}
-		
-//		if (buildings[0].isInside()) {
-//			buildings[0].buildingControls(p1, p2);
-//			buildings[0].drawBuilding(g);
-//		} else if (buildings[1].isInside()) {
-//			buildings[1].buildingControls(p1, p2);
-//			buildings[1].drawBuilding(g);
-//		} else if (buildings[2].isInside()) {
-//			buildings[2].buildingControls(p1,p2);
-//			buildings[2].drawBuilding(g);
-//		} else {
-//			if (ship.fuel != 0)
-//				checkMovement(p1, p2, s); // Executes all code involving movement and digging
-//			drawTiles(g); // Draws all the tiles
-//			ship.drawShip(lastDirection, g, 1, 0, 0); // Draws the ship
-//			ship.drawInterface(g); // Draws the interface
-//		}
+
+		// if (buildings[0].isInside()) {
+		// buildings[0].buildingControls(p1, p2);
+		// buildings[0].drawBuilding(g);
+		// } else if (buildings[1].isInside()) {
+		// buildings[1].buildingControls(p1, p2);
+		// buildings[1].drawBuilding(g);
+		// } else if (buildings[2].isInside()) {
+		// buildings[2].buildingControls(p1,p2);
+		// buildings[2].drawBuilding(g);
+		// } else {
+		// if (ship.fuel != 0)
+		// checkMovement(p1, p2, s); // Executes all code involving movement and
+		// digging
+		// drawTiles(g); // Draws all the tiles
+		// ship.drawShip(lastDirection, g, 1, 0, 0); // Draws the ship
+		// ship.drawInterface(g); // Draws the interface
+		// }
 
 		Particle.drawParticles(particles, g);
 	}
@@ -136,24 +137,26 @@ public class MyGame extends Game {
 				if (p1.pressed(Button.D)) {
 					buildings[0].enter();
 				}
-			}
-			else if (player.tileType == 97) {
+			} else if (player.tileType == 97) {
 				if (p1.pressed(Button.D)) {
 					buildings[1].enter();
 				}
-			}
-			else if (player.tileType == 96) {
+			} else if (player.tileType == 96) {
 				if (p1.pressed(Button.D)) {
 					buildings[2].enter();
 				}
 			}
 
-			if (!isPassable(down.tileType) && deltaY == 0)
+			if (!isPassable(down.tileType) && deltaY == 0) {
 				downSpeed = 0;
-			
-if (!p1.pressed(Button.U)
-		&& isPassable(down.tileType)
-		&& (Math.abs(deltaX) < .2 || ((isPassable(downleft.tileType) && deltaX >= .2) || (isPassable(downright.tileType) && deltaX <= -.2)))) {
+			}
+			if (p1.pressed(Button.C)) {
+				System.out.println("ayyyy");
+				buildings[3].enter();
+			}
+			if (!p1.pressed(Button.U) && isPassable(down.tileType)
+					&& (Math.abs(deltaX) < .2 || ((isPassable(downleft.tileType) && deltaX >= .2)
+							|| (isPassable(downright.tileType) && deltaX <= -.2)))) {
 				upSpeed = 0;
 				lastDirection = 'u';
 				deltaY -= (downSpeed);
@@ -167,11 +170,11 @@ if (!p1.pressed(Button.U)
 				if (deltaY < 0) {
 					deltaY = 0;
 				}
-			} //else if (player.tileType == 97) {
-				//if (p1.pressed(Button.D)) {
-					//buildings[1].enter();
-				//}
-			//}
+			} // else if (player.tileType == 97) {
+				// if (p1.pressed(Button.D)) {
+				// buildings[1].enter();
+				// }
+				// }
 
 			if (p1.pressed(Button.L)) {
 				lastDirection = 'l';
@@ -180,7 +183,7 @@ if (!p1.pressed(Button.U)
 					if (deltaX > 0) {
 						deltaX = 0;
 						ship.fuel--;
-						
+
 					}
 				} else if (isMineable(left.tileType) && (Math.abs(deltaY) < .1 || (upleft.tileType == 0 && deltaY > 0)
 						|| (downleft.tileType == 0 && deltaY < 0))) {
@@ -303,7 +306,6 @@ if (!p1.pressed(Button.U)
 		try {
 			map = new Scanner(new File("map.txt"));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		for (int j = 0; j < height; j++) {
@@ -344,6 +346,7 @@ if (!p1.pressed(Button.U)
 	float moveDeltaY = 0;
 
 	int digtime;
+
 	/*
 	 * Removes the tile being dug out and moves the ship accordingly
 	 * 
@@ -353,7 +356,7 @@ if (!p1.pressed(Button.U)
 	 */
 	public boolean dig(Tile tile, int d) {
 		digging = true;
-		
+
 		if (diggingTime == 0) {
 			digtime = tileData[tile.tileType].getTough();
 			if (tile.tileType != 1) {
@@ -368,11 +371,11 @@ if (!p1.pressed(Button.U)
 			}
 			tile.tileType = 0;
 			if (d == 3) { // down
-				moveDeltaY = (float) (-1 / (float)digtime/ship.drill);
+				moveDeltaY = (float) (-1 / (float) digtime / ship.drill);
 			} else if (d == 2) { // right
-				moveDeltaX = (float) (-1 / (float) digtime/ship.drill);
+				moveDeltaX = (float) (-1 / (float) digtime / ship.drill);
 			} else { // left
-				moveDeltaX = - (float) (-1 / (float) digtime/ship.drill);
+				moveDeltaX = -(float) (-1 / (float) digtime / ship.drill);
 			}
 		}
 		diggingTime++;
@@ -380,7 +383,7 @@ if (!p1.pressed(Button.U)
 		deltaX += moveDeltaX;
 		deltaY += moveDeltaY;
 
-		if (diggingTime == digtime-1) {
+		if (diggingTime == digtime - 1) {
 			moveDeltaX = 0;
 			moveDeltaY = 0;
 			if (d == 3) { // down
@@ -421,7 +424,7 @@ if (!p1.pressed(Button.U)
 	}
 
 	public void createOres() {
-		OreData	air	= new OreData(0,0,0,50);
+		OreData air = new OreData(0, 0, 0, 50);
 		OreData dirt = new OreData(0, 0, 1, 50);
 		OreData ore1 = new OreData(5, 1, 2, 100);
 		OreData ore2 = new OreData(10, 1, 3, 50);
