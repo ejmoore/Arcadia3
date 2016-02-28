@@ -344,7 +344,7 @@ if (!p1.pressed(Button.U)
 		digging = true;
 		
 		if (diggingTime == 0) {
-			digtime = tileData[tile.tileType].getTough() - ship.drill < 10 ? 10 : tileData[tile.tileType].getTough() - ship.drill;
+			digtime = (tileData[tile.tileType].getTough() - ship.drill < 10 ? 10 : tileData[tile.tileType].getTough() - ship.drill);
 			if (tile.tileType != 1) {
 				if (ship.curInventory + tileData[tile.tileType].getStorageSpace() <= ship.maxInventory) {
 					ship.inventory[tile.tileType]++;
