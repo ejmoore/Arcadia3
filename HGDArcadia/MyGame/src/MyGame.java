@@ -36,7 +36,7 @@ public class MyGame extends Game {
 	ArrayList<Particle> particles = new ArrayList<Particle>();
 	public static OreData[] tileData = new OreData[20];
 
-	ArrayList<Integer> notMineable = new ArrayList<Integer>(10);
+	static ArrayList<Integer> notMineable = new ArrayList<Integer>(10);
 	int[] passables = { 0, 96, 97, 99 };
 
 	public static boolean loadingGame = false;
