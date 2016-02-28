@@ -70,9 +70,9 @@ public class InventoryScreen implements Building{
 		g.fillRect(220, 260, 113, 72);
 		
 		g.setColor(Color.black);
-		g.drawString(MyGame.ship.inventory[0]+"", 260, 140);
-		g.drawString(MyGame.ship.inventory[1]+"", 260, 220);
-		g.drawString(MyGame.ship.inventory[2]+"", 260, 300);
+		g.drawString(MyGame.ship.inventory[2]+"", 260, 140);
+		g.drawString(MyGame.ship.inventory[3]+"", 260, 220);
+		g.drawString(MyGame.ship.inventory[4]+"", 260, 300);
 		
 	}
 
