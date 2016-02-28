@@ -93,7 +93,7 @@ public class Tile {
 			g.drawImage(skyBackground, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
 			g.drawImage(craftingBuilding, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
 		} else if (tileType == 0) {
-			if (col < 8) {
+			if (col < 18) {
 				g.drawImage(skyBackground, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
 			} else {
 				g.drawImage(dirtBackground, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);

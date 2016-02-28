@@ -116,6 +116,7 @@ public class Ship {
 		cash = Integer.toString(money);
 		
 		g.setColor(Color.WHITE);
+		
 		if (money < 10) {
 			g.setFont(new Font("TimesRoman", Font.PLAIN, 52));
 			g.drawString("$" + cash, WIDTH - (WIDTH / 10), HEIGHT / (13) + HEIGHT / 16);

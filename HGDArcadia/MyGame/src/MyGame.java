@@ -13,9 +13,10 @@ import shooter.Shooter;
 public class MyGame extends Game {
 
 	Image banner;
-	public static Tile[][] tiles = new Tile[55][1001];
+	public static Tile[][] tiles = new Tile[55][1011];
 	int startx = 10;
-	int starty = 0;
+	int starty = 10;
+	
 	float deltaX = 0;
 	float deltaY = 0;
 	float accel = 0.01f;
@@ -94,7 +95,6 @@ public class MyGame extends Game {
 				break;
 			}
 		}
-
 
 		Particle.drawParticles(particles, g);
 	}

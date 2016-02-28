@@ -57,18 +57,18 @@ public class InitializeMap {
 
 		// 0-7 now spawns printing one building one away from the boarder on the
 		// left above the ground
-		Zone air = new Zone(0, 7);
+		Zone air = new Zone(0, 17);
 		air.airSpawnRate = 100;
-		for (int x = 0; x <= 7; x++) {
+		for (int x = 0; x <= 17; x++) {
 			for (int i = 0; i < 7; i++) {
 				writer.print("07 ");
 			}
 			for (int i = 0; i <= width; i++) {
-				if (x == 7 && i == 1) {
+				if (x == 17 && i == 1) {
 					writer.print("99 ");
-				} else if(x ==7 && i == 6){
+				} else if(x == 17 && i == 6){
 					writer.print("97 ");
-				} else if(x == 7 && i == 20){
+				} else if(x == 17 && i == 20){
 					writer.print("96 ");
 				}else {
 					writer.print("00 ");
@@ -82,7 +82,7 @@ public class InitializeMap {
 		}
 
 		// 8-10 now makes row 8 columns 0-2 of tiletype 98 a un-mineable dirt
-		Zone crust = new Zone(8, 10);
+		Zone crust = new Zone(18, 21);
 		for (int x = 0; x <= 2; x++) {
 			
 			for (int i = 0; i < 7; i++) {
@@ -101,21 +101,21 @@ public class InitializeMap {
 			}
 			writer.println();
 		}
-
-		Zone zone1 = new Zone(11, 20);
+		
+		Zone zone1 = new Zone(22, 30);
 		zone1.dirtSpawnRate = 80;
 		zone1.airSpawnRate = 5;
 		zone1.ore1SpawnRate = 15;
 		zoneWrite(zone1);
 
-		Zone zone2 = new Zone(21, 60);
+		Zone zone2 = new Zone(31, 70);
 		zone2.dirtSpawnRate = 75;
 		zone2.airSpawnRate = 10;
 		zone2.ore1SpawnRate = 10;
 		zone2.ore2SpawnRate = 5;
 		zoneWrite(zone2);
 
-		Zone zone3 = new Zone(61, 100);
+		Zone zone3 = new Zone(71, 110);
 		zone3.dirtSpawnRate = 70;
 		zone3.airSpawnRate = 10;
 		zone3.ore1SpawnRate = 10;
@@ -123,7 +123,7 @@ public class InitializeMap {
 		zone3.ore3SpawnRate = 5;
 		zoneWrite(zone3);
 
-		Zone zone4 = new Zone(101, 140);
+		Zone zone4 = new Zone(111, 150);
 		zone4.dirtSpawnRate = 65;
 		zone4.airSpawnRate = 10;
 		zone4.ore1SpawnRate = 10;
@@ -131,7 +131,7 @@ public class InitializeMap {
 		zone4.ore3SpawnRate = 5;
 		zoneWrite(zone4);
 
-		Zone zone5 = new Zone(141, 180);
+		Zone zone5 = new Zone(151, 190);
 		zone5.dirtSpawnRate = 60;
 		zone5.airSpawnRate = 10;
 		zone5.ore1SpawnRate = 10;
@@ -140,7 +140,7 @@ public class InitializeMap {
 		zone5.ore4SpawnRate = 5;
 		zoneWrite(zone5);
 
-		Zone zone6 = new Zone(181, 220);
+		Zone zone6 = new Zone(191, 230);
 		zone6.dirtSpawnRate = 55;
 		zone6.airSpawnRate = 10;
 		zone6.ore1SpawnRate = 10;
@@ -150,7 +150,7 @@ public class InitializeMap {
 		zone6.ore5SpawnRate = 5;
 		zoneWrite(zone6);
 
-		Zone zone7 = new Zone(221, 260);
+		Zone zone7 = new Zone(231, 270);
 		zone7.dirtSpawnRate = 50;
 		zone7.airSpawnRate = 10;
 		zone7.ore1SpawnRate = 10;
@@ -161,7 +161,7 @@ public class InitializeMap {
 		zone7.ore6SpawnRate = 5;
 		zoneWrite(zone7);
 
-		Zone zone8 = new Zone(261, 300);
+		Zone zone8 = new Zone(271, 310);
 		zone8.dirtSpawnRate = 50;
 		zone8.airSpawnRate = 10;
 		zone8.ore1SpawnRate = 5;
@@ -172,7 +172,7 @@ public class InitializeMap {
 		zone8.ore6SpawnRate = 5;
 		zoneWrite(zone8);
 
-		Zone zone9 = new Zone(301, 340);
+		Zone zone9 = new Zone(311, 350);
 		zone9.dirtSpawnRate = 50;
 		zone9.airSpawnRate = 10;
 		zone9.ore2SpawnRate = 10;
@@ -182,7 +182,7 @@ public class InitializeMap {
 		zone9.ore6SpawnRate = 5;
 		zoneWrite(zone9);
 
-		Zone zone10 = new Zone(341, 380);
+		Zone zone10 = new Zone(351, 390);
 		zone10.dirtSpawnRate = 50;
 		zone10.airSpawnRate = 10;
 		zone10.ore2SpawnRate = 5;
@@ -192,7 +192,7 @@ public class InitializeMap {
 		zone10.ore6SpawnRate = 5;
 		zoneWrite(zone10);
 
-		Zone zone11 = new Zone(381, 420);
+		Zone zone11 = new Zone(391, 430);
 		zone11.dirtSpawnRate = 50;
 		zone11.airSpawnRate = 10;
 		zone11.ore3SpawnRate = 10;
@@ -202,7 +202,7 @@ public class InitializeMap {
 		zone11.ore7SpawnRate = 5;
 		zoneWrite(zone11);
 
-		Zone end = new Zone(421, 1000);
+		Zone end = new Zone(431, 1011);
 		end.wallSpawnRate = 100;
 		zoneWrite(end);
 		writer.close();
