@@ -16,7 +16,7 @@ public class MyGame extends Game {
 	public static Tile[][] tiles = new Tile[55][1011];
 	int startx = 10;
 	int starty = 10;
-	
+
 	float deltaX = 0;
 	float deltaY = 0;
 	float accel = 0.01f;
@@ -31,7 +31,7 @@ public class MyGame extends Game {
 	boolean digging = false;
 	Tile digTile = null;
 	int diggingDirection = 0;
-	Building[] buildings = new Building[3];
+	Building[] buildings = new Building[4];
 	Scanner map = null;
 	char lastDirection;
 	ArrayList<Particle> particles = new ArrayList<Particle>();
@@ -54,7 +54,6 @@ public class MyGame extends Game {
 		try {
 			map = new Scanner(new File("map.txt"));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -64,11 +63,12 @@ public class MyGame extends Game {
 		buildings[0] = new Store();
 		buildings[1] = new SaveLocation(tiles, height, width);
 		buildings[2] = new CraftingBuilding();
-		
+		buildings[3] = new InventoryScreen();
+
 		notMineable.add(7);
 		notMineable.add(98);
-		for(int i = 3; i<20; i++){
-		notMineable.add(i);
+		for (int i = 3; i < 20; i++) {
+			notMineable.add(i);
 		}
 
 	}
@@ -81,8 +81,8 @@ public class MyGame extends Game {
 		if (loadingGame)
 			createTiles();
 
-		for (int i = 0; i <= 3; i++) {
-			if (i == 3) {
+		for (int i = 0; i <= 4; i++) {
+			if (i == 4) {
 				if (ship.fuel != 0)
 					checkMovement(p1, p2, s); // Executes all code involving
 												// movement and digging
@@ -137,12 +137,16 @@ public class MyGame extends Game {
 
 			if (!isPassable(down.tileType) && deltaY == 0)
 				speed = 0;
-
+			if (p1.pressed(Button.C)) {
+				System.out.println("ayyyy");
+				buildings[3].enter();
+			}
 			if (!p1.pressed(Button.U) && isPassable(down.tileType)
 					&& (Math.abs(deltaX) < .2 || ((isPassable(downleft.tileType) && deltaX >= .2)
 							|| (isPassable(downright.tileType) && deltaX <= -.2)))) {
 				if ((starty == 1 || !isPassable(up.tileType)) && deltaY == 0 && speed < 0)
 					speed = 0;
+
 				lastDirection = 'u';
 				deltaY -= (speed);
 				speed += accel;
@@ -253,7 +257,7 @@ public class MyGame extends Game {
 					particles.add(0, new Particle(455, 260));
 				}
 				if (deltaY < 0 && !isPassable(up.tileType)) {
-					if ((deltaY + speed) > 0){
+					if ((deltaY + speed) > 0) {
 						speed = 0;
 						deltaY = 0;
 					}
@@ -305,7 +309,6 @@ public class MyGame extends Game {
 		try {
 			map = new Scanner(new File("map.txt"));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		for (int j = 0; j < height; j++) {
@@ -371,6 +374,7 @@ public class MyGame extends Game {
 			}
 			tile.tileType = 0;
 			if (d == 3) { // down
+
 
 				moveDeltaY = (float) (-1 / (float)digtime);
 			} else if (d == 2) { // right

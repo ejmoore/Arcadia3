@@ -29,7 +29,7 @@ public class Ship {
 
 	public int maxInventory = 10;
 	public static int curInventory = 0;
-	int drill = 0;
+	int drill = 50;
 	
 	public int maxItemSlots = 1;
 	public static int curItemSlots = 0;
