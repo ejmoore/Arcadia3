@@ -46,7 +46,7 @@ public class Ship {
 		}
 	}
 
-	public void drawShip(char direction, Graphics2D g) {
+	public void drawShip(char direction, Graphics2D g, int scale, int xOffset, int yOffset) {
 		Image temp = null;
 		if (direction == 'd') {
 			temp = shipImage;
@@ -57,7 +57,7 @@ public class Ship {
 		} else if (direction == 'r') {
 			temp = shipRightImage;
 		}
-		g.drawImage(temp, WIDTH / 2 - tileSizeW / 2 - 5, HEIGHT / 2 - tileSizeH, tileSizeW + 1, tileSizeH, null);
+		g.drawImage(temp, (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset, (HEIGHT / 2 - tileSizeH) - yOffset, scale * tileSizeW + 1,scale * tileSizeH, null);
 	}
 
 	public Ship(int width, int height, int tileH, int tileW) {
