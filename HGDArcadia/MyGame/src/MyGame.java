@@ -19,8 +19,8 @@ public class MyGame extends Game {
 
 	float deltaX = 0;
 	float deltaY = 0;
-	float accel = 0.01f;
-	float speed = 0;
+	float accel = 0.0025f;
+	float speed = .05f;
 	long startTime = System.currentTimeMillis();
 	private final int width = 40;
 	private final int height = 1000;
@@ -139,8 +139,19 @@ public class MyGame extends Game {
 				}
 			}
 
-			if (!isPassable(down.tileType) && deltaY == 0)
+			
+			if ( speed > .5 ) {
+				speed -= accel;
+			} else if (speed < -.5) {
+				speed += accel;
+			}
+				
+			if (!isPassable(down.tileType) && deltaY == 0){
+				if (speed > .15) {
+					ship.health -= (speed*ship.maxHealth);
+				}
 				speed = 0;
+			}
 			if (p1.pressed(Button.C)) {
 				System.out.println("ayyyy");
 				buildings[3].enter();
@@ -148,9 +159,12 @@ public class MyGame extends Game {
 			if (!p1.pressed(Button.U) && isPassable(down.tileType)
 					&& (Math.abs(deltaX) < .2 || ((isPassable(downleft.tileType) && deltaX >= .2)
 							|| (isPassable(downright.tileType) && deltaX <= -.2)))) {
-				if ((starty == 1 || !isPassable(up.tileType)) && deltaY == 0 && speed < 0)
+				if ((starty == 1 || !isPassable(up.tileType)) && deltaY == 0 && speed < 0) {
+					if (speed < -.15) {
+						ship.health += (speed*ship.maxHealth);
+					}
 					speed = 0;
-
+				}
 				lastDirection = 'u';
 				deltaY -= (speed);
 				speed += accel;
@@ -235,9 +249,21 @@ public class MyGame extends Game {
 				if (isMineable(down.tileType) && starty < height - 9 && ((int) (deltaX * 10) == 0
 						|| ((downleft.tileType == 0 || deltaX < 0) && (downright.tileType == 0 || deltaX > 0)))) {
 					if (isPassable(down.tileType)) {
-						deltaY -= .1;
-						if (deltaY < -.5) {
+						if ((starty == 1 || !isPassable(up.tileType)) && speed < 0) {
+							if (speed < -.15) {
+								ship.health += (speed*ship.maxHealth);
+							}
+							speed = 0;
+							System.out.println(deltaY + " " + speed);
+						}
+						deltaY -= (speed);
+						speed += accel;
+						if (deltaY < -1) {
 							starty++;
+							deltaY = 0;
+							ship.fuel--;
+						} else if (deltaY > 1) {
+							starty--;
 							deltaY = 0;
 							ship.fuel--;
 						}
@@ -259,6 +285,12 @@ public class MyGame extends Game {
 				for (int i = 0; i < 5; i++) {
 					particles.add(0, new Particle(550, 260));
 					particles.add(0, new Particle(455, 260));
+				}
+				if (deltaY == 0 && !isPassable(up.tileType) && speed < 0) {
+					if (speed < -.15) {
+						ship.health += (speed*ship.maxHealth);
+					}
+					speed = 0;
 				}
 				if (deltaY < 0 && !isPassable(up.tileType)) {
 					if ((deltaY + speed) > 0) {
