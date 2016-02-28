@@ -27,7 +27,7 @@ public class Ship {
 
 	int maxInventory = 10;
 	public static int curInventory = 0;
-	float drill = 1;
+	int drill = 0;
 	
 
 	static Image shipImage;

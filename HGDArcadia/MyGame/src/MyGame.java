@@ -37,7 +37,7 @@ public class MyGame extends Game {
 	ArrayList<Particle> particles = new ArrayList<Particle>();
 	public static OreData[] tileData = new OreData[20];
 
-	int[] notMineable = { 7, 98 };
+	ArrayList<Integer> notMineable = new ArrayList<Integer>(10);
 	int[] passables = { 0, 96, 97, 99 };
 
 	public static boolean loadingGame = false;
@@ -64,6 +64,12 @@ public class MyGame extends Game {
 		buildings[0] = new Store();
 		buildings[1] = new SaveLocation(tiles, height, width);
 		buildings[2] = new CraftingBuilding();
+		
+		notMineable.add(7);
+		notMineable.add(98);
+		for(int i = 3; i<20; i++){
+		notMineable.add(i);
+		}
 
 	}
 
@@ -355,7 +361,7 @@ if (!p1.pressed(Button.U)
 		digging = true;
 		
 		if (diggingTime == 0) {
-			digtime = tileData[tile.tileType].getTough();
+			digtime = tileData[tile.tileType].getTough() - ship.drill < 10 ? 10 : tileData[tile.tileType].getTough() - ship.drill;
 			if (tile.tileType != 1) {
 				if (ship.curInventory + tileData[tile.tileType].getStorageSpace() <= ship.maxInventory) {
 					ship.inventory[tile.tileType]++;
@@ -368,11 +374,11 @@ if (!p1.pressed(Button.U)
 			}
 			tile.tileType = 0;
 			if (d == 3) { // down
-				moveDeltaY = (float) (-1 / (float)digtime/ship.drill);
+				moveDeltaY = (float) (-1 / (float)digtime);
 			} else if (d == 2) { // right
-				moveDeltaX = (float) (-1 / (float) digtime/ship.drill);
+				moveDeltaX = (float) (-1 / (float) digtime);
 			} else { // left
-				moveDeltaX = - (float) (-1 / (float) digtime/ship.drill);
+				moveDeltaX = - (float) (-1 / (float) digtime);
 			}
 		}
 		diggingTime++;
@@ -402,8 +408,8 @@ if (!p1.pressed(Button.U)
 
 	public boolean isMineable(int tile) {
 		boolean mineable = true;
-		for (int i = 0; i < notMineable.length; i++) {
-			if (notMineable[i] == tile) {
+		for (int i = 0; i < notMineable.size(); i++) {
+			if (notMineable.get(i) == tile) {
 				mineable = false;
 			}
 		}
