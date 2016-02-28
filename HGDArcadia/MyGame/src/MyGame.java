@@ -19,7 +19,7 @@ public class MyGame extends Game {
 
 	float deltaX = 0;
 	float deltaY = 0;
-	float accel = 0.0025f;
+	float accel = 0.005f;
 	float speed = .05f;
 	long startTime = System.currentTimeMillis();
 	private final int width = 40;
@@ -67,7 +67,7 @@ public class MyGame extends Game {
 
 		notMineable.add(7);
 		notMineable.add(98);
-		for (int i = 3; i < 20; i++) {
+		for (int i = 10; i < 20; i++) {
 			notMineable.add(i);
 		}
 
