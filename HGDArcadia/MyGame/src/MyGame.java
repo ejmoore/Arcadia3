@@ -77,6 +77,10 @@ public class MyGame extends Game {
 	public void tick(Graphics2D g, Input p1, Input p2, Sound s) {
 		g.setColor(Color.WHITE); // Set the background color and draw it
 		g.fillRect(0, 0, WIDTH, HEIGHT);
+		g.setFont(new Font("TimesRoman", Font.PLAIN, 52));
+
+		int depth = (starty - 13) * 10;
+		String d = Integer.toString(depth);
 
 		if (loadingGame)
 			createTiles();
@@ -88,14 +92,14 @@ public class MyGame extends Game {
 												// movement and digging
 				drawTiles(g); // Draws all the tiles
 				ship.drawShip(lastDirection, g, 1, 0, 0); // Draws the ship
-				ship.drawInterface(g); // Draws the interface
+				ship.drawInterface(g);// Draws the interface`
+				g.drawString(d + "M", WIDTH / 2, HEIGHT / 13);
 			} else if (buildings[i].isInside()) {
 				buildings[i].buildingControls(p1, p2);
 				buildings[i].drawBuilding(g);
 				break;
 			}
 		}
-
 		Particle.drawParticles(particles, g);
 	}
 
@@ -393,7 +397,8 @@ public class MyGame extends Game {
 		digging = true;
 
 		if (diggingTime == 0) {
-			digtime = (tileData[tile.tileType].getTough() - ship.drill < 10 ? 10 : tileData[tile.tileType].getTough() - ship.drill);
+			digtime = (tileData[tile.tileType].getTough() - ship.drill < 10 ? 10
+					: tileData[tile.tileType].getTough() - ship.drill);
 			if (tile.tileType != 1) {
 				if (ship.curInventory + tileData[tile.tileType].getStorageSpace() <= ship.maxInventory) {
 					ship.inventory[tile.tileType]++;
@@ -407,12 +412,11 @@ public class MyGame extends Game {
 			tile.tileType = 0;
 			if (d == 3) { // down
 
-
-				moveDeltaY = (float) (-1 / (float)digtime);
+				moveDeltaY = (float) (-1 / (float) digtime);
 			} else if (d == 2) { // right
 				moveDeltaX = (float) (-1 / (float) digtime);
 			} else { // left
-				moveDeltaX = - (float) (-1 / (float) digtime);
+				moveDeltaX = -(float) (-1 / (float) digtime);
 			}
 		}
 		diggingTime++;
