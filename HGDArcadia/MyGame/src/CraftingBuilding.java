@@ -19,9 +19,11 @@ public class CraftingBuilding implements Building {
 		int upgrade1 = 1;
 		int upgrade2 = 1;
 		int upgradeCount = 0;
+		String name;
 
-		public SubMenu(int m) {
+		public SubMenu(int m, String s) {
 			menu = m;
+			name = s;
 		}
 
 		public void drawMenu1(Graphics2D g) { // Hull Upgrade
@@ -174,7 +176,7 @@ public class CraftingBuilding implements Building {
 			} else if (p1.pressed(Button.A)) {
 				upgradeCount++;
 				if (upgradeCount >= 60) {
-					buyUpgrade(null,upgrade1,upgrade2);
+					buyUpgrade(name,upgrade1,upgrade2);
 					upgradeCount = 0;
 				}
 			}
@@ -187,13 +189,13 @@ public class CraftingBuilding implements Building {
 		if (currentMenu == null) {
 			if (p1.pressed(Button.A)) {
 				if (activeButton == 1) {
-					currentMenu = new SubMenu(1);
+					currentMenu = new SubMenu(1, "Hull");
 				} else if (activeButton == 2) {
-					currentMenu = new SubMenu(2);
+					currentMenu = new SubMenu(2, "Drill");
 				} else if (activeButton == 3) {
-					currentMenu = new SubMenu(3);
+					currentMenu = new SubMenu(3, "Fuel");
 				} else if (activeButton == 4) {
-					currentMenu = new SubMenu(4);
+					currentMenu = new SubMenu(4, "Cargo Bay");
 				}
 			}
 			if (p1.pressed(Button.R) && activeButton < 4) {
