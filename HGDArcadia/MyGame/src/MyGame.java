@@ -89,23 +89,6 @@ public class MyGame extends Game {
 				break;
 			}
 		}
-		
-//		if (buildings[0].isInside()) {
-//			buildings[0].buildingControls(p1, p2);
-//			buildings[0].drawBuilding(g);
-//		} else if (buildings[1].isInside()) {
-//			buildings[1].buildingControls(p1, p2);
-//			buildings[1].drawBuilding(g);
-//		} else if (buildings[2].isInside()) {
-//			buildings[2].buildingControls(p1,p2);
-//			buildings[2].drawBuilding(g);
-//		} else {
-//			if (ship.fuel != 0)
-//				checkMovement(p1, p2, s); // Executes all code involving movement and digging
-//			drawTiles(g); // Draws all the tiles
-//			ship.drawShip(lastDirection, g, 1, 0, 0); // Draws the ship
-//			ship.drawInterface(g); // Draws the interface
-//		}
 
 		Particle.drawParticles(particles, g);
 	}
