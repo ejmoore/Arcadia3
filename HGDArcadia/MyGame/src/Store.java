@@ -82,7 +82,6 @@ public class Store implements Building {
 		if (p1.pressed(Button.A)) {
 			if (activeButton == 0) {
 				for (int i = 2; i <= 16; i++) {
-					System.out.println(i);
 					if (i ==7) {
 						continue;
 					} else {
@@ -93,8 +92,7 @@ public class Store implements Building {
 				}
 			}
 			System.out.println(MyGame.ship.money);
-			System.out.println(
-					"Current Inventory: " + MyGame.ship.curInventory + ", Max Inventory: " + MyGame.ship.maxInventory);
+			
 		}
 	}
 
