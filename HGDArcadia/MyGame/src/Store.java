@@ -9,14 +9,14 @@ import javax.imageio.ImageIO;
 import arcadia.Button;
 import arcadia.Input;
 
-public class Store implements Building{
-	
+public class Store implements Building {
+
 	int activeButton = 0;
 	boolean inside = false;
-	
+
 	static Image storeButton;
 	static Font storeFont;
-	
+
 	static {
 		storeFont = new Font("Jokerman", Font.PLAIN, 105);
 		try {
@@ -25,11 +25,11 @@ public class Store implements Building{
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public void drawBuilding(Graphics2D g) {
 		g.setColor(Color.BLACK);
-		g.fillRect(0,0,WIDTH,HEIGHT);
+		g.fillRect(0, 0, WIDTH, HEIGHT);
 		if (activeButton == 0)
 			g.setColor(Color.CYAN);
 		else
@@ -65,7 +65,7 @@ public class Store implements Building{
 				e.printStackTrace();
 			}
 		}
-		
+
 		if (p1.pressed(Button.U)) {
 			activeButton = 0;
 			try {
@@ -74,27 +74,25 @@ public class Store implements Building{
 				e.printStackTrace();
 			}
 		}
-		
+
 		if (p1.pressed(Button.B)) {
 			inside = false;
 		}
-		
+
 		if (p1.pressed(Button.A)) {
 			if (activeButton == 0) {
 				for (int i = 2; i <= 16; i++) {
-					if(i < 7){
-					MyGame.ship.money += MyGame.ship.inventory[i] * MyGame.tileData[i-1].getValue();
-					MyGame.ship.curInventory -= MyGame.ship.inventory[i] * MyGame.tileData[i-1].getStorageSpace();
-					MyGame.ship.inventory[i] = 0;
-					}else{
-						MyGame.ship.money += MyGame.ship.inventory[i] * MyGame.tileData[i-2].getValue();
-						MyGame.ship.curInventory -= MyGame.ship.inventory[i] * MyGame.tileData[i-2].getStorageSpace();
+					if (i ==7) {
+						continue;
+					} else {
+						MyGame.ship.money += MyGame.ship.inventory[i] * MyGame.tileData[i].getValue();
+						MyGame.ship.curInventory -= MyGame.ship.inventory[i] * MyGame.tileData[i].getStorageSpace();
 						MyGame.ship.inventory[i] = 0;
-					}
+					} 
 				}
 			}
 			System.out.println(MyGame.ship.money);
-			System.out.println("Current Inventory: " + MyGame.ship.curInventory + ", Max Inventory: " + MyGame.ship.maxInventory);
+			
 		}
 	}
 
