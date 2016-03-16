@@ -145,7 +145,7 @@ public class CraftingBuilding implements Building {
 			MyGame.ship.drawShip('r', g, 2, 52, 166);
 		}
 
-		public void menuControls(Input p1, Input p2) {
+		public void menuControls(Input p1) {
 			if (p1.pressed(Button.R)) {
 				activeButton = 3;
 				try {
@@ -200,7 +200,7 @@ public class CraftingBuilding implements Building {
 	}
 
 	@Override
-	public void buildingControls(Input p1, Input p2) {
+	public void buildingControls(Input p1) {
 
 		if (currentMenu == null) {
 			if (p1.pressed(Button.A)) {
@@ -239,7 +239,7 @@ public class CraftingBuilding implements Building {
 				}
 			}
 		} else if (currentMenu != null) {
-			currentMenu.menuControls(p1, p2);
+			currentMenu.menuControls(p1);
 		}
 
 	}

@@ -56,7 +56,7 @@ public class Store implements Building {
 	}
 
 	@Override
-	public void buildingControls(Input p1, Input p2) {
+	public void buildingControls(Input p1) {
 		if (p1.pressed(Button.D)) {
 			activeButton = 1;
 			try {

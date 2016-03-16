@@ -46,7 +46,7 @@ public class InventoryScreen implements Building{
 	
 	
 	
-	public void buildingControls(Input p1, Input p2) {
+	public void buildingControls(Input p1) {
 		if(p1.pressed(Button.B)){
 			inside=false;
 		}

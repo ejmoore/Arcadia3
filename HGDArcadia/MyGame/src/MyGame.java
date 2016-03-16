@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 
 import arcadia.*;
 import arcadia.Button;
-import basicGame.BasicGame;
+import dodge.DodgeGame;
 import intro.IntroGame;
 import shooter.Shooter;
 
@@ -74,7 +74,7 @@ public class MyGame extends Game {
 	}
 
 	@Override
-	public void tick(Graphics2D g, Input p1, Input p2, Sound s) {
+	public void tick(Graphics2D g, Input p1, Sound s) {
 		g.setColor(Color.WHITE); // Set the background color and draw it
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 52));
@@ -88,14 +88,14 @@ public class MyGame extends Game {
 		for (int i = 0; i <= 4; i++) {
 			if (i == 4) {
 				if (ship.fuel != 0)
-					checkMovement(p1, p2, s); // Executes all code involving
+					checkMovement(p1, s); // Executes all code involving
 												// movement and digging
 				drawTiles(g); // Draws all the tiles
 				ship.drawShip(lastDirection, g, 1, 0, 0); // Draws the ship
 				ship.drawInterface(g);// Draws the interface`
 				g.drawString(d + "M", WIDTH / 2, HEIGHT / 13);
 			} else if (buildings[i].isInside()) {
-				buildings[i].buildingControls(p1, p2);
+				buildings[i].buildingControls(p1);
 				buildings[i].drawBuilding(g);
 				break;
 			}
@@ -113,7 +113,7 @@ public class MyGame extends Game {
 	 * @param s Sound to be played while digging or moving
 	 */
 
-	public void checkMovement(Input p1, Input p2, Sound s) {
+	public void checkMovement(Input p1, Sound s) {
 		Tile upleft = tiles[startx + 4][starty + 3];
 		Tile downleft = tiles[startx + 4][starty + 5];
 		Tile upright = tiles[startx + 6][starty + 3];
@@ -501,22 +501,16 @@ public class MyGame extends Game {
 		tileData[17] = ore15;
 	}
 
-	@Override
-	public void reset() {
-		// TODO Auto-generated method stub
-
-	}
-
 	/*
 	 * Banner being displayed on the Arcadia launcher
 	 */
 	@Override
-	public Image banner() {
+	public Image cover() {
 		// 512x128
 		return banner;
 	}
 
 	public static void main(String[] args) {
-		Arcadia.display(new Arcadia(new Game[] { new MyGame(), new IntroGame(), new BasicGame(), new Shooter() }));
+		Arcadia.display(new Arcadia(new Game[] { new MyGame(), new IntroGame(), new DodgeGame(), new Shooter() }));
 	}
 }
