@@ -31,14 +31,14 @@ public class MyGame extends Game {
 	boolean digging = false;
 	Tile digTile = null;
 	int diggingDirection = 0;
-	Building[] buildings = new Building[4];
+	Building[] buildings = new Building[5];
 	Scanner map = null;
 	char lastDirection;
 	ArrayList<Particle> particles = new ArrayList<Particle>();
 	public static OreData[] tileData = new OreData[20];
 
 	static ArrayList<Integer> notMineable = new ArrayList<Integer>(10);
-	int[] passables = { 0, 96, 97, 99 };
+	int[] passables = { 0, 95, 96, 97, 99 };
 
 	public static boolean loadingGame = false;
 
@@ -64,6 +64,7 @@ public class MyGame extends Game {
 		buildings[1] = new SaveLocation(tiles, height, width);
 		buildings[2] = new CraftingBuilding();
 		buildings[3] = new InventoryScreen();
+		buildings[4] = new GasStation();
 
 		notMineable.add(7);
 		notMineable.add(98);
@@ -83,7 +84,6 @@ public class MyGame extends Game {
 	 * 
 	 * @param s Sound to be played while digging or moving
 	 */
-
 	public void checkMovement(Input p1, arcadia.Sound s) {
 		Tile upleft = tiles[startx + 4][starty + 3];
 		Tile downleft = tiles[startx + 4][starty + 5];
@@ -107,6 +107,10 @@ public class MyGame extends Game {
 			} else if (player.tileType == 96) {
 				if (p1.pressed(Button.D)) {
 					buildings[2].enter();
+				}
+			} else if (player.tileType == 95) {
+				if (p1.pressed(Button.D)) {
+					buildings[4].enter();
 				}
 			}
 
@@ -498,8 +502,8 @@ public class MyGame extends Game {
 		if (loadingGame)
 			createTiles();
 
-		for (int i = 0; i <= 4; i++) {
-			if (i == 4) {
+		for (int i = 0; i <= 5; i++) {
+			if (i == 5) {
 				if (ship.fuel != 0)
 					checkMovement(p1, s); // Executes all code involving
 												// movement and digging
