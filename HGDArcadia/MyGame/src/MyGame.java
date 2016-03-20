@@ -387,7 +387,7 @@ public class MyGame extends Game {
 			
 			digtime = (tileData[tile.tileType].getTough() - ship.drill < 10 ? 10
 					: tileData[tile.tileType].getTough() - ship.drill);
-			System.out.println(digtime);
+
 			playSound("movement");
 			if (tile.tileType != 1) {
 				if (ship.curInventory + tileData[tile.tileType].getStorageSpace() <= ship.maxInventory) {
@@ -508,7 +508,9 @@ public class MyGame extends Game {
 		long cur = System.currentTimeMillis();
 		if(soundType.compareTo("movement") == 0){
 			double diggingtime = digtime/30.0;
-			movementSoundEnd = (long) (cur+(diggingtime*(500.0)));
+			movementSoundEnd = (long) (cur+(diggingtime*(900.0)));
+			System.out.println(cur);
+			System.out.println(movementSoundEnd);
 			Sound.Movement.play();
 		}else if(soundType.compareTo("background") == 0){
 			backgroundMusicEnd = cur + 30000;	
@@ -564,12 +566,10 @@ public class MyGame extends Game {
 			}
 		}
 		Particle.drawParticles(particles, g);
-		if(playingMusic.compareTo(loopingMusic)!=0){
-			playSound(loopingMusic);
-		}
+
 		
 		long cur = System.currentTimeMillis()+2000;
-		if(cur>movementSoundEnd){
+		if(System.currentTimeMillis()>movementSoundEnd){
 			Sound.Movement.stop();
 		}
 		if(cur > backgroundMusicEnd){
@@ -585,6 +585,9 @@ public class MyGame extends Game {
 			}else{
 				Sound.MenuMusic.stop();
 			}
+		}
+		if(playingMusic.compareTo(loopingMusic)!=0){
+			playSound(loopingMusic);
 		}
 	}
 }
