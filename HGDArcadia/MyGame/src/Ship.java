@@ -19,8 +19,8 @@ public class Ship {
 	int health = 100;
 	int maxHealth = 100;
 	float healthRatio;
-	int fuel = 10000;
-	int maxFuel = 10000;
+	int fuel = 100;
+	int maxFuel = 100;
 	float fuelRatio;
 	String s;
 	String cash;
@@ -28,7 +28,7 @@ public class Ship {
 
 	public int maxInventory = 10;
 	public static int curInventory = 0;
-	int drill = 5000000;
+	int drill = 0;
 	
 	public int maxItemSlots = 1;
 	public static int curItemSlots = 0;

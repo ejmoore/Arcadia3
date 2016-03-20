@@ -67,7 +67,7 @@ public class MyGame extends Game {
 
 		notMineable.add(7);
 		notMineable.add(98);
-		for (int i = 10; i < 20; i++) {
+		for (int i = 3; i < 20; i++) {
 			notMineable.add(i);
 		}
 
