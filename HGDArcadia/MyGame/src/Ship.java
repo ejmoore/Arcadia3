@@ -19,8 +19,8 @@ public class Ship {
 	int health = 100;
 	int maxHealth = 100;
 	float healthRatio;
-	int fuel = 10000;
-	int maxFuel = 10000;
+	int fuel = 100;
+	int maxFuel = 100;
 	float fuelRatio;
 	String s;
 	String cash;
