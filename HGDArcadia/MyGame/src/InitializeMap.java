@@ -38,6 +38,7 @@ public class InitializeMap {
 
 		public int getUpper() {
 			return upperHeight;
+			
 		}
 
 		public int getLower() {
@@ -251,7 +252,7 @@ public class InitializeMap {
 		zone19.ore10SpawnRate = 5;
 		zoneWrite(zone19);
 		
-		Zone zone20 = new Zone(711, 750);
+		Zone zone20 = new Zone(751, 790);
 		zone20.dirtSpawnRate = 70;
 		zone20.airSpawnRate = 10;
 		zone20.ore9SpawnRate = 10;
@@ -259,7 +260,7 @@ public class InitializeMap {
 		zone20.ore11SpawnRate = 5;
 		zoneWrite(zone20);
 		
-		Zone zone21 = new Zone(751, 790);
+		Zone zone21 = new Zone(791, 830);
 		zone21.dirtSpawnRate = 70;
 		zone21.airSpawnRate = 10;
 		zone21.ore9SpawnRate = 5;
@@ -267,7 +268,7 @@ public class InitializeMap {
 		zone21.ore11SpawnRate = 5;
 		zoneWrite(zone21);
 	
-		Zone zone22 = new Zone(791, 830);
+		Zone zone22 = new Zone(831, 870);
 		zone22.dirtSpawnRate = 70;
 		zone22.airSpawnRate = 10;
 		zone22.ore9SpawnRate = 5;
@@ -275,7 +276,7 @@ public class InitializeMap {
 		zone22.ore11SpawnRate = 5;
 		zoneWrite(zone22);
 		
-		Zone zone23 = new Zone(831, 870);
+		Zone zone23 = new Zone(871, 910);
 		zone23.dirtSpawnRate = 70;
 		zone23.airSpawnRate = 10;
 		zone23.ore10SpawnRate = 10;
@@ -283,7 +284,7 @@ public class InitializeMap {
 		zone23.ore12SpawnRate = 5;
 		zoneWrite(zone23);
 		
-		Zone zone24 = new Zone(871, 910);
+		Zone zone24 = new Zone(911, 950);
 		zone24.dirtSpawnRate = 70;
 		zone24.airSpawnRate = 10;
 		zone24.ore10SpawnRate = 5;
@@ -291,7 +292,7 @@ public class InitializeMap {
 		zone24.ore12SpawnRate = 5;
 		zoneWrite(zone24);
 		
-		Zone zone25 = new Zone(911, 950);
+		Zone zone25 = new Zone(951, 990);
 		zone25.dirtSpawnRate = 70;
 		zone25.airSpawnRate = 10;
 		zone25.ore11SpawnRate = 10;
@@ -299,15 +300,8 @@ public class InitializeMap {
 		zone25.ore13SpawnRate = 5;
 		zoneWrite(zone25);
 		
-		Zone zone26 = new Zone(951, 990);
-		zone26.dirtSpawnRate = 70;
-		zone26.airSpawnRate = 10;
-		zone26.ore11SpawnRate = 5;
-		zone26.ore12SpawnRate = 10;
-		zone26.ore13SpawnRate = 5;
-		zoneWrite(zone26);
 
-		Zone end = new Zone(991, 1011);
+		Zone end = new Zone(991, 1010);
 		end.wallSpawnRate = 100;
 		zoneWrite(end);
 		writer.close();
@@ -402,6 +396,7 @@ public class InitializeMap {
 			}
 			writer.println();
 		}
+		
 	}
-
+	
 }
