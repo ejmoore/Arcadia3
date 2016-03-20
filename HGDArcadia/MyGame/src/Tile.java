@@ -98,11 +98,11 @@ public class Tile {
 			g.drawImage(yellowOre, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
 		} else if (tileType == 6) {
 			g.drawImage(redOre, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
-		} else if (tileType == 7) {
-			g.drawImage(starOre, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
 		} else if (tileType == 8) {
-			g.drawImage(circleOre, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
+			g.drawImage(starOre, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
 		} else if (tileType == 9) {
+			g.drawImage(circleOre, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
+		} else if (tileType == 10) {
 			g.drawImage(multicolorOre, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
 		} else if (tileType == 99) {
 			g.drawImage(store, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
