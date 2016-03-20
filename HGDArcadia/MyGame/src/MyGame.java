@@ -16,7 +16,6 @@ public class MyGame extends Game {
 	public static Tile[][] tiles = new Tile[55][1011];
 	int startx = 10;
 	int starty = 10;
-
 	float deltaX = 0;
 	float deltaY = 0;
 	float accel = 0.005f;

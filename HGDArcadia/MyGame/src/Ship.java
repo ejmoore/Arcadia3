@@ -77,13 +77,13 @@ public class Ship {
 		healthRatio = (float) (((float) maxHealth - health) / maxHealth);
 
 		g.setColor(Color.DARK_GRAY);
-		g.fillRect(WIDTH / 18, HEIGHT - (HEIGHT / 6), WIDTH / 3, HEIGHT / 19);
-		g.fillRect(WIDTH / 18, HEIGHT - (HEIGHT / 9), WIDTH / 3, HEIGHT / 16);
+		g.fillRect(WIDTH / 18, HEIGHT - (HEIGHT / 6), WIDTH / 3, HEIGHT / 16);
+		g.fillRect(WIDTH / 18, HEIGHT - (HEIGHT / 10), WIDTH / 3, HEIGHT / 16);
 		g.setColor(new Color((int) (255 * fuelRatio), (int) (255 * (1 - fuelRatio)), 0));
-		g.fillRect(WIDTH / 18, HEIGHT - (HEIGHT / 9), (int) ((WIDTH / 3) * (float) (1 - fuelRatio)), HEIGHT / 16);
+		g.fillRect(WIDTH / 18, HEIGHT - (HEIGHT / 10), (int) ((WIDTH / 3) * (float) (1 - fuelRatio)), HEIGHT / 16);
 
 		g.setColor(Color.PINK);
-		g.fillRect(WIDTH / 18, HEIGHT - (HEIGHT / 6), (int) ((WIDTH / 3) * (float) (1 - healthRatio)), HEIGHT / 19);
+		g.fillRect(WIDTH / 18, HEIGHT - (HEIGHT / 6), (int) ((WIDTH / 3) * (float) (1 - healthRatio)), HEIGHT / 16);
 
 		g.setColor(new Color(20, 20, 20, 200));
 		g.fillRect(WIDTH - (WIDTH / 8), HEIGHT / 21, WIDTH / 10, HEIGHT / 8);
@@ -140,10 +140,10 @@ public class Ship {
 		// HEIGHT / 4);
 
 		g.setColor(Color.WHITE);
-		g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
-		g.drawString("HEALTH", WIDTH / 17, (HEIGHT - (HEIGHT / 8) - 2));
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
-		g.drawString("FUEL", WIDTH / 17, HEIGHT - (HEIGHT / 16));
+		g.drawString("HEALTH", WIDTH / 17, (HEIGHT - (HEIGHT / 8) + 4));
+		g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
+		g.drawString("FUEL", WIDTH / 17, HEIGHT - (HEIGHT / 18) + 2);
 		
 
 	}
