@@ -12,19 +12,6 @@ import arcadia.Input;
 public class InventoryScreen implements Building{
 	
 	boolean inside = false;
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	static Image store;
 	static Image saveLocation;
 	static Image craftingBuilding;
@@ -53,10 +40,10 @@ public class InventoryScreen implements Building{
 	
 	
 	
-	
-	
 	public void buildingControls(Input p1) {
 		if(p1.pressed(Button.B)){
+
+			MyGame.loopingMusic="background";
 			inside=false;
 		}
 		
@@ -64,25 +51,37 @@ public class InventoryScreen implements Building{
 
 	@Override
 	public void drawBuilding(Graphics2D g) {
-		
-		
 		g.setColor(Color.black);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
-		g.drawImage(blueOre, 100, 100, 113, 72, null);
-		g.drawImage(greenOre, 100, 180, 113, 72, null);
-		g.drawImage(pinkOre, 100, 260, 113, 72, null);
+		g.drawImage(Tile.blueOre, 100, 100, 113, 72, null);
+		g.drawImage(Tile.greenOre, 100, 180, 113, 72, null);
+		g.drawImage(Tile.pinkOre, 100, 260, 113, 72, null);
+		g.drawImage(Tile.yellowOre, 100, 340, 113, 72, null);
+		g.drawImage(Tile.redOre, 400, 100, 113, 72, null);
+		g.drawImage(Tile.starOre, 400, 180, 113, 72, null);
+		g.drawImage(Tile.circleOre, 400, 260, 113, 72, null);
+		g.drawImage(Tile.multicolorOre, 400, 340, 113, 72, null);
 		
 		g.setColor(Color.white);
 		g.fillRect(220, 100, 113, 72);
 		g.fillRect(220, 180, 113, 72);
 		g.fillRect(220, 260, 113, 72);
+		g.fillRect(220, 340, 113, 72);
+		g.fillRect(520, 100, 113, 72);
+		g.fillRect(520, 180, 113, 72);
+		g.fillRect(520, 260, 113, 72);
+		g.fillRect(520, 340, 113, 72);
 		
 		g.setColor(Color.black);
 		g.drawString(MyGame.ship.inventory[2]+"", 260, 140);
 		g.drawString(MyGame.ship.inventory[3]+"", 260, 220);
 		g.drawString(MyGame.ship.inventory[4]+"", 260, 300);
-		
+		g.drawString(MyGame.ship.inventory[5]+"", 260, 380);
+		g.drawString(MyGame.ship.inventory[6]+"", 560, 140);
+		g.drawString(MyGame.ship.inventory[8]+"", 560, 220);
+		g.drawString(MyGame.ship.inventory[9]+"", 560, 300);
+		g.drawString(MyGame.ship.inventory[10]+"", 560, 380);
 	}
 
 	@Override
@@ -93,7 +92,6 @@ public class InventoryScreen implements Building{
 	@Override
 	public void enter() {
 		inside = true;
-		
 	}
 
 }

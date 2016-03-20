@@ -71,7 +71,9 @@ public class InitializeMap {
 					writer.print("97 ");
 				} else if(x == 17 && i == 20){
 					writer.print("96 ");
-				}else {
+				} else if(x == 17 && i == 14){
+					writer.print("95 ");
+				} else {
 					writer.print("00 ");
 				}
 			}
@@ -90,7 +92,7 @@ public class InitializeMap {
 				writer.print("07 ");
 			}
 			for (int i = 0; i <= width; i++) {
-				if (x == 0 && (i == 1 || i == 0 || i == 2 || i == 5 || i == 6|| i == 7 || i == 19 || i == 20 || i == 21)) {
+				if (x == 0 && (i == 1 || i == 0 || i == 2 || i == 5 || i == 6|| i == 7 || i == 13 || i == 14 || i == 15 || i == 19 || i == 20 || i == 21)) {
 					writer.print("98 ");
 				} else {
 					writer.print("01 ");
