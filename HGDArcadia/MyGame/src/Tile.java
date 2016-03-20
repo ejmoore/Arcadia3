@@ -19,6 +19,11 @@ public class Tile {
 	static Image blueOre;
 	static Image greenOre;
 	static Image pinkOre;
+	static Image yellowOre;
+	static Image multicolorOre;
+	static Image redOre;
+	static Image starOre;
+	static Image circleOre;
 	static Image dirtBackground;
 	static Image skyBackground;
 
@@ -28,6 +33,11 @@ public class Tile {
 			blueOre = ImageIO.read(MyGame.class.getResource("BlueOre.png"));
 			greenOre = ImageIO.read(MyGame.class.getResource("GreenOre.png"));
 			pinkOre = ImageIO.read(MyGame.class.getResource("PinkOre.png"));
+			yellowOre = ImageIO.read(MyGame.class.getResource("YellowOre.png"));
+			multicolorOre = ImageIO.read(MyGame.class.getResource("FancyShmansyOre.png"));
+			redOre = ImageIO.read(MyGame.class.getResource("RedOre.png"));
+			starOre = ImageIO.read(MyGame.class.getResource("SilverOre.png"));
+			circleOre = ImageIO.read(MyGame.class.getResource("FancyCirclyOre.png"));
 			store = ImageIO.read(MyGame.class.getResource("Store.png"));
 			saveLocation = ImageIO.read(MyGame.class.getResource("SaveLocation.png"));
 			dirtBackground = ImageIO.read(MyGame.class.getResource("DirtBackground.png"));
@@ -84,6 +94,16 @@ public class Tile {
 			g.drawImage(greenOre, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
 		} else if (tileType == 4) {
 			g.drawImage(pinkOre, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
+		} else if (tileType == 5) {
+			g.drawImage(yellowOre, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
+		} else if (tileType == 6) {
+			g.drawImage(redOre, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
+		} else if (tileType == 8) {
+			g.drawImage(starOre, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
+		} else if (tileType == 9) {
+			g.drawImage(circleOre, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
+		} else if (tileType == 10) {
+			g.drawImage(multicolorOre, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
 		} else if (tileType == 99) {
 			g.drawImage(store, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
 		} else if (tileType == 97) {
