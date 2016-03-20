@@ -12,6 +12,9 @@ public class GasStation implements Building {
 		if (p1.pressed(Button.B)) {
 			inside = false;
 		}
+		if (p1.pressed(Button.A)) {
+			MyGame.ship.fuel = MyGame.ship.maxFuel;
+		}
 	}
 
 	@Override

@@ -134,6 +134,7 @@ public class SaveLocation implements Building {
 
 		if (p1.pressed(Button.B)) {
 			MyGame.loadingGame = false;
+			MyGame.loopingMusic = "background";
 			inside = false;
 		}
 

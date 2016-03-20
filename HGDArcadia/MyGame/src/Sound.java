@@ -8,7 +8,11 @@ public class Sound {
 	public static final Sound Movement = new Sound ("/MovementSoundEffect.wav");
 	
 	
-	private AudioClip clip;
+	public AudioClip clip;
+	
+	Thread sound1;
+		
+	
 	
 	public Sound(String filename){
 		try{
@@ -22,14 +26,16 @@ public class Sound {
 	}
 	public void play(){
 		try{
-			new Thread(){
-				public void run(){
-					clip.play();
-				}
-			}.start();
+			sound1 = new Thread();
+			clip.play();
+			sound1.start();
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
+	}
+	@SuppressWarnings("deprecation")
+	public void stop(){
+		clip.stop();
 	}
 	
 }

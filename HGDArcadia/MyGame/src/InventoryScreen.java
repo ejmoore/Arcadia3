@@ -12,9 +12,38 @@ import arcadia.Input;
 public class InventoryScreen implements Building{
 	
 	boolean inside = false;
+	static Image store;
+	static Image saveLocation;
+	static Image craftingBuilding;
+	static Image dirt;
+	static Image blueOre;
+	static Image greenOre;
+	static Image pinkOre;
+	static Image dirtBackground;
+	static Image skyBackground;
+
+	static {
+		try {
+			dirt = ImageIO.read(MyGame.class.getResource("dirt.png"));
+			blueOre = ImageIO.read(MyGame.class.getResource("BlueOre.png"));
+			greenOre = ImageIO.read(MyGame.class.getResource("GreenOre.png"));
+			pinkOre = ImageIO.read(MyGame.class.getResource("PinkOre.png"));
+			store = ImageIO.read(MyGame.class.getResource("Store.png"));
+			saveLocation = ImageIO.read(MyGame.class.getResource("SaveLocation.png"));
+			dirtBackground = ImageIO.read(MyGame.class.getResource("DirtBackground.png"));
+			skyBackground = ImageIO.read(MyGame.class.getResource("SkyBackground.png"));
+			craftingBuilding = ImageIO.read(MyGame.class.getResource("CraftingBuilding.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	
 	public void buildingControls(Input p1) {
 		if(p1.pressed(Button.B)){
+
+			MyGame.loopingMusic="background";
 			inside=false;
 		}
 		

@@ -238,6 +238,8 @@ public class CraftingBuilding implements Building {
 				}
 			}
 			if (p1.pressed(Button.B)) {
+
+				MyGame.loopingMusic="background";
 				inside = false;
 				try {
 					Thread.sleep(100);
