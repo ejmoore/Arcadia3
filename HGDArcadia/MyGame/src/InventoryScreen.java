@@ -12,19 +12,6 @@ import arcadia.Input;
 public class InventoryScreen implements Building{
 	
 	boolean inside = false;
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	static Image store;
 	static Image saveLocation;
 	static Image craftingBuilding;
@@ -57,6 +44,8 @@ public class InventoryScreen implements Building{
 	
 	public void buildingControls(Input p1) {
 		if(p1.pressed(Button.B)){
+
+			MyGame.loopingMusic="background";
 			inside=false;
 		}
 		
