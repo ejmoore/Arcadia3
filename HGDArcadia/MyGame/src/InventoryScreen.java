@@ -16,6 +16,15 @@ public class InventoryScreen implements Building{
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	static Image store;
 	static Image saveLocation;
 	static Image craftingBuilding;

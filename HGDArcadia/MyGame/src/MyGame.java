@@ -73,35 +73,6 @@ public class MyGame extends Game {
 
 	}
 
-	@Override
-	public void tick(Graphics2D g, Input p1, Sound s) {
-		g.setColor(Color.WHITE); // Set the background color and draw it
-		g.fillRect(0, 0, WIDTH, HEIGHT);
-		g.setFont(new Font("TimesRoman", Font.PLAIN, 52));
-
-		int depth = (starty - 13) * 10;
-		String d = Integer.toString(depth);
-
-		if (loadingGame)
-			createTiles();
-
-		for (int i = 0; i <= 4; i++) {
-			if (i == 4) {
-				if (ship.fuel != 0)
-					checkMovement(p1, s); // Executes all code involving
-												// movement and digging
-				drawTiles(g); // Draws all the tiles
-				ship.drawShip(lastDirection, g, 1, 0, 0); // Draws the ship
-				ship.drawInterface(g);// Draws the interface`
-				g.drawString(d + "M", WIDTH / 2, HEIGHT / 13);
-			} else if (buildings[i].isInside()) {
-				buildings[i].buildingControls(p1);
-				buildings[i].drawBuilding(g);
-				break;
-			}
-		}
-		Particle.drawParticles(particles, g);
-	}
 
 	/*
 	 * Checks to see if, how, where, and when the ship can dig or move
@@ -113,7 +84,7 @@ public class MyGame extends Game {
 	 * @param s Sound to be played while digging or moving
 	 */
 
-	public void checkMovement(Input p1, Sound s) {
+	public void checkMovement(Input p1, arcadia.Sound s) {
 		Tile upleft = tiles[startx + 4][starty + 3];
 		Tile downleft = tiles[startx + 4][starty + 5];
 		Tile upright = tiles[startx + 6][starty + 3];
@@ -512,5 +483,37 @@ public class MyGame extends Game {
 
 	public static void main(String[] args) {
 		Arcadia.display(new Arcadia(new Game[] { new MyGame(), new IntroGame(), new DodgeGame(), new Shooter() }));
+	}
+
+
+	@Override
+	public void tick(Graphics2D g, Input p1, arcadia.Sound s) {
+		g.setColor(Color.WHITE); // Set the background color and draw it
+		g.fillRect(0, 0, WIDTH, HEIGHT);
+		g.setFont(new Font("TimesRoman", Font.PLAIN, 52));
+
+		int depth = (starty - 13) * 10;
+		String d = Integer.toString(depth);
+
+		if (loadingGame)
+			createTiles();
+
+		for (int i = 0; i <= 4; i++) {
+			if (i == 4) {
+				if (ship.fuel != 0)
+					checkMovement(p1, s); // Executes all code involving
+												// movement and digging
+				drawTiles(g); // Draws all the tiles
+				ship.drawShip(lastDirection, g, 1, 0, 0); // Draws the ship
+				ship.drawInterface(g);// Draws the interface`
+				g.drawString(d + "M", WIDTH / 2, HEIGHT / 13);
+			} else if (buildings[i].isInside()) {
+				buildings[i].buildingControls(p1);
+				buildings[i].drawBuilding(g);
+				break;
+			}
+		}
+		Particle.drawParticles(particles, g);
+		
 	}
 }
