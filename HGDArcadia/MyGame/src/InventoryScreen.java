@@ -12,19 +12,6 @@ import arcadia.Input;
 public class InventoryScreen implements Building{
 	
 	boolean inside = false;
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	static Image store;
 	static Image saveLocation;
 	static Image craftingBuilding;
@@ -51,10 +38,6 @@ public class InventoryScreen implements Building{
 		}
 	}
 	
-	
-	
-	
-	
 	public void buildingControls(Input p1) {
 		if(p1.pressed(Button.B)){
 			inside=false;
@@ -64,8 +47,6 @@ public class InventoryScreen implements Building{
 
 	@Override
 	public void drawBuilding(Graphics2D g) {
-		
-		
 		g.setColor(Color.black);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
@@ -82,7 +63,6 @@ public class InventoryScreen implements Building{
 		g.drawString(MyGame.ship.inventory[2]+"", 260, 140);
 		g.drawString(MyGame.ship.inventory[3]+"", 260, 220);
 		g.drawString(MyGame.ship.inventory[4]+"", 260, 300);
-		
 	}
 
 	@Override
@@ -93,7 +73,6 @@ public class InventoryScreen implements Building{
 	@Override
 	public void enter() {
 		inside = true;
-		
 	}
 
 }
