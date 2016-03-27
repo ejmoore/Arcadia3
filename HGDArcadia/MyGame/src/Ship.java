@@ -25,10 +25,11 @@ public class Ship {
 	String s;
 	String cash;
 	int topOre = 4;
+	int maxDepth = 10;
 
 	public int maxInventory = 10;
 	public static int curInventory = 0;
-	int drill = 0;
+	int drill = 500;
 	
 	public Consumable[] consumables = new Consumable[15];
 	
@@ -89,10 +90,7 @@ public class Ship {
 
 		g.setColor(new Color(20, 20, 20, 200));
 		g.fillRect(WIDTH - (WIDTH / 8), HEIGHT / 21, WIDTH / 10, HEIGHT / 8);
-		// g.fillRect(WIDTH - (WIDTH / 12), HEIGHT / 8 + HEIGHT / 32, WIDTH /
-		// 18, HEIGHT / 12);
-		// g.fillRect(WIDTH - (WIDTH / 12), HEIGHT / 4 + HEIGHT / 32, WIDTH /
-		// 18, HEIGHT / 12);
+
 
 		Color color1 = new Color(255, 215, 0, 200);
 		Color color2 = new Color(200, 200, 200, 200);
@@ -105,14 +103,6 @@ public class Ship {
 		}
 		g.setColor(color1);
 		g.fillRect(WIDTH - (WIDTH / 9) + 3, (HEIGHT / 17) + 2, WIDTH / 15, HEIGHT / 10);
-
-		// g.setColor(color2);
-		// g.fillRect(WIDTH - (WIDTH / (72 / 5)), HEIGHT / 8 + HEIGHT / (64 /
-		// 3), WIDTH / 32, HEIGHT / 20);
-		//
-		// g.setColor(color3);
-		// g.fillRect(WIDTH - (WIDTH / (72 / 5)), HEIGHT / 4 + HEIGHT / (64 /
-		// 3), WIDTH / 32, HEIGHT / 20);
 
 		cash = Integer.toString(money);
 		
@@ -132,14 +122,6 @@ public class Ship {
 			g.drawString("$" + cash, WIDTH - (WIDTH / 10)-5, HEIGHT / (13) + HEIGHT / 20);
 		}
 
-		// s = Integer.toString(inventory[topOre]);
-		// g.drawString(s, WIDTH - (WIDTH / 15)+1, HEIGHT / (21) + HEIGHT / 20);
-		// s = Integer.toString(inventory[topOre - 1]);
-		// g.drawString(s, WIDTH - (WIDTH / 15)+1, HEIGHT / (21) + HEIGHT / 20 +
-		// HEIGHT / 8);
-		// s = Integer.toString(inventory[topOre - 2]);
-		// g.drawString(s, WIDTH - (WIDTH / 15)+1, HEIGHT / (21) + HEIGHT / 20 +
-		// HEIGHT / 4);
 
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 30));

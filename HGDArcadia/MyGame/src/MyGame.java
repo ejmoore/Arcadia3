@@ -40,7 +40,8 @@ public class MyGame extends Game {
 	long backgroundMusicEnd = -1;
 	long coinNoiseEnd = -1;
 	long menuMusicEnd = -1;
-
+	
+	
 	public static String loopingMusic = "";
 	String playingMusic = "";
 
@@ -102,7 +103,7 @@ public class MyGame extends Game {
 		Tile down = tiles[startx + 5][starty + 5];
 		Tile up = tiles[startx + 5][starty + 3];
 		Tile player = tiles[startx + 5][starty + 4];
-
+		
 		if (!digging) {
 			
 			if (p1.pressed(Button.A)){
@@ -286,7 +287,11 @@ public class MyGame extends Game {
 
 		float maxSpeed = 1f;
 		float minSpeed = -1f;
-
+		
+		if(ship.maxDepth < starty){
+			ship.health-=.1;
+		}
+		
 		if (!isPassable(up.tileType) || starty == 1 || (!isPassable(upleft.tileType) && deltaX >= 0.2)
 				|| (!isPassable(upright.tileType) && deltaX <= -0.2)) {
 			if ((deltaY + speed) > 0) {
