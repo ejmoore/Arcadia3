@@ -13,7 +13,7 @@ import shooter.Shooter;
 public class MyGame extends Game {
 
 	Image banner;
-	public static Tile[][] tiles = new Tile[55][1011];
+	public static Tile[][] tiles = new Tile[55][1010];
 	int startx = 10;
 	int starty = 10;
 	float deltaX = 0;
@@ -22,7 +22,7 @@ public class MyGame extends Game {
 	float speed = 0f;
 	long startTime = System.currentTimeMillis();
 	private final int width = 40;
-	private final int height = 1000;
+	private final int height = 1010;
 	public static final int tileSizeW = WIDTH / 9;
 	public static final int tileSizeH = HEIGHT / 8;
 	public static Ship ship = new Ship(WIDTH, HEIGHT, tileSizeH, tileSizeW);
@@ -35,8 +35,8 @@ public class MyGame extends Game {
 	char lastDirection = 'u';
 	ArrayList<Particle> particles = new ArrayList<Particle>();
 	public static OreData[] tileData = new OreData[20];
-
-	long movementSoundEnd = -1;
+	boolean gameStarted = false;
+	long movementSoundEnd= -1;
 	long backgroundMusicEnd = -1;
 	long coinNoiseEnd = -1;
 	long menuMusicEnd = -1;
@@ -100,7 +100,10 @@ public class MyGame extends Game {
 		Tile down = tiles[startx + 5][starty + 5];
 		Tile up = tiles[startx + 5][starty + 3];
 		Tile player = tiles[startx + 5][starty + 4];
-
+		if (!gameStarted){
+			playSound("background");
+			gameStarted=true;
+		}
 		if (!digging) {
 
 			if (player.tileType == 99) {
@@ -351,6 +354,7 @@ public class MyGame extends Game {
 				tiles[i][j].drawTile(g, (k), (h));
 				h++;
 			}
+			System.out.println();
 			k++;
 		}
 	}
@@ -359,10 +363,8 @@ public class MyGame extends Game {
 	 * Creates a new map.txt file
 	 */
 	public void createMap() {
-		playSound("background");
 		InitializeMap map1 = new InitializeMap(width, height);
 	}
-
 	float moveDeltaX = 0; // Used in dig method to find out how far to move
 							// across each tile
 	float moveDeltaY = 0;
@@ -498,11 +500,10 @@ public class MyGame extends Game {
 	public void playSound(String soundType) {
 
 		long cur = System.currentTimeMillis();
-		if (soundType.compareTo("movement") == 0) {
-			double diggingtime = digtime / 30.0;
-			movementSoundEnd = (long) (cur + (diggingtime * (900.0)));
-			System.out.println(cur);
-			System.out.println(movementSoundEnd);
+		if(soundType.compareTo("movement") == 0){
+			double diggingtime = digtime/30.0;
+			movementSoundEnd = (long) (cur+(diggingtime*(900.0)));
+
 			Sound.Movement.play();
 		} else if (soundType.compareTo("background") == 0) {
 			backgroundMusicEnd = cur + 30000;
