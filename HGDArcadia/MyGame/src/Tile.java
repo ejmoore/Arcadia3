@@ -29,20 +29,20 @@ public class Tile {
 
 	static {
 		try {
-			dirt = ImageIO.read(MyGame.class.getResource("dirt.png"));
-			blueOre = ImageIO.read(MyGame.class.getResource("BlueOre.png"));
-			greenOre = ImageIO.read(MyGame.class.getResource("GreenOre.png"));
-			pinkOre = ImageIO.read(MyGame.class.getResource("PinkOre.png"));
-			yellowOre = ImageIO.read(MyGame.class.getResource("YellowOre.png"));
-			multicolorOre = ImageIO.read(MyGame.class.getResource("FancyShmansyOre.png"));
-			redOre = ImageIO.read(MyGame.class.getResource("RedOre.png"));
-			starOre = ImageIO.read(MyGame.class.getResource("SilverOre.png"));
-			circleOre = ImageIO.read(MyGame.class.getResource("FancyCirclyOre.png"));
-			store = ImageIO.read(MyGame.class.getResource("Store.png"));
-			saveLocation = ImageIO.read(MyGame.class.getResource("SaveLocation.png"));
-			dirtBackground = ImageIO.read(MyGame.class.getResource("DirtBackground.png"));
-			skyBackground = ImageIO.read(MyGame.class.getResource("SkyBackground.png"));
-			craftingBuilding = ImageIO.read(MyGame.class.getResource("CraftingBuilding.png"));
+			dirt = ImageIO.read(MyGame.class.getResource("images/dirt.png"));
+			blueOre = ImageIO.read(MyGame.class.getResource("images/BlueOre.png"));
+			greenOre = ImageIO.read(MyGame.class.getResource("images/GreenOre.png"));
+			pinkOre = ImageIO.read(MyGame.class.getResource("images/PinkOre.png"));
+			yellowOre = ImageIO.read(MyGame.class.getResource("images/YellowOre.png"));
+			multicolorOre = ImageIO.read(MyGame.class.getResource("images/FancyShmansyOre.png"));
+			redOre = ImageIO.read(MyGame.class.getResource("images/RedOre.png"));
+			starOre = ImageIO.read(MyGame.class.getResource("images/SilverOre.png"));
+			circleOre = ImageIO.read(MyGame.class.getResource("images/FancyCirclyOre.png"));
+			store = ImageIO.read(MyGame.class.getResource("images/Store.png"));
+			saveLocation = ImageIO.read(MyGame.class.getResource("images/SaveLocation.png"));
+			dirtBackground = ImageIO.read(MyGame.class.getResource("images/DirtBackground.png"));
+			skyBackground = ImageIO.read(MyGame.class.getResource("images/SkyBackground.png"));
+			craftingBuilding = ImageIO.read(MyGame.class.getResource("images/CraftingBuilding.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

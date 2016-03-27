@@ -13,7 +13,7 @@ import shooter.Shooter;
 public class MyGame extends Game {
 
 	Image banner;
-	public static Tile[][] tiles = new Tile[55][1011];
+	public static Tile[][] tiles = new Tile[55][1010];
 	int startx = 10;
 	int starty = 10;
 	int deathx;
@@ -21,10 +21,10 @@ public class MyGame extends Game {
 	float deltaX = 0;
 	float deltaY = 0;
 	float accel = 0.005f;
-	float speed = 0f;
+	float speed = .05f;
 	long startTime = System.currentTimeMillis();
 	private final int width = 40;
-	private final int height = 1000;
+	private final int height = 1010;
 	public static final int tileSizeW = WIDTH / 9;
 	public static final int tileSizeH = HEIGHT / 8;
 	public static Ship ship = new Ship(WIDTH, HEIGHT, tileSizeH, tileSizeW);
@@ -37,8 +37,8 @@ public class MyGame extends Game {
 	char lastDirection = 'u';
 	ArrayList<Particle> particles = new ArrayList<Particle>();
 	public static OreData[] tileData = new OreData[20];
-
-	long movementSoundEnd = -1;
+	boolean gameStarted = false;
+	long movementSoundEnd= -1;
 	long backgroundMusicEnd = -1;
 	long coinNoiseEnd = -1;
 	long menuMusicEnd = -1;
@@ -47,14 +47,14 @@ public class MyGame extends Game {
 	String playingMusic = "";
 
 	static ArrayList<Integer> notMineable = new ArrayList<Integer>(10);
-	int[] passables = { 0, 95, 96, 97, 99 };
+	int[] passables = { 0, 25, 95, 96, 97, 99 };
 
 	public static boolean loadingGame = false;
 
 	public MyGame() {
-		// System.out.println(tileSizeW + " : " + tileSizeH);
+		
 		try {
-			banner = ImageIO.read(MyGame.class.getResource("banner.png"));
+			banner = ImageIO.read(MyGame.class.getResource("images/banner.png"));
 		} catch (IOException e) {
 			System.out.println("NO BANNER FOUND");
 			e.printStackTrace();
@@ -69,8 +69,10 @@ public class MyGame extends Game {
 		createTiles();
 		createOres();
 
+		ship.consumables[0] = new Net(3);
+		
 		buildings[0] = new Store();
-		buildings[1] = new SaveLocation(tiles, height, width);
+		buildings[1] = new SaveLocation(tiles, height, width, ship);
 		buildings[2] = new CraftingBuilding();
 		buildings[3] = new InventoryScreen();
 		buildings[4] = new GasStation();
@@ -104,7 +106,18 @@ public class MyGame extends Game {
 		Tile player = tiles[startx + 5][starty + 4];
 
 		if (!digging) {
-
+			if (p1.pressed(Button.A)){
+				if (starty > 20)
+					ship.consumables[0].use(ship, player);
+			}
+			
+			if (player.tileType == 25) {
+				if (speed > 0){
+					speed = .01f;
+				} else {
+					speed = -.01f;
+				}
+			}
 			if (player.tileType == 99) {
 				if (p1.pressed(Button.D)) {
 					playSound("menu");
@@ -126,11 +139,13 @@ public class MyGame extends Game {
 					buildings[4].enter();
 				}
 			}
+			
+			updateMove(p1);
+			
 			if (p1.pressed(Button.C)) {
 				playSound("menu");
 				buildings[3].enter();
 			}
-
 			if (p1.pressed(Button.L)) {
 				lastDirection = 'l';
 				moveLeft();
@@ -160,19 +175,19 @@ public class MyGame extends Game {
 				moveUp();
 
 			} // Move up if player hit up
-			updateMove(p1);
 		} else {
 			digging = dig(digTile, diggingDirection);
 		}
 	}
-
+	
+	// function to move left
 	public void moveLeft() {
 		Tile upleft = tiles[startx + 4][starty + 3];
 		Tile downleft = tiles[startx + 4][starty + 5];
 		Tile left = tiles[startx + 4][starty + 4];
 		Tile down = tiles[startx + 5][starty + 5];
 
-		if (deltaX < 0) {
+		if (deltaX < 0) { // space before block
 			deltaX += .1;
 			if (deltaX > 0) {
 				deltaX = 0;
@@ -181,6 +196,7 @@ public class MyGame extends Game {
 		} else
 			if (isPassable(left.tileType) && ((Math.abs(deltaY) < .1) || (isPassable(upleft.tileType) && deltaY >= 0.1)
 					|| (isPassable(downleft.tileType) && deltaY <= -0.1))) {
+			// open space to the left
 			deltaX += .1;
 			if (deltaX > 0.5) {
 				startx--;
@@ -190,6 +206,7 @@ public class MyGame extends Game {
 			}
 		} else if (isMineable(left.tileType) && !isPassable(down.tileType) && Math.abs(deltaX) < 0.01
 				&& Math.abs(deltaY) < 0.01) {
+			// mine to the left
 			digTile = left;
 			diggingDirection = 1;
 			digging = dig(digTile, diggingDirection);
@@ -198,13 +215,14 @@ public class MyGame extends Game {
 
 	}
 
+	// function to move right
 	public void moveRight() {
 		Tile upright = tiles[startx + 6][starty + 3];
 		Tile downright = tiles[startx + 6][starty + 5];
 		Tile right = tiles[startx + 6][starty + 4];
 		Tile down = tiles[startx + 5][starty + 5];
 
-		if (deltaX > 0) {
+		if (deltaX > 0) {// space before block
 			deltaX -= .1;
 			if (deltaX < 0) {
 				deltaX = 0;
@@ -213,6 +231,7 @@ public class MyGame extends Game {
 		} else if (isPassable(right.tileType)
 				&& ((Math.abs(deltaY) < .1) || (isPassable(upright.tileType) && deltaY >= 0.1)
 						|| (isPassable(downright.tileType) && deltaY <= -0.1))) {
+			// open space to the right
 			deltaX -= .1;
 			if (deltaX < -0.5) {
 				startx++;
@@ -221,6 +240,7 @@ public class MyGame extends Game {
 			}
 		} else if (isMineable(right.tileType) && !isPassable(down.tileType) && Math.abs(deltaX) < 0.01
 				&& Math.abs(deltaY) < 0.01) {
+			// dig tile to the right
 			digTile = right;
 			diggingDirection = 2;
 			digging = dig(digTile, diggingDirection);
@@ -228,6 +248,7 @@ public class MyGame extends Game {
 		}
 	}
 
+	// function to move down (only allowed to dig)
 	public void moveDown() {
 		Tile down = tiles[startx + 5][starty + 5];
 		if (!isPassable(down.tileType) && isMineable(down.tileType) && Math.abs(deltaX) < 0.1
@@ -239,19 +260,22 @@ public class MyGame extends Game {
 		}
 	}
 
+	// function to move up
 	public void moveUp() {
 		Tile upleft = tiles[startx + 4][starty + 3];
 		Tile upright = tiles[startx + 6][starty + 3];
 		Tile up = tiles[startx + 5][starty + 3];
-		if (deltaY < 0) {
+		if (deltaY < 0) { // space between block
 			speed += accel;
 		} else if (isPassable(up.tileType) && (Math.abs(deltaX) < .1 || (isPassable(upleft.tileType) && deltaX >= 0.1)
 				|| (isPassable(upright.tileType) && deltaX <= -0.1))) {
+			// open space above, not allowed to mine up
 			speed += accel;
 		}
 
 	}
 
+	// function that updates position based on speed and inertia
 	public void updateMove(Input p1) {
 		Tile upleft = tiles[startx + 4][starty + 3];
 		Tile downleft = tiles[startx + 4][starty + 5];
@@ -266,6 +290,7 @@ public class MyGame extends Game {
 		if (!isPassable(up.tileType) || starty == 1 || (!isPassable(upleft.tileType) && deltaX >= 0.2)
 				|| (!isPassable(upright.tileType) && deltaX <= -0.2)) {
 			if ((deltaY + speed) > 0) {
+				// hit a ceiling
 				speed = 0;
 				deltaY = 0;
 				ship.health -= (speed * ship.maxHealth);
@@ -286,7 +311,6 @@ public class MyGame extends Game {
 				|| (isPassable(downleft.tileType) && deltaX >= .2) || (isPassable(downright.tileType) && deltaX <= -.2))
 				|| deltaY > 0)) {
 			speed -= accel;
-			System.out.println("DELTAX: " + deltaX + "\tDELTAY" + deltaY);
 		}
 
 		speed = speed > maxSpeed ? maxSpeed : speed;
@@ -298,8 +322,8 @@ public class MyGame extends Game {
 				deltaY += speed;
 			}
 		} else if (speed > 0) {
-			if (isPassable(up.tileType) && (Math.abs(deltaX) < .2 || (isPassable(upleft.tileType) && deltaX >= 0.2)
-					|| (isPassable(upright.tileType) && deltaX <= -0.2))) {
+			if (isPassable(up.tileType) && (Math.abs(deltaX) < .2 || (isPassable(upleft.tileType) && deltaX >= .2)
+					|| (isPassable(upright.tileType) && deltaX <= -.2)) || deltaY < 0) {
 				deltaY += speed;
 			}
 		}
@@ -311,7 +335,6 @@ public class MyGame extends Game {
 		} else if (deltaY < -1) {
 			starty++;
 			deltaY = 0;
-			ship.fuel--;
 		}
 
 	}
@@ -375,10 +398,8 @@ public class MyGame extends Game {
 	 * Creates a new map.txt file
 	 */
 	public void createMap() {
-		playSound("background");
 		InitializeMap map1 = new InitializeMap(width, height);
 	}
-
 	float moveDeltaX = 0; // Used in dig method to find out how far to move
 							// across each tile
 	float moveDeltaY = 0;
@@ -439,7 +460,7 @@ public class MyGame extends Game {
 			} else if (d == 2) { // right
 				moveDeltaX = (float) (-1 / (float) digtime);
 			} else { // left
-				moveDeltaX = (float) (1 / (float) digtime);
+				moveDeltaX = -(float) (-1 / (float) digtime);
 			}
 		}
 		diggingTime++;
@@ -536,11 +557,9 @@ public class MyGame extends Game {
 	public void playSound(String soundType) {
 
 		long cur = System.currentTimeMillis();
-		if (soundType.compareTo("movement") == 0) {
-			double diggingtime = digtime / 30.0;
-			movementSoundEnd = (long) (cur + (diggingtime * (900.0)));
-			System.out.println(cur);
-			System.out.println(movementSoundEnd);
+		if(soundType.compareTo("movement") == 0){
+			double diggingtime = digtime/30.0;
+			movementSoundEnd = (long) (cur+(diggingtime*(900.0)));
 			Sound.Movement.play();
 		} else if (soundType.compareTo("background") == 0) {
 			backgroundMusicEnd = cur + 30000;
@@ -571,7 +590,6 @@ public class MyGame extends Game {
 		g.setColor(Color.WHITE); // Set the background color and draw it
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 52));
-
 		int depth = (starty - 13) * 10;
 		String d = Integer.toString(depth);
 
