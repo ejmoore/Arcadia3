@@ -16,7 +16,6 @@ public class MyGame extends Game {
 	public static Tile[][] tiles = new Tile[55][1011];
 	int startx = 10;
 	int starty = 10;
-
 	float deltaX = 0;
 	float deltaY = 0;
 	float accel = 0.005f;
@@ -31,14 +30,22 @@ public class MyGame extends Game {
 	boolean digging = false;
 	Tile digTile = null;
 	int diggingDirection = 0;
-	Building[] buildings = new Building[4];
+	Building[] buildings = new Building[5];
 	Scanner map = null;
 	char lastDirection = 'u';
 	ArrayList<Particle> particles = new ArrayList<Particle>();
 	public static OreData[] tileData = new OreData[20];
 
+	long movementSoundEnd= -1;
+	long backgroundMusicEnd = -1;
+	long coinNoiseEnd =-1;
+	long menuMusicEnd = -1;
+	
+	public static String loopingMusic = "";
+	String playingMusic ="";
+	
 	static ArrayList<Integer> notMineable = new ArrayList<Integer>(10);
-	int[] passables = { 0, 96, 97, 99 };
+	int[] passables = { 0, 95, 96, 97, 99 };
 
 	public static boolean loadingGame = false;
 
@@ -64,44 +71,16 @@ public class MyGame extends Game {
 		buildings[1] = new SaveLocation(tiles, height, width);
 		buildings[2] = new CraftingBuilding();
 		buildings[3] = new InventoryScreen();
+		buildings[4] = new GasStation();
 
 		notMineable.add(7);
 		notMineable.add(98);
-		for (int i = 10; i < 20; i++) {
+		for (int i = 3; i < 20; i++) {
 			notMineable.add(i);
 		}
 
 	}
 
-	@Override
-	public void tick(Graphics2D g, Input p1, Sound s) {
-		g.setColor(Color.WHITE); // Set the background color and draw it
-		g.fillRect(0, 0, WIDTH, HEIGHT);
-		g.setFont(new Font("TimesRoman", Font.PLAIN, 52));
-
-		int depth = (starty - 13) * 10;
-		String d = Integer.toString(depth);
-
-		if (loadingGame)
-			createTiles();
-
-		for (int i = 0; i <= 4; i++) {
-			if (i == 4) {
-				if (ship.fuel != 0)
-					checkMovement(p1, s); // Executes all code involving
-											// movement and digging
-				drawTiles(g); // Draws all the tiles
-				ship.drawShip(lastDirection, g, 1, 0, 0); // Draws the ship
-				ship.drawInterface(g);// Draws the interface`
-				g.drawString(d + "M", WIDTH / 2, HEIGHT / 13);
-			} else if (buildings[i].isInside()) {
-				buildings[i].buildingControls(p1);
-				buildings[i].drawBuilding(g);
-				break;
-			}
-		}
-		Particle.drawParticles(particles, g);
-	}
 
 	/*
 	 * Checks to see if, how, where, and when the ship can dig or move
@@ -112,8 +91,7 @@ public class MyGame extends Game {
 	 * 
 	 * @param s Sound to be played while digging or moving
 	 */
-
-	public void checkMovement(Input p1, Sound s) {
+	public void checkMovement(Input p1, arcadia.Sound s) {
 		Tile upleft = tiles[startx + 4][starty + 3];
 		Tile downleft = tiles[startx + 4][starty + 5];
 		Tile upright = tiles[startx + 6][starty + 3];
@@ -125,21 +103,30 @@ public class MyGame extends Game {
 		Tile player = tiles[startx + 5][starty + 4];
 
 		if (!digging) {
+			
 			if (player.tileType == 99) {
 				if (p1.pressed(Button.D)) {
+					playSound("menu");
 					buildings[0].enter();
+					
 				}
 			} else if (player.tileType == 97) {
 				if (p1.pressed(Button.D)) {
+					playSound("menu");
 					buildings[1].enter();
 				}
 			} else if (player.tileType == 96) {
 				if (p1.pressed(Button.D)) {
+					playSound("menu");
 					buildings[2].enter();
+				}
+			} else if (player.tileType == 95) {
+				if (p1.pressed(Button.D)) {
+					buildings[4].enter();
 				}
 			}
 			if (p1.pressed(Button.C)) {
-				System.out.println("ayyyy");
+				playSound("menu");
 				buildings[3].enter();
 			}
 
@@ -363,6 +350,7 @@ public class MyGame extends Game {
 	 * Creates a new map.txt file
 	 */
 	public void createMap() {
+		playSound("background");
 		InitializeMap map1 = new InitializeMap(width, height);
 	}
 
@@ -381,10 +369,14 @@ public class MyGame extends Game {
 	 */
 	public boolean dig(Tile tile, int d) {
 		digging = true;
-
+		
 		if (diggingTime == 0) {
+
+			
 			digtime = (tileData[tile.tileType].getTough() - ship.drill < 10 ? 10
 					: tileData[tile.tileType].getTough() - ship.drill);
+
+			playSound("movement");
 			if (tile.tileType != 1) {
 				if (ship.curInventory + tileData[tile.tileType].getStorageSpace() <= ship.maxInventory) {
 					ship.inventory[tile.tileType]++;
@@ -423,7 +415,6 @@ public class MyGame extends Game {
 				startx--;
 				deltaX = 0;
 			}
-
 			diggingTime = 0;
 			return false;
 		}
@@ -496,7 +487,95 @@ public class MyGame extends Game {
 		return banner;
 	}
 
+	
+	
+	public void playSound(String soundType){
+
+		
+		
+		long cur = System.currentTimeMillis();
+		if(soundType.compareTo("movement") == 0){
+			double diggingtime = digtime/30.0;
+			movementSoundEnd = (long) (cur+(diggingtime*(900.0)));
+			System.out.println(cur);
+			System.out.println(movementSoundEnd);
+			Sound.Movement.play();
+		}else if(soundType.compareTo("background") == 0){
+			backgroundMusicEnd = cur + 30000;	
+			menuMusicEnd= -1;
+			Sound.backgroundMusic.play();
+			loopingMusic = "background";
+			playingMusic = "background";
+		}else if(soundType.compareTo("coin") == 0){
+			Sound.coinNoise.play();
+		}else if (soundType.compareTo("menu") == 0){
+			
+			menuMusicEnd= cur +  68000;
+			backgroundMusicEnd = -1;
+			Sound.MenuMusic.play();
+			loopingMusic = "menu";
+			playingMusic = "menu";
+			
+		}
+		
+		
+	}
+	
 	public static void main(String[] args) {
 		Arcadia.display(new Arcadia(new Game[] { new MyGame(), new IntroGame(), new DodgeGame(), new Shooter() }));
+	}
+
+
+	@Override
+	public void tick(Graphics2D g, Input p1, arcadia.Sound s) {
+		g.setColor(Color.WHITE); // Set the background color and draw it
+		g.fillRect(0, 0, WIDTH, HEIGHT);
+		g.setFont(new Font("TimesRoman", Font.PLAIN, 52));
+
+		int depth = (starty - 13) * 10;
+		String d = Integer.toString(depth);
+
+		if (loadingGame)
+			createTiles();
+
+		for (int i = 0; i <= 5; i++) {
+			if (i == 5) {
+				if (ship.fuel != 0)
+					checkMovement(p1, s); // Executes all code involving
+												// movement and digging
+				drawTiles(g); // Draws all the tiles
+				ship.drawShip(lastDirection, g, 1, 0, 0); // Draws the ship
+				ship.drawInterface(g);// Draws the interface`
+				g.drawString(d + "M", WIDTH / 2, HEIGHT / 13);
+			} else if (buildings[i].isInside()) {
+				buildings[i].buildingControls(p1);
+				buildings[i].drawBuilding(g);
+				break;
+			}
+		}
+		Particle.drawParticles(particles, g);
+
+		
+		long cur = System.currentTimeMillis()+2000;
+		if(System.currentTimeMillis()>movementSoundEnd){
+			Sound.Movement.stop();
+		}
+		if(cur > backgroundMusicEnd){
+			if(loopingMusic.compareTo("background") == 0){
+				playSound("background");
+			}else{
+				Sound.backgroundMusic.stop();
+			}
+		}
+		if(cur > menuMusicEnd){
+			if(loopingMusic.compareTo("menu")==0){
+				playSound("menu");
+			}else{
+				Sound.MenuMusic.stop();
+			}
+		}
+		if(playingMusic.compareTo(loopingMusic)!=0){
+			playSound(loopingMusic);
+		}
 	}
 }
