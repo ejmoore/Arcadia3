@@ -50,7 +50,7 @@ public class MyGame extends Game {
 	public static boolean loadingGame = false;
 
 	public MyGame() {
-		// System.out.println(tileSizeW + " : " + tileSizeH);
+		
 		try {
 			banner = ImageIO.read(MyGame.class.getResource("images/banner.png"));
 		} catch (IOException e) {
@@ -296,7 +296,6 @@ public class MyGame extends Game {
 				|| (isPassable(downleft.tileType) && deltaX >= .2) || (isPassable(downright.tileType) && deltaX <= -.2))
 				|| deltaY > 0)) {
 			speed -= accel;
-			System.out.println("DELTAX: " + deltaX + "\tDELTAY" + deltaY);
 		}
 
 		speed = speed > maxSpeed ? maxSpeed : speed;
@@ -354,7 +353,6 @@ public class MyGame extends Game {
 				tiles[i][j].drawTile(g, (k), (h));
 				h++;
 			}
-			System.out.println();
 			k++;
 		}
 	}
