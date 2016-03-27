@@ -74,16 +74,19 @@ public class SaveLocation implements Building {
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		for (int y = 0; y < height; y++) {
-			for (int x = 0; x < width + 15; x++) {
-				int next = tiles[x][y].tileType;
+		for (int j = 0; j < height; j++) {
+			for (int i = 0; i <= width + 14; i++) {
+				int next = tiles[i][j].tileType;
+
+				System.out.println(i + " " + j + " " + next);
 				if (next < 10) {
-					writer.print("0" + tiles[x][y].tileType + " ");
+					writer.print("0" + tiles[i][j].tileType + " ");
 				} else {
-					writer.print(tiles[x][y].tileType + " ");
+					writer.print(tiles[i][j].tileType + " ");
 				}
 			}
 			writer.println();
+			writer.flush();
 		}
 	}
 
