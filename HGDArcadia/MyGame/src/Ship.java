@@ -41,10 +41,10 @@ public class Ship {
 
 	static {
 		try {
-			shipImage = ImageIO.read(MyGame.class.getResource("Drill.png"));
-			shipUpImage = ImageIO.read(MyGame.class.getResource("UpDrill.png"));
-			shipLeftImage = ImageIO.read(MyGame.class.getResource("LeftDrill.png"));
-			shipRightImage = ImageIO.read(MyGame.class.getResource("RightDrill.png"));
+			shipImage = ImageIO.read(MyGame.class.getResource("images/Drill.png"));
+			shipUpImage = ImageIO.read(MyGame.class.getResource("images/UpDrill.png"));
+			shipLeftImage = ImageIO.read(MyGame.class.getResource("images/LeftDrill.png"));
+			shipRightImage = ImageIO.read(MyGame.class.getResource("images/RightDrill.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
