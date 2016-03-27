@@ -16,6 +16,8 @@ public class MyGame extends Game {
 	public static Tile[][] tiles = new Tile[55][1011];
 	int startx = 10;
 	int starty = 10;
+	int deathx;
+	int deathy;
 	float deltaX = 0;
 	float deltaY = 0;
 	float accel = 0.005f;
@@ -36,14 +38,14 @@ public class MyGame extends Game {
 	ArrayList<Particle> particles = new ArrayList<Particle>();
 	public static OreData[] tileData = new OreData[20];
 
-	long movementSoundEnd= -1;
+	long movementSoundEnd = -1;
 	long backgroundMusicEnd = -1;
-	long coinNoiseEnd =-1;
+	long coinNoiseEnd = -1;
 	long menuMusicEnd = -1;
-	
+
 	public static String loopingMusic = "";
-	String playingMusic ="";
-	
+	String playingMusic = "";
+
 	static ArrayList<Integer> notMineable = new ArrayList<Integer>(10);
 	int[] passables = { 0, 95, 96, 97, 99 };
 
@@ -81,7 +83,6 @@ public class MyGame extends Game {
 
 	}
 
-
 	/*
 	 * Checks to see if, how, where, and when the ship can dig or move
 	 * 
@@ -103,12 +104,12 @@ public class MyGame extends Game {
 		Tile player = tiles[startx + 5][starty + 4];
 
 		if (!digging) {
-			
+
 			if (player.tileType == 99) {
 				if (p1.pressed(Button.D)) {
 					playSound("menu");
 					buildings[0].enter();
-					
+
 				}
 			} else if (player.tileType == 97) {
 				if (p1.pressed(Button.D)) {
@@ -270,11 +271,14 @@ public class MyGame extends Game {
 				ship.health -= (speed * ship.maxHealth);
 			}
 		}
-		if (!isPassable(down.tileType) ) {
+		if (!isPassable(down.tileType)) {
 			if ((deltaY + speed) < 0) {
+				if (Math.abs(speed) > .15)
+					ship.health -= (Math.abs(speed) * ship.maxHealth);
+				if (ship.health < 0)
+					ship.health = 0;
 				speed = 0;
 				deltaY = 0;
-				ship.health -= (speed * ship.maxHealth);
 			}
 		}
 
@@ -289,10 +293,8 @@ public class MyGame extends Game {
 		speed = speed < minSpeed ? minSpeed : speed;
 
 		if (speed < 0) {
-			if ((isPassable(down.tileType)
-					&& (Math.abs(deltaX) < .2 || (isPassable(downleft.tileType) && deltaX >= .2)
-							|| (isPassable(downright.tileType) && deltaX <= -.2))
-					|| deltaY > 0)) {
+			if ((isPassable(down.tileType) && (Math.abs(deltaX) < .2 || (isPassable(downleft.tileType) && deltaX >= .2)
+					|| (isPassable(downright.tileType) && deltaX <= -.2)) || deltaY > 0)) {
 				deltaY += speed;
 			}
 		} else if (speed > 0) {
@@ -312,6 +314,29 @@ public class MyGame extends Game {
 			ship.fuel--;
 		}
 
+	}
+
+	public void death() {
+		Tile grave = tiles[startx + 5][starty + 4];
+		Tile adjGrave = tiles[startx + 6][starty + 4];
+		ship.fuel = ship.maxFuel / 5;
+		ship.health = ship.maxHealth;
+		deathx = startx;
+		deathy = starty;
+		startx = 10;
+		starty = 10;
+		deltaX = 0;
+		deltaY = 0;
+		if (grave.tileType < 50)
+			grave.tileType = 21;
+		else
+			adjGrave.tileType = 21;
+		ship.money = 0;
+		ship.curInventory = 0;
+		for (int i = 0; i < ship.inventory.length; i++) {
+			ship.deathInventory[i] = ship.inventory[i] / 2;
+			ship.inventory[i] = 0;
+		}
 	}
 
 	public void createTiles() {
@@ -369,15 +394,16 @@ public class MyGame extends Game {
 	 */
 	public boolean dig(Tile tile, int d) {
 		digging = true;
-		
+
 		if (diggingTime == 0) {
 
-			
-			digtime = (tileData[tile.tileType].getTough() - ship.drill < 10 ? 10
-					: tileData[tile.tileType].getTough() - ship.drill);
+			if (tile.tileType != 21) {
+				digtime = (tileData[tile.tileType].getTough() - ship.drill < 10 ? 10
+						: tileData[tile.tileType].getTough() - ship.drill);
+			} else digtime = 10;
 
 			playSound("movement");
-			if (tile.tileType != 1) {
+			if (tile.tileType != 1 && tile.tileType != 21) {
 				if (ship.curInventory + tileData[tile.tileType].getStorageSpace() <= ship.maxInventory) {
 					ship.inventory[tile.tileType]++;
 					ship.curInventory += tileData[tile.tileType].getStorageSpace();
@@ -386,6 +412,25 @@ public class MyGame extends Game {
 				} else {
 					System.out.println("Ship's Inventory was too full to store ore");
 				}
+			} else if (tile.tileType == 21) {
+				int tempSize = ship.maxInventory;
+				for (int i = ship.inventory.length-1; i > 0; i--) {
+					if (ship.inventory[i] + ship.deathInventory[i] > tempSize) {
+						ship.inventory[i] = tempSize;
+						tempSize = 0;
+					} else {
+						ship.inventory[i] += ship.deathInventory[i];
+						tempSize -= ship.inventory[i];
+					}
+					if (tempSize == 0) {
+						for (int j = i - 1; j > 0; j--) {
+							ship.inventory[j] = 0;
+						}
+						ship.curInventory = ship.maxInventory;
+						break;
+					}
+				}
+				ship.curInventory = (ship.maxInventory - tempSize);
 			}
 			tile.tileType = 0;
 			if (d == 3) { // down
@@ -444,6 +489,7 @@ public class MyGame extends Game {
 	public void createOres() {
 		OreData air = new OreData(0, 0, 0, 50);
 		OreData dirt = new OreData(0, 0, 1, 50);
+		OreData grave = new OreData(0, 0, 21, 0);
 		OreData ore1 = new OreData(5, 1, 2, 100);
 		OreData ore2 = new OreData(10, 1, 3, 50);
 		OreData ore3 = new OreData(20, 1, 4, 50);
@@ -487,44 +533,38 @@ public class MyGame extends Game {
 		return banner;
 	}
 
-	
-	
-	public void playSound(String soundType){
+	public void playSound(String soundType) {
 
-		
-		
 		long cur = System.currentTimeMillis();
-		if(soundType.compareTo("movement") == 0){
-			double diggingtime = digtime/30.0;
-			movementSoundEnd = (long) (cur+(diggingtime*(900.0)));
+		if (soundType.compareTo("movement") == 0) {
+			double diggingtime = digtime / 30.0;
+			movementSoundEnd = (long) (cur + (diggingtime * (900.0)));
 			System.out.println(cur);
 			System.out.println(movementSoundEnd);
 			Sound.Movement.play();
-		}else if(soundType.compareTo("background") == 0){
-			backgroundMusicEnd = cur + 30000;	
-			menuMusicEnd= -1;
+		} else if (soundType.compareTo("background") == 0) {
+			backgroundMusicEnd = cur + 30000;
+			menuMusicEnd = -1;
 			Sound.backgroundMusic.play();
 			loopingMusic = "background";
 			playingMusic = "background";
-		}else if(soundType.compareTo("coin") == 0){
+		} else if (soundType.compareTo("coin") == 0) {
 			Sound.coinNoise.play();
-		}else if (soundType.compareTo("menu") == 0){
-			
-			menuMusicEnd= cur +  68000;
+		} else if (soundType.compareTo("menu") == 0) {
+
+			menuMusicEnd = cur + 68000;
 			backgroundMusicEnd = -1;
 			Sound.MenuMusic.play();
 			loopingMusic = "menu";
 			playingMusic = "menu";
-			
+
 		}
-		
-		
+
 	}
-	
+
 	public static void main(String[] args) {
 		Arcadia.display(new Arcadia(new Game[] { new MyGame(), new IntroGame(), new DodgeGame(), new Shooter() }));
 	}
-
 
 	@Override
 	public void tick(Graphics2D g, Input p1, arcadia.Sound s) {
@@ -540,9 +580,11 @@ public class MyGame extends Game {
 
 		for (int i = 0; i <= 5; i++) {
 			if (i == 5) {
-				if (ship.fuel != 0)
-					checkMovement(p1, s); // Executes all code involving
-												// movement and digging
+				if (ship.fuel == 0 || ship.health == 0) {
+					death();
+				}
+				checkMovement(p1, s); // Executes all code involving
+										// movement and digging
 				drawTiles(g); // Draws all the tiles
 				ship.drawShip(lastDirection, g, 1, 0, 0); // Draws the ship
 				ship.drawInterface(g);// Draws the interface`
@@ -555,26 +597,25 @@ public class MyGame extends Game {
 		}
 		Particle.drawParticles(particles, g);
 
-		
-		long cur = System.currentTimeMillis()+2000;
-		if(System.currentTimeMillis()>movementSoundEnd){
+		long cur = System.currentTimeMillis() + 2000;
+		if (System.currentTimeMillis() > movementSoundEnd) {
 			Sound.Movement.stop();
 		}
-		if(cur > backgroundMusicEnd){
-			if(loopingMusic.compareTo("background") == 0){
+		if (cur > backgroundMusicEnd) {
+			if (loopingMusic.compareTo("background") == 0) {
 				playSound("background");
-			}else{
+			} else {
 				Sound.backgroundMusic.stop();
 			}
 		}
-		if(cur > menuMusicEnd){
-			if(loopingMusic.compareTo("menu")==0){
+		if (cur > menuMusicEnd) {
+			if (loopingMusic.compareTo("menu") == 0) {
 				playSound("menu");
-			}else{
+			} else {
 				Sound.MenuMusic.stop();
 			}
 		}
-		if(playingMusic.compareTo(loopingMusic)!=0){
+		if (playingMusic.compareTo(loopingMusic) != 0) {
 			playSound(loopingMusic);
 		}
 	}

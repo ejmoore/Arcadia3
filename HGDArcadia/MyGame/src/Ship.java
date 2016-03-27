@@ -16,10 +16,11 @@ public class Ship {
 	int tileSizeW;
 	int money = 0;
 	int[] inventory = new int[17];
+	int[] deathInventory = new int[17];
 	int health = 100;
 	int maxHealth = 100;
 	float healthRatio;
-	int fuel = 100;
+	int fuel = 5;
 	int maxFuel = 100;
 	float fuelRatio;
 	String s;
