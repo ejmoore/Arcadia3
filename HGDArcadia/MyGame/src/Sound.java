@@ -2,10 +2,10 @@ import java.applet.*;
 
 public class Sound {
 	
-	public static final Sound backgroundMusic = new Sound ("/BackgroundMusic.wav");
-	public static final Sound coinNoise = new Sound ("/CoinNoise.wav");
-	public static final Sound MenuMusic = new Sound ("/MenuMusic.wav");
-	public static final Sound Movement = new Sound ("/MovementSoundEffect.wav");
+	public static final Sound backgroundMusic = new Sound ("sounds/BackgroundMusic.wav");
+	public static final Sound coinNoise = new Sound ("sounds/CoinNoise.wav");
+	public static final Sound MenuMusic = new Sound ("sounds/MenuMusic.wav");
+	public static final Sound Movement = new Sound ("sounds/MovementSoundEffect.wav");
 	
 	
 	public AudioClip clip;

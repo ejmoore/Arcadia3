@@ -22,20 +22,21 @@ public class SaveLocation implements Building {
 	int width;
 	static Image storeButton;
 	static Font storeFont;
-	
+	Ship ship;
 	static {
 		storeFont = new Font("Jokerman", Font.PLAIN, 105);
 		try {
-			storeButton = ImageIO.read(MyGame.class.getResource("StoreButton.png"));
+			storeButton = ImageIO.read(MyGame.class.getResource("images/StoreButton.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public SaveLocation(Tile[][] tile, int h, int w) {
+	public SaveLocation(Tile[][] tile, int h, int w, Ship s) {
 		tiles = tile;
 		height = h;
 		width = w;
+		ship = s;
 	}
 
 	@Override
@@ -74,16 +75,42 @@ public class SaveLocation implements Building {
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		for (int y = 0; y < height; y++) {
-			for (int x = 0; x < width + 15; x++) {
-				int next = tiles[x][y].tileType;
+		// inventory
+		for (int i = 0; i < ship.inventory.length; i++){
+			writer.print(ship.inventory[i] + " ");
+		}
+		writer.println();
+		writer.flush();
+		
+		// fuel
+		writer.println(ship.fuel);
+		writer.flush();
+		
+		// health
+		writer.println(ship.health);
+		writer.flush();
+		
+		// money 
+		writer.println(ship.money);
+		writer.flush();
+		
+		// death inventory
+		
+		
+		
+		
+		for (int j = 0; j < height; j++) {
+			for (int i = 0; i <= width + 14; i++) {
+				int next = tiles[i][j].tileType;
+
 				if (next < 10) {
-					writer.print("0" + tiles[x][y].tileType + " ");
+					writer.print("0" + tiles[i][j].tileType + " ");
 				} else {
-					writer.print(tiles[x][y].tileType + " ");
+					writer.print(tiles[i][j].tileType + " ");
 				}
 			}
 			writer.println();
+			writer.flush();
 		}
 	}
 
@@ -103,7 +130,21 @@ public class SaveLocation implements Building {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		// inventory
+		for (int i = 0; i < ship.inventory.length; i++){
+			ship.inventory[i] = map.nextInt();
+		}
+				
+		// fuel
+		ship.fuel = map.nextInt();
+		
+		// health
+		ship.health = map.nextInt();
+				
+		// money 
+		ship.money = map.nextInt();
+		
+		
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width + 15; x++) {
 				if (map.hasNextInt()) {
