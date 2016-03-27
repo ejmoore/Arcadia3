@@ -297,7 +297,7 @@ public class MyGame extends Game {
 			}
 		} else if (speed > 0) {
 			if (isPassable(up.tileType) && (Math.abs(deltaX) < .2 || (isPassable(upleft.tileType) && deltaX >= 0.2)
-					|| (isPassable(upright.tileType) && deltaX <= -0.2))) {
+					|| (isPassable(upright.tileType) && deltaX <= -0.2)) || deltaY< 0) {
 				deltaY += speed;
 			}
 		}
