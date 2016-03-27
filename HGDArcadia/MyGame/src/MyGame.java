@@ -19,7 +19,7 @@ public class MyGame extends Game {
 	float deltaX = 0;
 	float deltaY = 0;
 	float accel = 0.005f;
-	float speed = 0f;
+	float speed = .05f;
 	long startTime = System.currentTimeMillis();
 	private final int width = 40;
 	private final int height = 1010;
@@ -45,7 +45,7 @@ public class MyGame extends Game {
 	String playingMusic = "";
 
 	static ArrayList<Integer> notMineable = new ArrayList<Integer>(10);
-	int[] passables = { 0, 95, 96, 97, 99 };
+	int[] passables = { 0, 25, 95, 96, 97, 99 };
 
 	public static boolean loadingGame = false;
 
@@ -67,6 +67,8 @@ public class MyGame extends Game {
 		createTiles();
 		createOres();
 
+		ship.consumables[0] = new Net(3);
+		
 		buildings[0] = new Store();
 		buildings[1] = new SaveLocation(tiles, height, width, ship);
 		buildings[2] = new CraftingBuilding();
@@ -100,17 +102,27 @@ public class MyGame extends Game {
 		Tile down = tiles[startx + 5][starty + 5];
 		Tile up = tiles[startx + 5][starty + 3];
 		Tile player = tiles[startx + 5][starty + 4];
-		if (!gameStarted){
-			playSound("background");
-			gameStarted=true;
-		}
-		if (!digging) {
 
+		if (!digging) {
+			
+			if (p1.pressed(Button.A)){
+				if (starty > 20)
+					ship.consumables[0].use(ship, player);
+			}
+			
+			if (player.tileType == 25) {
+				if (speed > 0){
+					speed = .01f;
+				} else {
+					speed = -.01f;
+				}
+			}
+			
 			if (player.tileType == 99) {
 				if (p1.pressed(Button.D)) {
 					playSound("menu");
 					buildings[0].enter();
-
+					
 				}
 			} else if (player.tileType == 97) {
 				if (p1.pressed(Button.D)) {
@@ -127,22 +139,24 @@ public class MyGame extends Game {
 					buildings[4].enter();
 				}
 			}
+			
+			updateMove(p1);
+			
 			if (p1.pressed(Button.C)) {
 				playSound("menu");
 				buildings[3].enter();
 			}
-
 			if (p1.pressed(Button.L)) {
 				lastDirection = 'l';
 				moveLeft();
 
 			} // Move left if player hit left
-			else if (p1.pressed(Button.R)) {
+			if (p1.pressed(Button.R)) {
 				lastDirection = 'r';
 				moveRight();
 
 			} // Move right if player hit right
-			else if (p1.pressed(Button.D)) {
+			if (p1.pressed(Button.D)) {
 				lastDirection = 'd';
 				moveDown();
 
@@ -161,12 +175,11 @@ public class MyGame extends Game {
 				moveUp();
 
 			} // Move up if player hit up
-			updateMove(p1);
 		} else {
 			digging = dig(digTile, diggingDirection);
 		}
 	}
-
+	
 	// function to move left
 	public void moveLeft() {
 		Tile upleft = tiles[startx + 4][starty + 3];
@@ -320,7 +333,6 @@ public class MyGame extends Game {
 		} else if (deltaY < -1) {
 			starty++;
 			deltaY = 0;
-			ship.fuel--;
 		}
 
 	}
@@ -383,7 +395,7 @@ public class MyGame extends Game {
 
 			digtime = (tileData[tile.tileType].getTough() - ship.drill < 10 ? 10
 					: tileData[tile.tileType].getTough() - ship.drill);
-
+			System.out.println(digtime);
 			playSound("movement");
 			if (tile.tileType != 1) {
 				if (ship.curInventory + tileData[tile.tileType].getStorageSpace() <= ship.maxInventory) {
@@ -402,7 +414,7 @@ public class MyGame extends Game {
 			} else if (d == 2) { // right
 				moveDeltaX = (float) (-1 / (float) digtime);
 			} else { // left
-				moveDeltaX = (float) (1 / (float) digtime);
+				moveDeltaX = -(float) (-1 / (float) digtime);
 			}
 		}
 		diggingTime++;
@@ -501,7 +513,6 @@ public class MyGame extends Game {
 		if(soundType.compareTo("movement") == 0){
 			double diggingtime = digtime/30.0;
 			movementSoundEnd = (long) (cur+(diggingtime*(900.0)));
-
 			Sound.Movement.play();
 		} else if (soundType.compareTo("background") == 0) {
 			backgroundMusicEnd = cur + 30000;
@@ -532,7 +543,6 @@ public class MyGame extends Game {
 		g.setColor(Color.WHITE); // Set the background color and draw it
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 52));
-
 		int depth = (starty - 13) * 10;
 		String d = Integer.toString(depth);
 
@@ -555,6 +565,7 @@ public class MyGame extends Game {
 			}
 		}
 		Particle.drawParticles(particles, g);
+
 
 		long cur = System.currentTimeMillis() + 2000;
 		if (System.currentTimeMillis() > movementSoundEnd) {

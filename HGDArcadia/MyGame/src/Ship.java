@@ -30,6 +30,8 @@ public class Ship {
 	public static int curInventory = 0;
 	int drill = 0;
 	
+	public Consumable[] consumables = new Consumable[15];
+	
 	public int maxItemSlots = 1;
 	public static int curItemSlots = 0;
 
