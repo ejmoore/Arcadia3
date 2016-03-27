@@ -26,7 +26,7 @@ public class SaveLocation implements Building {
 	static {
 		storeFont = new Font("Jokerman", Font.PLAIN, 105);
 		try {
-			storeButton = ImageIO.read(MyGame.class.getResource("StoreButton.png"));
+			storeButton = ImageIO.read(MyGame.class.getResource("images/StoreButton.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
