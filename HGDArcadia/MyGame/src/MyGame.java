@@ -342,7 +342,7 @@ public class MyGame extends Game {
 	public void death() {
 		Tile grave = tiles[startx + 5][starty + 4];
 		Tile adjGrave = tiles[startx + 6][starty + 4];
-		ship.fuel = ship.maxFuel / 5;
+		ship.fuel = ship.maxFuel;
 		ship.health = ship.maxHealth;
 		deathx = startx;
 		deathy = starty;
