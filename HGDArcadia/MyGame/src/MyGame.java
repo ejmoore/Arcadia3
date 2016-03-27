@@ -68,7 +68,7 @@ public class MyGame extends Game {
 		createOres();
 
 		buildings[0] = new Store();
-		buildings[1] = new SaveLocation(tiles, height, width);
+		buildings[1] = new SaveLocation(tiles, height, width, ship);
 		buildings[2] = new CraftingBuilding();
 		buildings[3] = new InventoryScreen();
 		buildings[4] = new GasStation();
