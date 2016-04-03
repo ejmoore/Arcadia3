@@ -134,7 +134,7 @@ public class Ship {
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
 		g.drawString("HEALTH", WIDTH / 17, (HEIGHT - (HEIGHT / 8) + 4));
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
-		g.drawString("FUEL", WIDTH / 17, HEIGHT - (HEIGHT / 18) + 2);
+		g.drawString("FUEL" + fuel, WIDTH / 17, HEIGHT - (HEIGHT / 18) + 2);
 		
 
 	}

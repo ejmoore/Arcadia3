@@ -6,7 +6,7 @@ public class Sound {
 	public static final Sound coinNoise = new Sound ("sounds/CoinNoise.wav");
 	public static final Sound MenuMusic = new Sound ("sounds/MenuMusic.wav");
 	public static final Sound Movement = new Sound ("sounds/MovementSoundEffect.wav");
-	public static final Sound Death = new Sound ("sounds/DeathExposion.wav");
+	public static final Sound Death = new Sound ("sounds/Death Explosion.wav");
 	
 	public AudioClip clip;
 	
