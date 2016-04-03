@@ -246,7 +246,7 @@ public class MyGame extends Game {
 	// function to move down (only allowed to dig)
 	public void moveDown() {
 		Tile down = tiles[startx + 5][starty + 5];
-		if (!isPassable(down.tileType) && isMineable(down.tileType) && Math.abs(deltaX) < 0.1
+		if (!isPassable(down.tileType) && isMineable(down.tileType) && Math.abs(deltaX) < 0.5
 				&& Math.abs(deltaY) < 0.1) {
 			digTile = down;
 			diggingDirection = 3;
@@ -458,12 +458,15 @@ public class MyGame extends Game {
 			}
 			tile.tileType = 0;
 			if (d == 3) { // down
-
+				if(deltaX > .1)
+					moveDeltaX = (float) (-deltaX / (float) digtime);
+				else if (deltaX < -.1)
+					moveDeltaX = (float) (-deltaX / (float) digtime);
 				moveDeltaY = (float) (-1 / (float) digtime);
 			} else if (d == 2) { // right
 				moveDeltaX = (float) (-1 / (float) digtime);
 			} else { // left
-				moveDeltaX = -(float) (-1 / (float) digtime);
+				moveDeltaX = (float) (1 / (float) digtime);
 			}
 		}
 		diggingTime++;
@@ -511,24 +514,24 @@ public class MyGame extends Game {
 	}
 
 	public void createOres() {
-		OreData air = new OreData(0, 0, 0, 50);
+		OreData air = new OreData(0, 0, 0, 0);
 		OreData dirt = new OreData(0, 0, 1, 50);
 		OreData grave = new OreData(0, 0, 21, 0);
-		OreData ore1 = new OreData(5, 1, 2, 100);
-		OreData ore2 = new OreData(10, 1, 3, 50);
-		OreData ore3 = new OreData(20, 1, 4, 50);
-		OreData ore4 = new OreData(40, 1, 5, 50);
-		OreData ore5 = new OreData(80, 1, 6, 50);
-		OreData ore6 = new OreData(160, 1, 8, 50);
-		OreData ore7 = new OreData(320, 1, 9, 50);
-		OreData ore8 = new OreData(640, 1, 10, 50);
-		OreData ore9 = new OreData(1280, 1, 11, 50);
-		OreData ore10 = new OreData(2560, 1, 12, 50);
-		OreData ore11 = new OreData(5120, 1, 13, 50);
-		OreData ore12 = new OreData(10240, 1, 14, 50);
-		OreData ore13 = new OreData(20480, 1, 15, 50);
-		OreData ore14 = new OreData(40960, 1, 16, 50);
-		OreData ore15 = new OreData(81920, 1, 17, 50);
+		OreData ore1 = new OreData(5, 1, 2, 70);
+		OreData ore2 = new OreData(10, 1, 3, 90);
+		OreData ore3 = new OreData(20, 1, 4, 110);
+		OreData ore4 = new OreData(40, 1, 5, 130);
+		OreData ore5 = new OreData(80, 1, 6, 150);
+		OreData ore6 = new OreData(160, 1, 8, 170);
+		OreData ore7 = new OreData(320, 1, 9, 190);
+		OreData ore8 = new OreData(640, 1, 10, 210);
+		OreData ore9 = new OreData(1280, 1, 11, 250);
+		OreData ore10 = new OreData(2560, 1, 12, 250);
+		OreData ore11 = new OreData(5120, 1, 13, 250);
+		OreData ore12 = new OreData(10240, 1, 14, 250);
+		OreData ore13 = new OreData(20480, 1, 15, 250);
+		OreData ore14 = new OreData(40960, 1, 16, 250);
+		OreData ore15 = new OreData(81920, 1, 17, 250);
 		tileData[0] = air;
 		tileData[1] = dirt;
 		tileData[2] = ore1;
