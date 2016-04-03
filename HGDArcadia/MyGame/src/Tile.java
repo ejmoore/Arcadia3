@@ -26,6 +26,7 @@ public class Tile {
 	static Image circleOre;
 	static Image dirtBackground;
 	static Image skyBackground;
+	static Image net;
 
 	static {
 		try {
@@ -43,6 +44,7 @@ public class Tile {
 			dirtBackground = ImageIO.read(MyGame.class.getResource("images/DirtBackground.png"));
 			skyBackground = ImageIO.read(MyGame.class.getResource("images/SkyBackground.png"));
 			craftingBuilding = ImageIO.read(MyGame.class.getResource("images/CraftingBuilding.png"));
+			net = ImageIO.read(MyGame.class.getResource("images/Net.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -106,6 +108,8 @@ public class Tile {
 			g.drawImage(multicolorOre, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
 		} else if (tileType == 21) {
 			g.drawImage(multicolorOre, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
+		}else if (tileType == 25) {
+			g.drawImage(net, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
 		} else if (tileType == 99) {
 			g.drawImage(store, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
 		} else if (tileType == 97) {
