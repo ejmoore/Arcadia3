@@ -80,25 +80,37 @@ public class SaveLocation implements Building {
 		for (int i = 0; i < ship.inventory.length; i++){
 			writer.print(ship.inventory[i] + " ");
 		}
+		
+		writer.println();
+		writer.println(ship.maxInventory);
+		writer.println(ship.curInventory);
+		writer.println(ship.topOre);
+		writer.println(ship.drill);
 		writer.println();
 		writer.flush();
 		
 		// fuel
 		writer.println((int)ship.fuel);
+		writer.println(ship.maxFuel);
+		writer.println(ship.fuelCost);
+		writer.println();
 		writer.flush();
 		
 		// health
 		writer.println((int)ship.health);
+		writer.println(ship.maxHealth);
+		writer.println(ship.maxDepth);
+		writer.println();
 		writer.flush();
 		
 		// money 
 		writer.println((int)ship.money);
+		writer.println();
 		writer.flush();
 		
+		
+		
 		// death inventory
-		
-		
-		
 		
 		for (int j = 0; j < height; j++) {
 			for (int i = 0; i <= width + 14; i++) {
@@ -129,19 +141,29 @@ public class SaveLocation implements Building {
 		try {
 			map = new Scanner(new File("mapSave.txt"));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// inventory
 		for (int i = 0; i < ship.inventory.length; i++){
 			ship.inventory[i] = map.nextInt();
 		}
-				
+		
+		ship.maxInventory = map.nextInt();
+		ship.curInventory = map.nextInt();
+		ship.topOre = map.nextInt();
+		ship.drill = map.nextInt();
+		
 		// fuel
+
 		ship.fuel = map.nextInt();
+		ship.maxFuel = map.nextDouble();
+		ship.fuelCost = map.nextDouble();
+		
 		
 		// health
 		ship.health = map.nextInt();
+		ship.maxHealth = map.nextDouble();
+		ship.maxDepth = map.nextInt();
 				
 		// money 
 		ship.money = map.nextInt();
@@ -195,7 +217,6 @@ public class SaveLocation implements Building {
 		try {
 			map = new Scanner(new File("map.txt"));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		for (int j = 0; j < height; j++) {

@@ -14,15 +14,23 @@ public class Ship {
 	int HEIGHT;
 	int tileSizeH;
 	int tileSizeW;
+	
+	
 	int money = 0;
 	int[] inventory = new int[17];
 	int[] deathInventory = new int[17];
+	
+	
 	double health = 100;
 	double maxHealth = 100;
 	float healthRatio;
+	
+
 	double fuel = 100;
 	double maxFuel = 100;
 	double fuelCost = 1;
+	
+	
 	float fuelRatio;
 	String s;
 	String cash;
