@@ -11,7 +11,6 @@ public class Sound {
 	public static final Sound PositiveFeedback = new Sound ("/sounds/PositiveUpdate.wav");
 	public static final Sound Warning1 = new Sound("/sounds/Warning1.wav");
 	
-	
 	public AudioClip clip;
 	
 	Thread sound1;
