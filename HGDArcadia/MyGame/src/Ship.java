@@ -74,15 +74,21 @@ public class Ship {
 		HEIGHT = height;
 		tileSizeH = tileH;
 		tileSizeW = tileW;
+		
+		for (int i = 0; i < 17; i++) {	//THIS IS GOD MODE INVENTORY SETTINGS
+			inventory[i] += 80;			//THIS IS GOD MODE INVENTORY SETTINGS
+		}								//THIS IS GOD MODE INVENTORY SETTINGS
+		
 	}
 
 	public void drawInterface(Graphics2D g) {
-		fuelRatio = (float) (((float) maxFuel - fuel) / maxFuel);
+		fuelRatio = (float) (((float) maxFuel - Math.abs(fuel)) / maxFuel);
 		healthRatio = (float) (((float) maxHealth - health) / maxHealth);
 
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(WIDTH / 18, HEIGHT - (HEIGHT / 6), WIDTH / 3, HEIGHT / 16);
 		g.fillRect(WIDTH / 18, HEIGHT - (HEIGHT / 10), WIDTH / 3, HEIGHT / 16);
+		
 		g.setColor(new Color((int) (255 * fuelRatio), (int) (255 * (1 - fuelRatio)), 0));
 		g.fillRect(WIDTH / 18, HEIGHT - (HEIGHT / 10), (int) ((WIDTH / 3) * (float) (1 - fuelRatio)), HEIGHT / 16);
 
@@ -122,7 +128,6 @@ public class Ship {
 			g.setFont(new Font("TimesRoman", Font.PLAIN, 26));
 			g.drawString("$" + cash, WIDTH - (WIDTH / 10)-5, HEIGHT / (13) + HEIGHT / 20);
 		}
-
 
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 30));

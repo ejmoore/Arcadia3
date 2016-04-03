@@ -1,5 +1,7 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
 import arcadia.Button;
 import arcadia.Input;
@@ -14,6 +16,8 @@ public class CraftingBuilding implements Building {
 	int[] itemSlots = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }; int curItemSlots = 0;
 	int[] drillSpeed = { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150 }; int curSpeed = 0;
 	int[] mineable = { 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 }; int curMinable = 0;
+	int[] shipFuel = { 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500 }; int curMaxFuel = 0;
+	double[] fuelEff = { 1, .9, .8, .75, .7, .65, .6, .55, .5, .45, .4, .35, .3, .25, .2 }; int curFuelEff = 0;
 
 	public class SubMenu {
 		int menu = 0;
@@ -26,8 +30,8 @@ public class CraftingBuilding implements Building {
 		public SubMenu(int m, String s, int up1, int up2) {
 			menu = m;
 			name = s;
-			upgrade1 = up1;
-			upgrade2 = up2;
+			upgrade1 = up1 + 1;
+			upgrade2 = up2 + 1;
 		}
 
 		public void drawMenu1(Graphics2D g) { // Hull Upgrade
@@ -61,8 +65,6 @@ public class CraftingBuilding implements Building {
 		}
 
 		public void drawMenu2(Graphics2D g) { // Drill Upgrade
-			curSpeed = upgrade1;
-			curMinable = upgrade2;
 			g.setColor(Color.BLACK);
 			g.fillRect(0, 0, WIDTH, HEIGHT);
 
@@ -78,9 +80,9 @@ public class CraftingBuilding implements Building {
 				g.fillRect((int) (i * ((float) WIDTH / 5.0f)) + 100, HEIGHT - 300, 200, 100);
 				g.setColor(Color.MAGENTA);
 				if (i == 1) {
-					g.drawString(curSpeed + "", (int) (i * ((float) WIDTH / 5.0f) + 50), HEIGHT - 250);
+					g.drawString(upgrade1 + "", (int) (i * ((float) WIDTH / 5.0f) + 50), HEIGHT - 250);
 				} else {
-					g.drawString(curMinable + "", (int) (i * ((float) WIDTH / 5.0f) + 50), HEIGHT - 250);
+					g.drawString(upgrade2 + "", (int) (i * ((float) WIDTH / 5.0f) + 50), HEIGHT - 250);
 				}
 			}
 			g.drawString("Increase the drill's speed", 305, HEIGHT - 250);
@@ -121,8 +123,6 @@ public class CraftingBuilding implements Building {
 		}
 
 		public void drawMenu4(Graphics2D g) { // Cargo Bay upgrade
-			curInventory = upgrade1;
-			curItemSlots = upgrade2;
 			g.setColor(Color.BLACK);
 			g.fillRect(0, 0, WIDTH, HEIGHT);
 
@@ -138,9 +138,9 @@ public class CraftingBuilding implements Building {
 				g.fillRect((int) (i * ((float) WIDTH / 5.0f)) + 100, HEIGHT - 300, 200, 100);
 				g.setColor(Color.MAGENTA);
 				if (i == 1) {
-					g.drawString(curInventory + "", (int) (i * ((float) WIDTH / 5.0f) + 50), HEIGHT - 250);
+					g.drawString(upgrade1 + "", (int) (i * ((float) WIDTH / 5.0f) + 50), HEIGHT - 250);
 				} else {
-					g.drawString(curItemSlots + "", (int) (i * ((float) WIDTH / 5.0f) + 50), HEIGHT - 250);
+					g.drawString(upgrade2 + "", (int) (i * ((float) WIDTH / 5.0f) + 50), HEIGHT - 250);
 				}
 			}
 			g.drawString("Increase the max ore you can hold", 305, HEIGHT - 250);
@@ -173,29 +173,7 @@ public class CraftingBuilding implements Building {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-			} else if (p1.pressed(Button.U)) {
-				if (activeButton == 1 && upgrade1 < 15) {
-					upgrade1++;
-				} else if (activeButton == 3 && upgrade2 < 15) {
-					upgrade2++;
-				}
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			} else if (p1.pressed(Button.D)) {
-				if (activeButton == 1 && upgrade1 > 0) {
-					upgrade1--;
-				} else if (activeButton == 3 && upgrade2 > 0) {
-					upgrade2--;
-				}
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			} else if (p1.pressed(Button.A)) {
+			}  else if (p1.pressed(Button.A)) {
 				upgradeCount++;
 				if (upgradeCount >= 60) {
 					if (activeButton == 1) buyUpgrade(name, 1);
@@ -216,7 +194,7 @@ public class CraftingBuilding implements Building {
 				} else if (activeButton == 2) {
 					currentMenu = new SubMenu(2, "Drill", curSpeed, curMinable);
 				} else if (activeButton == 3) {
-					currentMenu = new SubMenu(3, "Fuel", 0, 0);
+					currentMenu = new SubMenu(3, "Fuel", curMaxFuel, curFuelEff);
 				} else if (activeButton == 4) {
 					currentMenu = new SubMenu(4, "Cargo Bay", curInventory, curItemSlots);
 				}
@@ -255,6 +233,7 @@ public class CraftingBuilding implements Building {
 
 	@Override
 	public void drawBuilding(Graphics2D g) { // 1024x576
+		g.setFont(new Font("TimesRoman", Font.PLAIN, 25));
 		if (currentMenu == null) {
 			g.setColor(Color.BLACK);
 			g.fillRect(0, 0, WIDTH, HEIGHT);
@@ -318,37 +297,63 @@ public class CraftingBuilding implements Building {
 	}
 
 	private void buyUpgrade(String upgrade, int upgradeNum) {
-//		if (upgrade.equals("Drill")) {
-//			MyGame.ship.drill = drillSpeed[upgrade1];
-//			MyGame.notMineable.remove(mineable[upgrade2]);
-//		}
+		//System.out.println(MyGame.ship.inventory[0] + ", " + MyGame.ship.inventory[1] + ", " + MyGame.ship.inventory[2] + ", " + MyGame.ship.inventory[3] + ", " + MyGame.ship.inventory[4]);
+		//System.out.println(curSpeed);
 		if (upgrade.equals("Cargo Bay")) {
 			if (upgradeNum == 1) {
-				System.out.println(MyGame.ship.inventory[curInventory+1] + " : " + curInventory);
-				if (MyGame.ship.inventory[curInventory+1] < 10) {
+				//System.out.println(MyGame.ship.inventory[curInventory+1] + " : " + curInventory);
+				if (MyGame.ship.inventory[curInventory+2] < 10) {
 					System.out.println("YOU'RE TOO POOR");
 					return;
 				}
 				MyGame.ship.maxInventory = cargoInventory[++curInventory-1]; System.out.println(MyGame.ship.maxInventory);
-				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[curInventory] -= 10;
+				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[curInventory+1] -= 10;
 			} else {
-				if (MyGame.ship.inventory[curItemSlots+1] < 10) {
+				if (MyGame.ship.inventory[curItemSlots+2] < 10) {
 					System.out.println("YOU'RE TOO POOR");
 					return;
 				}
 				MyGame.ship.maxItemSlots = itemSlots[++curItemSlots-1]; System.out.println(MyGame.ship.maxItemSlots);
-				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[curInventory] -= 10;
+				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[curItemSlots+1] -= 10;
 			}
 		}
 		if (upgrade.equals("Drill")) {
 			if (upgradeNum == 1) {
-				System.out.println(MyGame.ship.inventory[curSpeed+1] + " : " + curSpeed);
-				if (MyGame.ship.inventory[curSpeed+1] < 10) {
+				//System.out.println(MyGame.ship.inventory[curSpeed+1] + " : " + curSpeed);
+				if (MyGame.ship.inventory[curSpeed+2] < 10) {
 					System.out.println("YOU'RE TOO POOR");
 					return;
 				}
-				MyGame.ship.drill = drillSpeed[++curSpeed-1]; System.out.println(MyGame.ship.drill);
-				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[curSpeed] -= 10;
+				MyGame.ship.drill = drillSpeed[++curSpeed-1]; //System.out.println(MyGame.ship.drill);
+				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[curSpeed+1] -= 10;
+			} else {
+				if (MyGame.ship.inventory[curMinable+2] < 10) {
+					System.out.println("YOU'RE TOO POOR");
+					return;
+				}
+				MyGame.notMineable.remove((Integer)mineable[curMinable]);
+				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[++curMinable+1] -= 10;
+				//System.out.println(MyGame.notMineable);
+				//System.out.println(mineable);
+				//System.out.println(curMinable);
+			}
+		}
+		if (upgrade.equals("Fuel")) {
+			if (upgradeNum == 1) {
+				if (MyGame.ship.inventory[curMaxFuel+2] < 10) {
+					System.out.println("YOU'RE TOO POOR");
+					return;
+				}
+				MyGame.ship.maxFuel = shipFuel[++curMaxFuel-1];
+				MyGame.ship.fuel = MyGame.ship.maxFuel;
+				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[curMaxFuel+1] -= 10;
+			} else {
+				if (MyGame.ship.inventory[curFuelEff+2] < 10) {
+					System.out.println("YOU'RE TOO POOR");
+					return;
+				}
+				//Add fuel efficiency mechanic and change variable here
+				//TODO TODO TODO TODO
 			}
 		}
 		System.out.println("UPGRADE PURCHASED");
