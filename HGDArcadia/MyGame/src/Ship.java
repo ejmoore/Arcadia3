@@ -17,15 +17,19 @@ public class Ship {
 	int money = 0;
 	int[] inventory = new int[17];
 	int[] deathInventory = new int[17];
-	int health = 100;
-	int maxHealth = 100;
+	double health = 100;
+	double maxHealth = 100;
 	float healthRatio;
-	int fuel = 100;
-	int maxFuel = 100;
+	double fuel = 100;
+	double maxFuel = 100;
+	double fuelCost = 1;
 	float fuelRatio;
 	String s;
 	String cash;
 	int topOre = 4;
+	int maxDepth = 150;
+	
+	
 
 	public int maxInventory = 10;
 	public static int curInventory = 0;
@@ -41,6 +45,10 @@ public class Ship {
 	static Image shipUpImage;
 	static Image shipLeftImage;
 	static Image shipRightImage;
+	
+	static Image NetItem;
+	static Image FuelItem;
+	static Image RepairItem;
 
 	static {
 		try {
@@ -48,6 +56,9 @@ public class Ship {
 			shipUpImage = ImageIO.read(MyGame.class.getResource("images/UpDrill.png"));
 			shipLeftImage = ImageIO.read(MyGame.class.getResource("images/LeftDrill.png"));
 			shipRightImage = ImageIO.read(MyGame.class.getResource("images/RightDrill.png"));
+			NetItem = ImageIO.read(MyGame.class.getResource("images/NetItem.png"));
+			FuelItem = ImageIO.read(MyGame.class.getResource("images/FuelItem.png"));
+			RepairItem = ImageIO.read(MyGame.class.getResource("images/RepairItem.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -96,6 +107,9 @@ public class Ship {
 
 		g.setColor(new Color(20, 20, 20, 200));
 		g.fillRect(WIDTH - (WIDTH / 8), HEIGHT / 21, WIDTH / 10, HEIGHT / 8);
+		g.fillRect(WIDTH - (WIDTH / 8), (HEIGHT / 6 )+ 8, WIDTH / 10, HEIGHT / 8);
+		
+		g.drawImage(NetItem, WIDTH - (WIDTH / 9) + 3, (HEIGHT / 6 )+ 15 , WIDTH / 15, HEIGHT / 10, null);
 
 		Color color1 = new Color(255, 215, 0, 200);
 		Color color2 = new Color(200, 200, 200, 200);
@@ -131,7 +145,7 @@ public class Ship {
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
 		g.drawString("HEALTH", WIDTH / 17, (HEIGHT - (HEIGHT / 8) + 4));
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
-		g.drawString("FUEL", WIDTH / 17, HEIGHT - (HEIGHT / 18) + 2);
+		g.drawString("FUEL" + fuel, WIDTH / 17, HEIGHT - (HEIGHT / 18) + 2);
 		
 
 	}

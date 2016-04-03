@@ -18,6 +18,9 @@ public class CraftingBuilding implements Building {
 	int[] mineable = { 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 }; int curMinable = 0;
 	int[] shipFuel = { 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500 }; int curMaxFuel = 0;
 	double[] fuelEff = { 1, .9, .8, .75, .7, .65, .6, .55, .5, .45, .4, .35, .3, .25, .2 }; int curFuelEff = 0;
+	int[] maxDepth = { 150, 300, 450, 600, 750, 900, 1050, 1200, 1350, 1500, 1650, 1800, 1950, 2100, 2250 }; int curMaxDepth = 0;
+	int[] maxHealth = { 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500 }; int curMaxHealth = 0;
+	
 
 	public class SubMenu {
 		int menu = 0;
@@ -175,7 +178,7 @@ public class CraftingBuilding implements Building {
 				}
 			}  else if (p1.pressed(Button.A)) {
 				upgradeCount++;
-				if (upgradeCount >= 60) {
+				if (upgradeCount >= 30) {
 					if (activeButton == 1) buyUpgrade(name, 1);
 					else buyUpgrade(name, 2);
 					upgradeCount = 0;
@@ -190,7 +193,7 @@ public class CraftingBuilding implements Building {
 		if (currentMenu == null) {
 			if (p1.pressed(Button.A)) {
 				if (activeButton == 1) {
-					currentMenu = new SubMenu(1, "Hull", 0, 0);
+					currentMenu = new SubMenu(1, "Hull", curMaxDepth, curMaxHealth);
 				} else if (activeButton == 2) {
 					currentMenu = new SubMenu(2, "Drill", curSpeed, curMinable);
 				} else if (activeButton == 3) {
@@ -352,8 +355,27 @@ public class CraftingBuilding implements Building {
 					System.out.println("YOU'RE TOO POOR");
 					return;
 				}
-				//Add fuel efficiency mechanic and change variable here
-				//TODO TODO TODO TODO
+				MyGame.ship.fuelCost = fuelEff[++curFuelEff-1];
+				MyGame.ship.fuel = MyGame.ship.maxFuel;
+				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[curFuelEff+1] -= 10;
+			}
+		}
+		if (upgrade.equals("Hull")) {
+			if (upgradeNum == 1) {
+				if (MyGame.ship.inventory[curMaxDepth+2] < 10) {
+					System.out.println("YOU'RE TOO POOR");
+					return;
+				}
+				MyGame.ship.maxDepth = maxDepth[++curMaxDepth-1];
+				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[curMaxDepth+1] -= 10;
+			} else {
+				if (MyGame.ship.inventory[curMaxHealth+2] < 10) {
+					System.out.println("YOU'RE TOO POOR");
+					return;
+				}
+				MyGame.ship.maxHealth = maxHealth[++curMaxHealth-1];
+				MyGame.ship.health = MyGame.ship.maxHealth;
+				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[curMaxHealth+1] -= 10;
 			}
 		}
 		System.out.println("UPGRADE PURCHASED");
