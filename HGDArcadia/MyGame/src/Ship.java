@@ -121,8 +121,6 @@ public class Ship {
 		g.drawImage(item, WIDTH - (WIDTH / 9) + 3, (HEIGHT / 6 )+ 15 , WIDTH / 15, HEIGHT / 10, null);
 
 		Color color1 = new Color(255, 215, 0, 200);
-		Color color2 = new Color(200, 200, 200, 200);
-		Color color3 = new Color(255, 100, 40, 200);
 		for (int i = 16; i > 4; i--) {
 			if (inventory[i] != 0) {
 				topOre = i;
