@@ -69,6 +69,7 @@ public class SaveLocation implements Building {
 	}
 
 	public void saveTheGame() {
+		Sound.PositiveFeedback.play();
 		PrintWriter writer = null;
 		try {
 			writer = new PrintWriter("mapSave.txt", "UTF-8");
@@ -83,15 +84,15 @@ public class SaveLocation implements Building {
 		writer.flush();
 		
 		// fuel
-		writer.println(ship.fuel);
+		writer.println((int)ship.fuel);
 		writer.flush();
 		
 		// health
-		writer.println(ship.health);
+		writer.println((int)ship.health);
 		writer.flush();
 		
 		// money 
-		writer.println(ship.money);
+		writer.println((int)ship.money);
 		writer.flush();
 		
 		// death inventory
@@ -115,6 +116,7 @@ public class SaveLocation implements Building {
 	}
 
 	public Tile[][] loadGame() {
+		Sound.PositiveFeedback.play();
 		PrintWriter writer = null;
 		try {
 			writer = new PrintWriter("map.txt", "UTF-8");

@@ -86,6 +86,7 @@ public class Store implements Building {
 					if (i ==7) {
 						continue;
 					} else {
+						Sound.coinNoise.play();
 						MyGame.ship.money += MyGame.ship.inventory[i] * MyGame.tileData[i].getValue();
 						MyGame.ship.curInventory -= MyGame.ship.inventory[i] * MyGame.tileData[i].getStorageSpace();
 						MyGame.ship.inventory[i] = 0;
