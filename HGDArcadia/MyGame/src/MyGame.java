@@ -344,6 +344,7 @@ public class MyGame extends Game {
 		Tile adjGrave = tiles[startx + 6][starty + 4];
 		ship.fuel = ship.maxFuel;
 		ship.health = ship.maxHealth;
+		speed = 0;
 		deathx = startx;
 		deathy = starty;
 		startx = 10;
@@ -354,7 +355,7 @@ public class MyGame extends Game {
 			grave.tileType = 21;
 		else
 			adjGrave.tileType = 21;
-		ship.money = 0;
+		ship.money = ship.money/2;
 		ship.curInventory = 0;
 		for (int i = 0; i < ship.inventory.length; i++) {
 			ship.deathInventory[i] = ship.inventory[i] / 2;
