@@ -136,6 +136,7 @@ public class MyGame extends Game {
 				}
 			} else if (player.tileType == 95) {
 				if (p1.pressed(Button.D)) {
+					playSound("menu");
 					buildings[4].enter();
 				}
 			}
