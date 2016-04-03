@@ -100,9 +100,6 @@ public class MyGame extends Game {
 	 */
 	public void checkMovement(Input p1, arcadia.Sound s) {
 		Tile player = tiles[startx + 5][starty + 4];
-		if (p1.pressed(Button.B)){
-			
-		}
 		if (ship.maxDepth < depth) {
 			ship.health -= ship.maxHealth * .001;
 		}
