@@ -155,12 +155,12 @@ public class MyGame extends Game {
 				moveLeft();
 
 			} // Move left if player hit left
-			if (p1.pressed(Button.R)) {
+			else if (p1.pressed(Button.R)) {
 				lastDirection = 'r';
 				moveRight();
 
 			} // Move right if player hit right
-			if (p1.pressed(Button.D)) {
+			else if (p1.pressed(Button.D)) {
 				lastDirection = 'd';
 				moveDown();
 
@@ -195,7 +195,7 @@ public class MyGame extends Game {
 			deltaX += .1;
 			if (deltaX > 0) {
 				deltaX = 0;
-				ship.fuel--;
+				ship.fuel-=ship.fuelCost;
 			}
 		} else
 			if (isPassable(left.tileType) && ((Math.abs(deltaY) < .1) || (isPassable(upleft.tileType) && deltaY >= 0.1)
@@ -205,7 +205,7 @@ public class MyGame extends Game {
 			if (deltaX > 0.5) {
 				startx--;
 				deltaX = -0.5f;
-				ship.fuel--;
+				ship.fuel-=ship.fuelCost;
 
 			}
 		} else if (isMineable(left.tileType) && !isPassable(down.tileType) && Math.abs(deltaX) < 0.01
@@ -214,7 +214,7 @@ public class MyGame extends Game {
 			digTile = left;
 			diggingDirection = 1;
 			digging = dig(digTile, diggingDirection);
-			ship.fuel--;
+			ship.fuel-=ship.fuelCost;
 		}
 
 	}
@@ -230,7 +230,7 @@ public class MyGame extends Game {
 			deltaX -= .1;
 			if (deltaX < 0) {
 				deltaX = 0;
-				ship.fuel--;
+				ship.fuel-=ship.fuelCost;
 			}
 		} else if (isPassable(right.tileType)
 				&& ((Math.abs(deltaY) < .1) || (isPassable(upright.tileType) && deltaY >= 0.1)
@@ -240,7 +240,7 @@ public class MyGame extends Game {
 			if (deltaX < -0.5) {
 				startx++;
 				deltaX = 0.5f;
-				ship.fuel--;
+				ship.fuel-=ship.fuelCost;
 			}
 		} else if (isMineable(right.tileType) && !isPassable(down.tileType) && Math.abs(deltaX) < 0.01
 				&& Math.abs(deltaY) < 0.01) {
@@ -248,7 +248,7 @@ public class MyGame extends Game {
 			digTile = right;
 			diggingDirection = 2;
 			digging = dig(digTile, diggingDirection);
-			ship.fuel--;
+			ship.fuel-=ship.fuelCost;
 		}
 	}
 
@@ -260,7 +260,7 @@ public class MyGame extends Game {
 			digTile = down;
 			diggingDirection = 3;
 			digging = dig(digTile, diggingDirection);
-			ship.fuel--;
+			ship.fuel-=ship.fuelCost;
 		}
 	}
 
@@ -275,6 +275,8 @@ public class MyGame extends Game {
 				|| (isPassable(upright.tileType) && deltaX <= -0.1))) {
 			// open space above, not allowed to mine up
 			speed += accel;
+			if(speed < 0)
+				speed += accel;
 		}
 
 	}
@@ -337,10 +339,13 @@ public class MyGame extends Game {
 		if (deltaY > 1) {
 			starty--;
 			deltaY = 0;
-			ship.fuel--;
+			if(p1.pressed(Button.U))
+				ship.fuel-=ship.fuelCost;
 		} else if (deltaY < -1) {
 			starty++;
 			deltaY = 0;
+			if(p1.pressed(Button.U))
+				ship.fuel-=ship.fuelCost;
 		}
 
 	}
