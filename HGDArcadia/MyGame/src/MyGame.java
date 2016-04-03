@@ -43,6 +43,7 @@ public class MyGame extends Game {
 	long coinNoiseEnd = -1;
 	long menuMusicEnd = -1;
 	int depth;
+	
 
 	public static String loopingMusic = "";
 	String playingMusic = "";
@@ -70,7 +71,10 @@ public class MyGame extends Game {
 		createTiles();
 		createOres();
 
-		ship.consumables[0] = new RepairKit(3);
+		ship.consumables[0] = new Net(3);
+		ship.consumables[1] = new RepairKit(3);
+		ship.consumables[2] = new FuelCanister(3);
+		
 		buildings[0] = new Store();
 		buildings[1] = new SaveLocation(tiles, height, width, ship);
 		buildings[2] = new CraftingBuilding();
@@ -96,6 +100,9 @@ public class MyGame extends Game {
 	 */
 	public void checkMovement(Input p1, arcadia.Sound s) {
 		Tile player = tiles[startx + 5][starty + 4];
+		if (p1.pressed(Button.B)){
+			
+		}
 		if (ship.maxDepth < depth) {
 			ship.health -= ship.maxHealth * .001;
 		}

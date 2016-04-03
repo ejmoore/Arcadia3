@@ -20,22 +20,23 @@ public class Ship {
 	double health = 100;
 	double maxHealth = 100;
 	float healthRatio;
-	double fuel = 100;
-	double maxFuel = 100;
+	int fuel = 100;
+	int maxFuel = 100;
 	double fuelCost = 1;
 	float fuelRatio;
 	String s;
 	String cash;
 	int topOre = 4;
 	int maxDepth = 150;
+	int consumable = 0;
 	
 	
 
 	public int maxInventory = 10;
 	public static int curInventory = 0;
-	int drill = 0;
+	int drill = 500;
 	
-	public Consumable[] consumables = new Consumable[15];
+	public Consumable[] consumables = new Consumable[3];
 	
 	public int maxItemSlots = 1;
 	public static int curItemSlots = 0;
@@ -49,6 +50,7 @@ public class Ship {
 	static Image NetItem;
 	static Image FuelItem;
 	static Image RepairItem;
+	Image item = null;
 
 	static {
 		try {
@@ -109,7 +111,14 @@ public class Ship {
 		g.fillRect(WIDTH - (WIDTH / 8), HEIGHT / 21, WIDTH / 10, HEIGHT / 8);
 		g.fillRect(WIDTH - (WIDTH / 8), (HEIGHT / 6 )+ 8, WIDTH / 10, HEIGHT / 8);
 		
-		g.drawImage(NetItem, WIDTH - (WIDTH / 9) + 3, (HEIGHT / 6 )+ 15 , WIDTH / 15, HEIGHT / 10, null);
+		if (MyGame.ship.consumables[consumable] instanceof Net){
+			item = NetItem;
+		} else if (MyGame.ship.consumables[consumable] instanceof RepairKit) {
+			item = RepairItem;
+		} else if (MyGame.ship.consumables[consumable] instanceof FuelCanister){
+			item = FuelItem;
+		}
+		g.drawImage(item, WIDTH - (WIDTH / 9) + 3, (HEIGHT / 6 )+ 15 , WIDTH / 15, HEIGHT / 10, null);
 
 		Color color1 = new Color(255, 215, 0, 200);
 		Color color2 = new Color(200, 200, 200, 200);
@@ -145,7 +154,7 @@ public class Ship {
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
 		g.drawString("HEALTH", WIDTH / 17, (HEIGHT - (HEIGHT / 8) + 4));
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
-		g.drawString("FUEL" + fuel, WIDTH / 17, HEIGHT - (HEIGHT / 18) + 2);
+		g.drawString("FUEL", WIDTH / 17, HEIGHT - (HEIGHT / 18) + 2);
 		
 
 	}
