@@ -367,6 +367,7 @@ public class MyGame extends Game {
 			ship.deathInventory[i] = ship.inventory[i] / 2;
 			ship.inventory[i] = 0;
 		}
+		Sound.Death.play();
 	}
 
 	public void createTiles() {

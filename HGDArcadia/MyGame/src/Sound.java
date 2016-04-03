@@ -7,6 +7,10 @@ public class Sound {
 	public static final Sound MenuMusic = new Sound ("sounds/MenuMusic.wav");
 	public static final Sound Movement = new Sound ("sounds/MovementSoundEffect.wav");
 	public static final Sound Death = new Sound ("sounds/DeathExposion.wav");
+	public static final Sound Jet = new Sound ("sounds/JetNoise.wav");
+	public static final Sound PositiveFeedback = new Sound ("sounds/PositiveUpdate.wav");
+	public static final Sound Warning1 = new Sound("sounds/Warning1");
+	
 	
 	public AudioClip clip;
 	
