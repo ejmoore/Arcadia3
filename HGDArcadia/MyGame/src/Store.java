@@ -15,6 +15,9 @@ public class Store implements Building {
 	boolean inside = false;
 
 	static Image storeButton;
+	static Image fuel;
+	static Image net;
+	static Image repair;
 	static Font storeFont;
 	static Font smallFont;
 
@@ -22,6 +25,9 @@ public class Store implements Building {
 		storeFont = new Font("Jokerman", Font.PLAIN, 105);
 		try {
 			storeButton = ImageIO.read(MyGame.class.getResource("images/StoreButton.png"));
+			fuel = ImageIO.read(MyGame.class.getResource("images/FuelItem.png"));
+			net = ImageIO.read(MyGame.class.getResource("images/NetItem.png"));
+			repair = ImageIO.read(MyGame.class.getResource("images/RepairItem.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -75,6 +81,7 @@ public class Store implements Building {
 			else
 				g.setColor(Color.GRAY);
 			g.fillRect(WIDTH/10, 150, WIDTH/5, HEIGHT/2);
+			g.drawImage(fuel, WIDTH/10 + 25, 175, WIDTH/5 - 50, HEIGHT/2 - 50, null);
 			g.setColor(Color.WHITE);
 			g.setFont(smallFont);
 			g.drawString("$" + 2*MyGame.ship.maxFuel, WIDTH/10, 200+HEIGHT/2);
@@ -84,6 +91,7 @@ public class Store implements Building {
 			else
 				g.setColor(Color.GRAY);
 			g.fillRect(2*WIDTH/5, 150, WIDTH/5, HEIGHT/2);
+			g.drawImage(repair, 2*WIDTH/5 + 25, 175, WIDTH/5 - 50, HEIGHT/2 - 50, null);
 			g.setColor(Color.WHITE);
 			g.setFont(smallFont);
 			g.drawString("$" + MyGame.ship.maxFuel/2, 2*WIDTH/5, 200+HEIGHT/2);
@@ -93,9 +101,10 @@ public class Store implements Building {
 			else
 				g.setColor(Color.GRAY);
 			g.fillRect(7*WIDTH/10, 150, WIDTH/5, HEIGHT/2);
+			g.drawImage(net, 7*WIDTH/10 + 25, 175, WIDTH/5 - 50, HEIGHT/2 - 50, null);
 			g.setColor(Color.WHITE);
 			g.setFont(smallFont);
-			g.drawString("$" + 200, 7*WIDTH/10, 200+HEIGHT/2);
+			g.drawString("$" + 200.0, 7*WIDTH/10, 200+HEIGHT/2);
 			g.drawString("Net " + ncount, 7*WIDTH/10, 120);
 		}
 	}
