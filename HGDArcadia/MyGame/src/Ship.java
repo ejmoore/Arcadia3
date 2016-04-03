@@ -17,8 +17,8 @@ public class Ship {
 	int money = 0;
 	int[] inventory = new int[17];
 	int[] deathInventory = new int[17];
-	int health = 100;
-	int maxHealth = 100;
+	double health = 100;
+	double maxHealth = 100;
 	float healthRatio;
 	int fuel = 100;
 	int maxFuel = 100;
@@ -26,10 +26,11 @@ public class Ship {
 	String s;
 	String cash;
 	int topOre = 4;
+	int maxDepth = 150;
 
 	public int maxInventory = 10;
 	public static int curInventory = 0;
-	int drill = 0;
+	int drill = 500;
 	
 	public Consumable[] consumables = new Consumable[15];
 	
@@ -96,6 +97,7 @@ public class Ship {
 
 		g.setColor(new Color(20, 20, 20, 200));
 		g.fillRect(WIDTH - (WIDTH / 8), HEIGHT / 21, WIDTH / 10, HEIGHT / 8);
+
 
 		Color color1 = new Color(255, 215, 0, 200);
 		Color color2 = new Color(200, 200, 200, 200);

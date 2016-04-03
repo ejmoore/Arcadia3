@@ -42,7 +42,8 @@ public class MyGame extends Game {
 	long backgroundMusicEnd = -1;
 	long coinNoiseEnd = -1;
 	long menuMusicEnd = -1;
-
+	int depth;
+	
 	public static String loopingMusic = "";
 	String playingMusic = "";
 
@@ -104,8 +105,11 @@ public class MyGame extends Game {
 		Tile down = tiles[startx + 5][starty + 5];
 		Tile up = tiles[startx + 5][starty + 3];
 		Tile player = tiles[startx + 5][starty + 4];
-
+		if(ship.maxDepth < depth){
+			ship.health -= ship.maxHealth * .001;
+		}
 		if (!digging) {
+			
 			if (p1.pressed(Button.A)){
 				if (starty > 20)
 					ship.consumables[0].use(ship, player);
@@ -286,7 +290,9 @@ public class MyGame extends Game {
 
 		float maxSpeed = 1f;
 		float minSpeed = -1f;
+		
 
+		
 		if (!isPassable(up.tileType) || starty == 1 || (!isPassable(upleft.tileType) && deltaX >= 0.2)
 				|| (!isPassable(upright.tileType) && deltaX <= -0.2)) {
 			if ((deltaY + speed) > 0) {
@@ -587,18 +593,27 @@ public class MyGame extends Game {
 
 	@Override
 	public void tick(Graphics2D g, Input p1, arcadia.Sound s) {
+		long cur = System.currentTimeMillis() + 2000;
 		g.setColor(Color.WHITE); // Set the background color and draw it
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 52));
-		int depth = (starty - 13) * 10;
+		
 		String d = Integer.toString(depth);
-
+		depth = (starty - 13) * 10;
 		if (loadingGame)
 			createTiles();
-
+		
+		if(!gameStarted){
+			gameStarted = true;
+			backgroundMusicEnd = cur + 30000;
+			menuMusicEnd = -1;
+			Sound.backgroundMusic.play();
+			loopingMusic = "background";
+			playingMusic = "background";
+		}
 		for (int i = 0; i <= 5; i++) {
 			if (i == 5) {
-				if (ship.fuel == 0 || ship.health == 0) {
+				if (ship.fuel <= 0 || ship.health <= 0) {
 					death();
 				}
 				checkMovement(p1, s); // Executes all code involving
@@ -615,7 +630,7 @@ public class MyGame extends Game {
 		}
 		Particle.drawParticles(particles, g);
 
-		long cur = System.currentTimeMillis() + 2000;
+
 		if (System.currentTimeMillis() > movementSoundEnd) {
 			Sound.Movement.stop();
 		}
