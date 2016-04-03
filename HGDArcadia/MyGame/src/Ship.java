@@ -17,16 +17,16 @@ public class Ship {
 	int money = 0;
 	int[] inventory = new int[17];
 	int[] deathInventory = new int[17];
-	int health = 100;
-	int maxHealth = 100;
+	double health = 100;
+	double maxHealth = 100;
 	float healthRatio;
-	int fuel = 5;
+	int fuel = 100;
 	int maxFuel = 100;
 	float fuelRatio;
 	String s;
 	String cash;
 	int topOre = 4;
-	int maxDepth = 10;
+	int maxDepth = 150;
 
 	public int maxInventory = 10;
 	public static int curInventory = 0;
