@@ -355,8 +355,9 @@ public class CraftingBuilding implements Building {
 					System.out.println("YOU'RE TOO POOR");
 					return;
 				}
-				//Add fuel efficiency mechanic and change variable here
-				//TODO TODO TODO TODO
+				MyGame.ship.fuelCost = fuelEff[++curFuelEff-1];
+				MyGame.ship.fuel = MyGame.ship.maxFuel;
+				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[curFuelEff+1] -= 10;
 			}
 		}
 		if (upgrade.equals("Hull")) {

@@ -10,6 +10,7 @@ public class GasStation implements Building {
 	@Override
 	public void buildingControls(Input p1) {
 		if (p1.pressed(Button.B)) {
+			MyGame.loopingMusic = "background";
 			inside = false;
 		}
 		if (p1.pressed(Button.A)) {

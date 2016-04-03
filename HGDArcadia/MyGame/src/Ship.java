@@ -20,8 +20,9 @@ public class Ship {
 	double health = 100;
 	double maxHealth = 100;
 	float healthRatio;
-	int fuel = 100;
-	int maxFuel = 100;
+	double fuel = 100;
+	double maxFuel = 100;
+	double fuelCost = 1;
 	float fuelRatio;
 	String s;
 	String cash;
@@ -32,7 +33,7 @@ public class Ship {
 
 	public int maxInventory = 10;
 	public static int curInventory = 0;
-	int drill = 500;
+	int drill = 0;
 	
 	public Consumable[] consumables = new Consumable[15];
 	

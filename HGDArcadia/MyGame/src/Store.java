@@ -76,6 +76,7 @@ public class Store implements Building {
 		}
 
 		if (p1.pressed(Button.B)) {
+			MyGame.loopingMusic = "background";
 			inside = false;
 		}
 
