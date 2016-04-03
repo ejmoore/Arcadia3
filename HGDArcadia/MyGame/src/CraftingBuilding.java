@@ -358,6 +358,7 @@ public class CraftingBuilding implements Building {
 				MyGame.ship.fuelCost = fuelEff[++curFuelEff-1];
 				MyGame.ship.fuel = MyGame.ship.maxFuel;
 				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[curFuelEff+1] -= 10;
+				System.out.println(MyGame.ship.fuelCost);
 			}
 		}
 		if (upgrade.equals("Hull")) {
