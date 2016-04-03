@@ -26,10 +26,6 @@ public class Ship {
 	float healthRatio;
 	double fuel = 100;
 	double maxFuel = 100;
-<<<<<<< HEAD
-=======
-
->>>>>>> dbc6e4d5de26dee5dc81797fdf7f646053932a65
 	double fuelCost = 1;
 	
 	
