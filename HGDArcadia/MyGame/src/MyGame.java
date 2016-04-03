@@ -70,8 +70,7 @@ public class MyGame extends Game {
 		createTiles();
 		createOres();
 
-		ship.consumables[0] = new Net(3);
-
+		ship.consumables[0] = new RepairKit(3);
 		buildings[0] = new Store();
 		buildings[1] = new SaveLocation(tiles, height, width, ship);
 		buildings[2] = new CraftingBuilding();
