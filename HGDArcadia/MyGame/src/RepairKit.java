@@ -8,6 +8,6 @@ public class RepairKit extends Consumable {
 	@Override
 	public void use(Ship s, Tile t) {
 		s.health = s.maxHealth;
-
+		MyGame.ship.consumables[this.number] = null;
 	}
 }

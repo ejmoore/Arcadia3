@@ -16,7 +16,7 @@ public class Ship {
 	int tileSizeW;
 	
 	
-	int money = 0;
+	int money = 300;
 	int[] inventory = new int[17];
 	int[] deathInventory = new int[17];
 	
@@ -33,7 +33,7 @@ public class Ship {
 	String s;
 	String cash;
 	int topOre = 4;
-	int maxDepth = 150;
+	int maxDepth = 1250;
 	int consumable = 0;
 	
 	
@@ -93,9 +93,11 @@ public class Ship {
 		tileSizeH = tileH;
 		tileSizeW = tileW;
 		
-		for (int i = 0; i < 17; i++) {	//THIS IS GOD MODE INVENTORY SETTINGS
-			inventory[i] += 80;			//THIS IS GOD MODE INVENTORY SETTINGS
-		}								//THIS IS GOD MODE INVENTORY SETTINGS
+		//for (int i = 0; i < 9; i++) {	//THIS IS GOD MODE INVENTORY SETTINGS
+		//	inventory[i] += 80;			//THIS IS GOD MODE INVENTORY SETTINGS
+		//	curInventory += 80;			//THIS IS GOD MODE INVENTORY SETTINGS
+		//}								//THIS IS GOD MODE INVENTORY SETTINGS
+		//maxInventory = 10000;
 		
 	}
 

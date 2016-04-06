@@ -71,9 +71,9 @@ public class MyGame extends Game {
 		createTiles();
 		createOres();
 
-		ship.consumables[0] = new Net(3);
-		ship.consumables[1] = new RepairKit(3);
-		ship.consumables[2] = new FuelCanister(3);
+		//ship.consumables[0] = new Net(3);
+		ship.consumables[0] = new RepairKit(3);
+		//ship.consumables[2] = new FuelCanister(3);
 		
 		buildings[0] = new Store();
 		buildings[1] = new SaveLocation(tiles, height, width, ship);
@@ -106,8 +106,12 @@ public class MyGame extends Game {
 		if (!digging) {
 
 			if (p1.pressed(Button.A)) {
-				if (starty > 20)
+				if (ship.consumables[0] != null)
 					ship.consumables[0].use(ship, player);
+			}
+			else if (p1.pressed(Button.B)) {
+				ship.consumable++;
+				if (ship.consumable > ship.maxItemSlots) ship.consumable = 0;
 			}
 
 			if (player.tileType == 25) {

@@ -8,6 +8,7 @@ public class Net extends Consumable{
 	@Override
 	public void use(Ship s, Tile t) {
 		t.tileType = 25;
+		MyGame.ship.consumables[this.number] = null;	
 	}
 
 }

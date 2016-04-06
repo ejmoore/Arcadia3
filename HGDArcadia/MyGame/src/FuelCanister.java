@@ -8,7 +8,7 @@ public class FuelCanister extends Consumable {
 	@Override
 	public void use(Ship s, Tile t) {
 		s.fuel = s.maxFuel;
-		
+		MyGame.ship.consumables[this.number] = null;
 	}
 
 }
