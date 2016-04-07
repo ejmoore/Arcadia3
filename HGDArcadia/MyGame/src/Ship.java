@@ -52,6 +52,11 @@ public class Ship {
 	static Image shipLeftImage;
 	static Image shipRightImage;
 	
+	static Image[] drillStrength = new Image[1];
+	int drillStrengthIndex = -1;
+	static Image[] drillSpeed = new Image[1];
+	int drillSpeedIndex = -1;
+	
 	static Image NetItem;
 	static Image FuelItem;
 	static Image RepairItem;
@@ -66,6 +71,9 @@ public class Ship {
 			NetItem = ImageIO.read(MyGame.class.getResource("images/NetItem.png"));
 			FuelItem = ImageIO.read(MyGame.class.getResource("images/FuelItem.png"));
 			RepairItem = ImageIO.read(MyGame.class.getResource("images/RepairItem.png"));
+			
+			drillStrength[0] = ImageIO.read(MyGame.class.getResource("images/DrillStrengthUpgrade1.png"));
+			drillSpeed[0] = ImageIO.read(MyGame.class.getResource("images/DrillSpeedUpgrade1.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -84,6 +92,12 @@ public class Ship {
 		}
 		g.drawImage(temp, (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset, (HEIGHT / 2 - tileSizeH) - yOffset,
 				scale * tileSizeW + 1, scale * tileSizeH, null);
+		if (drillStrengthIndex > -1 && direction == 'd') {
+			g.drawImage(drillStrength[drillStrengthIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset + 31,
+				(HEIGHT / 2 - tileSizeH) - yOffset + 38, scale * 50 + 1, scale * 50, null);
+			g.drawImage(drillSpeed[drillSpeedIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset + 31,
+					(HEIGHT / 2 - tileSizeH) - yOffset + 38, scale * 50 + 1, scale * 50, null);
+		}
 	}
 
 	public Ship(int width, int height, int tileH, int tileW) {
@@ -92,11 +106,11 @@ public class Ship {
 		tileSizeH = tileH;
 		tileSizeW = tileW;
 		
-		//for (int i = 0; i < 9; i++) {	//THIS IS GOD MODE INVENTORY SETTINGS
-		//	inventory[i] += 80;			//THIS IS GOD MODE INVENTORY SETTINGS
-		//	curInventory += 80;			//THIS IS GOD MODE INVENTORY SETTINGS
-		//}								//THIS IS GOD MODE INVENTORY SETTINGS
-		//maxInventory = 10000;
+//		for (int i = 0; i < 9; i++) {	//THIS IS GOD MODE INVENTORY SETTINGS
+//			inventory[i] += 80;			//THIS IS GOD MODE INVENTORY SETTINGS
+//			curInventory += 80;			//THIS IS GOD MODE INVENTORY SETTINGS
+//		}								//THIS IS GOD MODE INVENTORY SETTINGS
+//		maxInventory = 10000;
 		
 	}
 

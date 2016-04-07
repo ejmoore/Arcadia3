@@ -342,6 +342,7 @@ public class CraftingBuilding implements Building {
 				}
 				MyGame.ship.drill = drillSpeed[++curSpeed-1]; //System.out.println(MyGame.ship.drill);
 				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[curSpeed+1] -= 10;
+				MyGame.ship.drillSpeedIndex++;
 			} else {
 				if (MyGame.ship.inventory[curMinable+2] < 10) {
 					//System.out.println("YOU'RE TOO POOR");
@@ -349,6 +350,7 @@ public class CraftingBuilding implements Building {
 				}
 				MyGame.notMineable.remove((Integer)mineable[curMinable]);
 				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[++curMinable+1] -= 10;
+				MyGame.ship.drillStrengthIndex++;
 				//System.out.println(MyGame.notMineable);
 				//System.out.println(mineable);
 				//System.out.println(curMinable);
