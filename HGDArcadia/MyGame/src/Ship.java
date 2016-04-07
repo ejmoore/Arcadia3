@@ -96,6 +96,9 @@ public class Ship {
 		if (drillStrengthIndex > -1 && direction == 'd') {
 			g.drawImage(drillStrength[drillStrengthIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset + 31,
 				(HEIGHT / 2 - tileSizeH) - yOffset + 38, scale * 50 + 1, scale * 50, null);
+			
+		}
+		if (drillSpeedIndex > -1 && direction == 'd') {
 			g.drawImage(drillSpeed[drillSpeedIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset + 31,
 					(HEIGHT / 2 - tileSizeH) - yOffset + 38, scale * 50 + 1, scale * 50, null);
 		}
@@ -107,7 +110,7 @@ public class Ship {
 		tileSizeH = tileH;
 		tileSizeW = tileW;
 		
-//		for (int i = 0; i < 9; i++) {	//THIS IS GOD MODE INVENTORY SETTINGS
+//		for (int i = 0; i < 11; i++) {	//THIS IS GOD MODE INVENTORY SETTINGS
 //			inventory[i] += 80;			//THIS IS GOD MODE INVENTORY SETTINGS
 //			curInventory += 80;			//THIS IS GOD MODE INVENTORY SETTINGS
 //		}								//THIS IS GOD MODE INVENTORY SETTINGS
