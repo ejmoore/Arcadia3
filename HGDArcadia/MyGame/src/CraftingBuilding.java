@@ -21,6 +21,11 @@ public class CraftingBuilding implements Building {
 	int[] maxDepth = { 2500, 3750, 5000, 6250, 7500, 8750, 10000, 1350, 1500, 1650, 1800, 1950, 2100, 2250 }; int curMaxDepth = 0;
 	int[] maxHealth = { 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600 }; int curMaxHealth = 0;
 	
+	public void drawString(Graphics2D g, String text, int x, int y) {
+		for (String line : text.split("\n")) {
+			g.drawString(line, x, y += g.getFontMetrics().getHeight());
+		}
+	}
 
 	public class SubMenu {
 		int menu = 0;
@@ -58,8 +63,10 @@ public class CraftingBuilding implements Building {
 					g.drawString(upgrade2 + "", (int) (i * ((float) WIDTH / 5.0f) + 50), HEIGHT - 250);
 				}
 			}
-			g.drawString("Increase the max depth you can reach", 305, HEIGHT - 250);
-			g.drawString("Increase your maximun health", 715, HEIGHT - 250);
+			//g.drawString("Increase the max depth\n you can reach", 305, HEIGHT - 250);
+			//g.drawString("Increase your maximum\n health", 715, HEIGHT - 250);
+			drawString(g,"Increase the max\ndepth you can\nreach",305,HEIGHT-300);
+			drawString(g,"Increase your \nmaximum health",715,HEIGHT-300);
 
 			g.setColor(Color.WHITE);
 			g.fillRect(WIDTH / 2 - 113, 50, 226, 144); // Preview
@@ -88,9 +95,11 @@ public class CraftingBuilding implements Building {
 					g.drawString(upgrade2 + "", (int) (i * ((float) WIDTH / 5.0f) + 50), HEIGHT - 250);
 				}
 			}
-			g.drawString("Increase the drill's speed", 305, HEIGHT - 250);
-			g.drawString("Increase the Best Ore you can mine", 715, HEIGHT - 250);
-
+//			g.drawString("Increase the drill's speed", 305, HEIGHT - 250);
+//			g.drawString("Increase the Best Ore you can mine", 715, HEIGHT - 250);
+			drawString(g,"Increase the \ndrill's speed",305,HEIGHT-300);
+			drawString(g,"Increase the Best \nOre you can mine",715,HEIGHT-300);
+			
 			g.setColor(Color.WHITE);
 			g.fillRect(WIDTH / 2 - 113, 50, 226, 144); // Preview
 			MyGame.ship.drawShip('r', g, 2, 52, 166);
@@ -117,8 +126,10 @@ public class CraftingBuilding implements Building {
 					g.drawString(upgrade2 + "", (int) (i * ((float) WIDTH / 5.0f) + 50), HEIGHT - 250);
 				}
 			}
-			g.drawString("Increase maximum fuel capacity", 305, HEIGHT - 250);
-			g.drawString("Increase your fuel efficiency", 715, HEIGHT - 250);
+//			g.drawString("Increase maximum fuel capacity", 305, HEIGHT - 250);
+//			g.drawString("Increase your fuel efficiency", 715, HEIGHT - 250);
+			drawString(g,"Increase maximum \nfuel capacity",305,HEIGHT-300);
+			drawString(g,"Increase your fuel \nefficiency",715,HEIGHT-300);
 
 			g.setColor(Color.WHITE);
 			g.fillRect(WIDTH / 2 - 113, 50, 226, 144); // Preview
@@ -146,8 +157,10 @@ public class CraftingBuilding implements Building {
 					g.drawString(upgrade2 + "", (int) (i * ((float) WIDTH / 5.0f) + 50), HEIGHT - 250);
 				}
 			}
-			g.drawString("Increase the max ore you can hold", 305, HEIGHT - 250);
-			g.drawString("Increase your max number of item slots", 715, HEIGHT - 250);
+//			g.drawString("Increase the max ore you can hold", 305, HEIGHT - 250);
+//			g.drawString("Increase your max number of item slots", 715, HEIGHT - 250);
+			drawString(g,"Increase the max \nore you can hold",305,HEIGHT-300);
+			drawString(g,"Increase your max \nnumber of item \nslots",715,HEIGHT-300);
 
 			g.setColor(Color.WHITE);
 			g.fillRect(WIDTH / 2 - 113, 50, 226, 144); // Preview
@@ -306,17 +319,17 @@ public class CraftingBuilding implements Building {
 			if (upgradeNum == 1) {
 				//System.out.println(MyGame.ship.inventory[curInventory+1] + " : " + curInventory);
 				if (MyGame.ship.inventory[curInventory+2] < 10) {
-					System.out.println("YOU'RE TOO POOR");
+					//System.out.println("YOU'RE TOO POOR");
 					return;
 				}
-				MyGame.ship.maxInventory = cargoInventory[++curInventory-1]; System.out.println(MyGame.ship.maxInventory);
+				MyGame.ship.maxInventory = cargoInventory[++curInventory-1]; //System.out.println(MyGame.ship.maxInventory);
 				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[curInventory+1] -= 10;
 			} else {
 				if (MyGame.ship.inventory[curItemSlots+2] < 10) {
-					System.out.println("YOU'RE TOO POOR");
+					//System.out.println("YOU'RE TOO POOR");
 					return;
 				}
-				MyGame.ship.maxItemSlots = itemSlots[++curItemSlots-1]; System.out.println(MyGame.ship.maxItemSlots);
+				MyGame.ship.maxItemSlots = itemSlots[++curItemSlots-1]; //System.out.println(MyGame.ship.maxItemSlots);
 				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[curItemSlots+1] -= 10;
 			}
 		}
@@ -324,14 +337,14 @@ public class CraftingBuilding implements Building {
 			if (upgradeNum == 1) {
 				//System.out.println(MyGame.ship.inventory[curSpeed+1] + " : " + curSpeed);
 				if (MyGame.ship.inventory[curSpeed+2] < 10) {
-					System.out.println("YOU'RE TOO POOR");
+					//System.out.println("YOU'RE TOO POOR");
 					return;
 				}
 				MyGame.ship.drill = drillSpeed[++curSpeed-1]; //System.out.println(MyGame.ship.drill);
 				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[curSpeed+1] -= 10;
 			} else {
 				if (MyGame.ship.inventory[curMinable+2] < 10) {
-					System.out.println("YOU'RE TOO POOR");
+					//System.out.println("YOU'RE TOO POOR");
 					return;
 				}
 				MyGame.notMineable.remove((Integer)mineable[curMinable]);
@@ -344,35 +357,35 @@ public class CraftingBuilding implements Building {
 		if (upgrade.equals("Fuel")) {
 			if (upgradeNum == 1) {
 				if (MyGame.ship.inventory[curMaxFuel+2] < 10) {
-					System.out.println("YOU'RE TOO POOR");
+					//System.out.println("YOU'RE TOO POOR");
 					return;
 				}
 				MyGame.ship.maxFuel = shipFuel[++curMaxFuel-1];
 				MyGame.ship.fuel = MyGame.ship.maxFuel;
 				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[curMaxFuel+1] -= 10;
-				System.out.println(MyGame.ship.maxFuel);
+				//System.out.println(MyGame.ship.maxFuel);
 			} else {
 				if (MyGame.ship.inventory[curFuelEff+2] < 10) {
-					System.out.println("YOU'RE TOO POOR");
+					//System.out.println("YOU'RE TOO POOR");
 					return;
 				}
 				MyGame.ship.fuelCost = fuelEff[++curFuelEff-1];
 				MyGame.ship.fuel = MyGame.ship.maxFuel;
 				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[curFuelEff+1] -= 10;
-				System.out.println(MyGame.ship.fuelCost);
+				//System.out.println(MyGame.ship.fuelCost);
 			}
 		}
 		if (upgrade.equals("Hull")) {
 			if (upgradeNum == 1) {
 				if (MyGame.ship.inventory[curMaxDepth+2] < 10) {
-					System.out.println("YOU'RE TOO POOR");
+					//System.out.println("YOU'RE TOO POOR");
 					return;
 				}
 				MyGame.ship.maxDepth = maxDepth[++curMaxDepth-1];
 				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[curMaxDepth+1] -= 10;
 			} else {
 				if (MyGame.ship.inventory[curMaxHealth+2] < 10) {
-					System.out.println("YOU'RE TOO POOR");
+					//System.out.println("YOU'RE TOO POOR");
 					return;
 				}
 				MyGame.ship.maxHealth = maxHealth[++curMaxHealth-1];

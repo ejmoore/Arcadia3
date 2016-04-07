@@ -232,6 +232,7 @@ public class Store implements Building {
 	public boolean buyConsumable(Consumable item) {
 		for (int i = 0; i < MyGame.ship.maxItemSlots; i++) {
 			if (MyGame.ship.consumables[i] == null) {
+				item.number = i;
 				MyGame.ship.consumables[i] = item;
 				item.number = i;
 				return true;

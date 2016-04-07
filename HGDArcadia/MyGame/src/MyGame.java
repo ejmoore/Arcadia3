@@ -72,7 +72,7 @@ public class MyGame extends Game {
 		createOres();
 
 		//ship.consumables[0] = new Net(3);
-		ship.consumables[0] = new RepairKit(3);
+		ship.consumables[0] = new RepairKit(0);
 		//ship.consumables[2] = new FuelCanister(3);
 		
 		buildings[0] = new Store();
@@ -106,12 +106,18 @@ public class MyGame extends Game {
 		if (!digging) {
 
 			if (p1.pressed(Button.A)) {
-				if (ship.consumables[0] != null)
+				if (ship.consumables[0] != null && starty >= 12)
 					ship.consumables[0].use(ship, player);
 			}
 			else if (p1.pressed(Button.B)) {
+				int size = ship.maxItemSlots;
 				ship.consumable++;
-				if (ship.consumable > ship.maxItemSlots) ship.consumable = 0;
+				for (int i = 0; i < size; i++) {
+					if (ship.consumable >= ship.maxItemSlots) ship.consumable = 0;
+					if (ship.consumables[ship.consumable] != null) break;
+					ship.consumable++;
+				}
+				
 			}
 
 			if (player.tileType == 25) {
@@ -439,10 +445,10 @@ public class MyGame extends Game {
 				if (ship.curInventory + tileData[tile.tileType].getStorageSpace() <= ship.maxInventory) {
 					ship.inventory[tile.tileType]++;
 					ship.curInventory += tileData[tile.tileType].getStorageSpace();
-					System.out.println(
-							"Current Inventory: " + ship.curInventory + ", Max Inventory: " + ship.maxInventory);
+					//System.out.println(
+					//		"Current Inventory: " + ship.curInventory + ", Max Inventory: " + ship.maxInventory);
 				} else {
-					System.out.println("Ship's Inventory was too full to store ore");
+					//System.out.println("Ship's Inventory was too full to store ore");
 				}
 			} else if (tile.tileType == 21) {
 				int tempSize = ship.maxInventory;
