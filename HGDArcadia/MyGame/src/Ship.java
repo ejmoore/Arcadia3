@@ -42,10 +42,9 @@ public class Ship {
 	public static int curInventory = 0;
 	int drill = 0;
 	
-	public Consumable[] consumables = new Consumable[3];
+	public Consumable[] consumables = new Consumable[15];
 	
 	public int maxItemSlots = 1;
-	public static int curItemSlots = 0;
 
 
 	static Image shipImage;
@@ -136,14 +135,16 @@ public class Ship {
 		g.fillRect(WIDTH - (WIDTH / 8), HEIGHT / 21, WIDTH / 10, HEIGHT / 8);
 		g.fillRect(WIDTH - (WIDTH / 8), (HEIGHT / 6 )+ 8, WIDTH / 10, HEIGHT / 8);
 		
-		if (MyGame.ship.consumables[consumable] instanceof Net){
-			item = NetItem;
-		} else if (MyGame.ship.consumables[consumable] instanceof RepairKit) {
-			item = RepairItem;
-		} else if (MyGame.ship.consumables[consumable] instanceof FuelCanister){
-			item = FuelItem;
+		if (MyGame.ship.consumables[consumable] != null) {
+			if (MyGame.ship.consumables[consumable] instanceof Net){
+				item = NetItem;
+			} else if (MyGame.ship.consumables[consumable] instanceof RepairKit) {
+				item = RepairItem;
+			} else if (MyGame.ship.consumables[consumable] instanceof FuelCanister) {
+				item = FuelItem;
+			}
+			g.drawImage(item, WIDTH - (WIDTH / 9) + 3, (HEIGHT / 6 )+ 15 , WIDTH / 15, HEIGHT / 10, null);
 		}
-		g.drawImage(item, WIDTH - (WIDTH / 9) + 3, (HEIGHT / 6 )+ 15 , WIDTH / 15, HEIGHT / 10, null);
 
 		Color color1 = new Color(255, 215, 0, 200);
 		for (int i = 16; i > 4; i--) {
