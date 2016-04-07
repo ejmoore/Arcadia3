@@ -72,7 +72,7 @@ public class MyGame extends Game {
 		createOres();
 
 		//ship.consumables[0] = new Net(3);
-		ship.consumables[0] = new RepairKit(3);
+		ship.consumables[0] = new RepairKit(0);
 		//ship.consumables[2] = new FuelCanister(3);
 		
 		buildings[0] = new Store();
