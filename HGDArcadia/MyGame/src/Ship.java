@@ -52,9 +52,9 @@ public class Ship {
 	static Image shipLeftImage;
 	static Image shipRightImage;
 	
-	static Image[] drillStrength = new Image[1];
+	static Image[] drillStrength = new Image[3];
 	int drillStrengthIndex = -1;
-	static Image[] drillSpeed = new Image[1];
+	static Image[] drillSpeed = new Image[3];
 	int drillSpeedIndex = -1;
 	
 	static Image NetItem;
@@ -73,7 +73,11 @@ public class Ship {
 			RepairItem = ImageIO.read(MyGame.class.getResource("images/RepairItem.png"));
 			
 			drillStrength[0] = ImageIO.read(MyGame.class.getResource("images/DrillStrengthUpgrade1.png"));
+			drillStrength[1] = ImageIO.read(MyGame.class.getResource("images/DrillStrengthUpgrade2.png"));
+			drillStrength[2] = ImageIO.read(MyGame.class.getResource("images/DrillStrengthUpgrade3.png"));
 			drillSpeed[0] = ImageIO.read(MyGame.class.getResource("images/DrillSpeedUpgrade1.png"));
+			drillSpeed[1] = ImageIO.read(MyGame.class.getResource("images/DrillSpeedUpgrade2.png"));
+			drillSpeed[2] = ImageIO.read(MyGame.class.getResource("images/DrillSpeedUpgrade3.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

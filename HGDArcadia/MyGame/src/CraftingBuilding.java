@@ -17,8 +17,8 @@ public class CraftingBuilding implements Building {
 	int[] drillSpeed = { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150 }; int curSpeed = 0;
 	int[] mineable = { 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 }; int curMinable = 0;
 	int[] shipFuel = { 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600 }; int curMaxFuel = 0;
-	double[] fuelEff = { .9, .8, .75, .7, .65, .6, .55, .5, .45, .4, .35, .3, .25, .2, .1 }; int curFuelEff = 0;
-	int[] maxDepth = { 2500, 3750, 5000, 6250, 7500, 8750, 10000, 1350, 1500, 1650, 1800, 1950, 2100, 2250 }; int curMaxDepth = 0;
+	double[] fuelEff = { .9, .8, .7, .6, .5, .4, .3, .2, .45, .4, .35, .3, .25, .2, .1 }; int curFuelEff = 0;
+	int[] maxDepth = { 2500, 3750, 5000, 6250, 7500, 8750, 10000, 11250, 1500, 1650, 1800, 1950, 2100, 2250 }; int curMaxDepth = 0;
 	int[] maxHealth = { 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600 }; int curMaxHealth = 0;
 	
 	public void drawString(Graphics2D g, String text, int x, int y) {
