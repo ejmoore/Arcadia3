@@ -53,8 +53,10 @@ public class Ship {
 	static Image shipRightImage;
 	
 	static Image[] drillStrength = new Image[3];
+	static Image[] drillStrengthUp = new Image[3];
 	int drillStrengthIndex = -1;
 	static Image[] drillSpeed = new Image[3];
+	static Image[] drillSpeedUp = new Image[3];
 	int drillSpeedIndex = -1;
 	
 	static Image NetItem;
@@ -73,11 +75,17 @@ public class Ship {
 			RepairItem = ImageIO.read(MyGame.class.getResource("images/RepairItem.png"));
 			
 			drillStrength[0] = ImageIO.read(MyGame.class.getResource("images/DrillStrengthUpgrade1.png"));
+			drillStrengthUp[0] = ImageIO.read(MyGame.class.getResource("images/DrillStrengthUpgradeUp1.png"));
 			drillStrength[1] = ImageIO.read(MyGame.class.getResource("images/DrillStrengthUpgrade2.png"));
+			drillStrengthUp[1] = ImageIO.read(MyGame.class.getResource("images/DrillStrengthUpgradeUp2.png"));
 			drillStrength[2] = ImageIO.read(MyGame.class.getResource("images/DrillStrengthUpgrade3.png"));
+			drillStrengthUp[2] = ImageIO.read(MyGame.class.getResource("images/DrillStrengthUpgradeUp3.png"));
 			drillSpeed[0] = ImageIO.read(MyGame.class.getResource("images/DrillSpeedUpgrade1.png"));
+			drillSpeedUp[0] = ImageIO.read(MyGame.class.getResource("images/DrillSpeedUpgradeUp1.png"));
 			drillSpeed[1] = ImageIO.read(MyGame.class.getResource("images/DrillSpeedUpgrade2.png"));
+			drillSpeedUp[1] = ImageIO.read(MyGame.class.getResource("images/DrillSpeedUpgradeUp2.png"));
 			drillSpeed[2] = ImageIO.read(MyGame.class.getResource("images/DrillSpeedUpgrade3.png"));
+			drillSpeedUp[2] = ImageIO.read(MyGame.class.getResource("images/DrillSpeedUpgradeUp3.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -96,14 +104,25 @@ public class Ship {
 		}
 		g.drawImage(temp, (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset, (HEIGHT / 2 - tileSizeH) - yOffset,
 				scale * tileSizeW + 1, scale * tileSizeH, null);
-		if (drillStrengthIndex > -1 && direction == 'd') {
-			g.drawImage(drillStrength[drillStrengthIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset + 31,
+		if (direction == 'd') {
+			if (drillStrengthIndex > -1) {
+				g.drawImage(drillStrength[drillStrengthIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset + 31,
 				(HEIGHT / 2 - tileSizeH) - yOffset + 38, scale * 50 + 1, scale * 50, null);
-			
-		}
-		if (drillSpeedIndex > -1 && direction == 'd') {
-			g.drawImage(drillSpeed[drillSpeedIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset + 31,
+			}
+			if (drillSpeedIndex > -1) {
+				g.drawImage(drillSpeed[drillSpeedIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset + 31,
 					(HEIGHT / 2 - tileSizeH) - yOffset + 38, scale * 50 + 1, scale * 50, null);
+			}
+		}
+		else if (direction == 'u') {
+			if (drillStrengthIndex > -1) {
+				g.drawImage(drillStrengthUp[drillStrengthIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset + 31,
+				(HEIGHT / 2 - tileSizeH) - yOffset - 16, scale * 50 + 1, scale * 50, null);
+			}
+			if (drillSpeedIndex > -1) {
+				g.drawImage(drillSpeedUp[drillSpeedIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset + 31,
+					(HEIGHT / 2 - tileSizeH) - yOffset - 16, scale * 50 + 1, scale * 50, null);
+			}
 		}
 	}
 
@@ -173,9 +192,12 @@ public class Ship {
 		} else if (money < 1000){
 			g.setFont(new Font("TimesRoman", Font.PLAIN, 32));
 			g.drawString("$" + cash, WIDTH - (WIDTH / 10)-5, HEIGHT / (13) + HEIGHT / 19);
-		} else {
+		} else if (money < 10000){
 			g.setFont(new Font("TimesRoman", Font.PLAIN, 26));
 			g.drawString("$" + cash, WIDTH - (WIDTH / 10)-5, HEIGHT / (13) + HEIGHT / 20);
+		} else {
+			g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+			g.drawString("$" + cash, WIDTH - (WIDTH / 10)-4, HEIGHT / (13) + HEIGHT / 21);
 		}
 
 		g.setColor(Color.WHITE);

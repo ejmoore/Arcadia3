@@ -44,7 +44,7 @@ public class MyGame extends Game {
 	long menuMusicEnd = -1;
 	int depth;
 	
-
+	
 	public static String loopingMusic = "";
 	String playingMusic = "";
 
