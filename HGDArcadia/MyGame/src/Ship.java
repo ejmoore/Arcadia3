@@ -151,7 +151,7 @@ public class Ship {
 		HEIGHT = height;
 		tileSizeH = tileH;
 		tileSizeW = tileW;
-		
+	
 //		for (int i = 0; i < 11; i++) {	//THIS IS GOD MODE INVENTORY SETTINGS
 //			inventory[i] += 80;			//THIS IS GOD MODE INVENTORY SETTINGS
 //			curInventory += 80;			//THIS IS GOD MODE INVENTORY SETTINGS
