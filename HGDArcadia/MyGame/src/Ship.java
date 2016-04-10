@@ -52,11 +52,11 @@ public class Ship {
 	static Image shipLeftImage;
 	static Image shipRightImage;
 	
-	static Image[] drillStrength = new Image[3];
-	static Image[] drillStrengthUp = new Image[3];
+	static Image[] drillStrength = new Image[8];
+	static Image[] drillStrengthUp = new Image[8];
 	int drillStrengthIndex = -1;
-	static Image[] drillSpeed = new Image[3];
-	static Image[] drillSpeedUp = new Image[3];
+	static Image[] drillSpeed = new Image[8];
+	static Image[] drillSpeedUp = new Image[8];
 	int drillSpeedIndex = -1;
 	
 	static Image NetItem;
@@ -80,12 +80,32 @@ public class Ship {
 			drillStrengthUp[1] = ImageIO.read(MyGame.class.getResource("images/DrillStrengthUpgradeUp2.png"));
 			drillStrength[2] = ImageIO.read(MyGame.class.getResource("images/DrillStrengthUpgrade3.png"));
 			drillStrengthUp[2] = ImageIO.read(MyGame.class.getResource("images/DrillStrengthUpgradeUp3.png"));
+			drillStrength[3] = ImageIO.read(MyGame.class.getResource("images/DrillStrengthUpgrade4.png"));
+			drillStrengthUp[3] = ImageIO.read(MyGame.class.getResource("images/DrillStrengthUpgradeUp4.png"));
+			drillStrength[4] = ImageIO.read(MyGame.class.getResource("images/DrillStrengthUpgrade5.png"));
+			drillStrengthUp[4] = ImageIO.read(MyGame.class.getResource("images/DrillStrengthUpgradeUp5.png"));
+			drillStrength[5] = ImageIO.read(MyGame.class.getResource("images/DrillStrengthUpgrade6.png"));
+			drillStrengthUp[5] = ImageIO.read(MyGame.class.getResource("images/DrillStrengthUpgradeUp6.png"));
+			drillStrength[6] = ImageIO.read(MyGame.class.getResource("images/DrillStrengthUpgrade7.png"));
+			drillStrengthUp[6] = ImageIO.read(MyGame.class.getResource("images/DrillStrengthUpgradeUp7.png"));
+			drillStrength[7] = ImageIO.read(MyGame.class.getResource("images/DrillStrengthUpgrade8.png"));
+			drillStrengthUp[7] = ImageIO.read(MyGame.class.getResource("images/DrillStrengthUpgradeUp8.png"));
 			drillSpeed[0] = ImageIO.read(MyGame.class.getResource("images/DrillSpeedUpgrade1.png"));
 			drillSpeedUp[0] = ImageIO.read(MyGame.class.getResource("images/DrillSpeedUpgradeUp1.png"));
 			drillSpeed[1] = ImageIO.read(MyGame.class.getResource("images/DrillSpeedUpgrade2.png"));
 			drillSpeedUp[1] = ImageIO.read(MyGame.class.getResource("images/DrillSpeedUpgradeUp2.png"));
 			drillSpeed[2] = ImageIO.read(MyGame.class.getResource("images/DrillSpeedUpgrade3.png"));
 			drillSpeedUp[2] = ImageIO.read(MyGame.class.getResource("images/DrillSpeedUpgradeUp3.png"));
+			drillSpeed[3] = ImageIO.read(MyGame.class.getResource("images/DrillSpeedUpgrade4.png"));
+			drillSpeedUp[3] = ImageIO.read(MyGame.class.getResource("images/DrillSpeedUpgradeUp4.png"));
+			drillSpeed[4] = ImageIO.read(MyGame.class.getResource("images/DrillSpeedUpgrade5.png"));
+			drillSpeedUp[4] = ImageIO.read(MyGame.class.getResource("images/DrillSpeedUpgradeUp5.png"));
+			drillSpeed[5] = ImageIO.read(MyGame.class.getResource("images/DrillSpeedUpgrade6.png"));
+			drillSpeedUp[5] = ImageIO.read(MyGame.class.getResource("images/DrillSpeedUpgradeUp6.png"));
+			drillSpeed[6] = ImageIO.read(MyGame.class.getResource("images/DrillSpeedUpgrade7.png"));
+			drillSpeedUp[6] = ImageIO.read(MyGame.class.getResource("images/DrillSpeedUpgradeUp7.png"));
+			drillSpeed[7] = ImageIO.read(MyGame.class.getResource("images/DrillSpeedUpgrade8.png"));
+			drillSpeedUp[7] = ImageIO.read(MyGame.class.getResource("images/DrillSpeedUpgradeUp8.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
