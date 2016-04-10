@@ -16,7 +16,7 @@ public class Ship {
 	int tileSizeW;
 	
 	
-	int money = 30000;
+	int money = 300;
 	int[] inventory = new int[17];
 	int[] deathInventory = new int[17];
 	
