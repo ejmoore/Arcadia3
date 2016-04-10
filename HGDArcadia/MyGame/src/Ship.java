@@ -136,6 +136,15 @@ public class Ship {
 		HEIGHT = height;
 		tileSizeH = tileH;
 		tileSizeW = tileW;
+<<<<<<< HEAD
+	
+//		for (int i = 0; i < 11; i++) {	//THIS IS GOD MODE INVENTORY SETTINGS
+//			inventory[i] += 80;			//THIS IS GOD MODE INVENTORY SETTINGS
+//			curInventory += 80;			//THIS IS GOD MODE INVENTORY SETTINGS
+//		}								//THIS IS GOD MODE INVENTORY SETTINGS
+//		maxInventory = 10000;
+		
+=======
 
 		 for (int i = 0; i < 11; i++) { //THIS IS GOD MODE INVENTORY SETTINGS
 		 inventory[i] += 80; //THIS IS GOD MODE INVENTORY SETTINGS
@@ -143,6 +152,7 @@ public class Ship {
 		 } //THIS IS GOD MODE INVENTORY SETTINGS
 		 maxInventory = 10000;
 
+>>>>>>> a45be496f971a9a955293afd55c21fb4a83762ee
 	}
 
 	public void drawInterface(Graphics2D g) {
