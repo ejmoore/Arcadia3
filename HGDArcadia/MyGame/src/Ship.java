@@ -16,7 +16,7 @@ public class Ship {
 	int tileSizeW;
 	
 	
-	int money = 300;
+	int money = 30000;
 	int[] inventory = new int[17];
 	int[] deathInventory = new int[17];
 	
@@ -173,9 +173,12 @@ public class Ship {
 		} else if (money < 1000){
 			g.setFont(new Font("TimesRoman", Font.PLAIN, 32));
 			g.drawString("$" + cash, WIDTH - (WIDTH / 10)-5, HEIGHT / (13) + HEIGHT / 19);
-		} else {
+		} else if (money < 10000){
 			g.setFont(new Font("TimesRoman", Font.PLAIN, 26));
 			g.drawString("$" + cash, WIDTH - (WIDTH / 10)-5, HEIGHT / (13) + HEIGHT / 20);
+		} else {
+			g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+			g.drawString("$" + cash, WIDTH - (WIDTH / 10)-4, HEIGHT / (13) + HEIGHT / 21);
 		}
 
 		g.setColor(Color.WHITE);
