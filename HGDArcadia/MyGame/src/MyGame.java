@@ -200,7 +200,7 @@ public class MyGame extends Game {
 			deltaX += .1;
 			if (deltaX > 0) {
 				deltaX = 0;
-				ship.fuel -= ship.fuelCost;
+				ship.fuel -= ship.fuelCost/2;
 			}
 		} else
 			if (isPassable(left.tileType) && ((Math.abs(deltaY) < .1) || (isPassable(upleft.tileType) && deltaY >= 0.1)
@@ -210,7 +210,7 @@ public class MyGame extends Game {
 			if (deltaX > 0.5) {
 				startx--;
 				deltaX = -0.5f;
-				ship.fuel -= ship.fuelCost;
+				ship.fuel -= ship.fuelCost/2;
 
 			}
 		} else if (isMineable(left.tileType) && !isPassable(down.tileType) && Math.abs(deltaX) < 0.01
@@ -219,7 +219,7 @@ public class MyGame extends Game {
 			digTile = left;
 			diggingDirection = 1;
 			digging = dig(digTile, diggingDirection);
-			ship.fuel -= ship.fuelCost;
+			ship.fuel -= ship.fuelCost*4;
 		}
 
 	}
@@ -235,7 +235,7 @@ public class MyGame extends Game {
 			deltaX -= .1;
 			if (deltaX < 0) {
 				deltaX = 0;
-				ship.fuel -= ship.fuelCost;
+				ship.fuel -= ship.fuelCost/2;
 			}
 		} else if (isPassable(right.tileType)
 				&& ((Math.abs(deltaY) < .1) || (isPassable(upright.tileType) && deltaY >= 0.1)
@@ -245,7 +245,7 @@ public class MyGame extends Game {
 			if (deltaX < -0.5) {
 				startx++;
 				deltaX = 0.5f;
-				ship.fuel -= ship.fuelCost;
+				ship.fuel -= ship.fuelCost/2;
 			}
 		} else if (isMineable(right.tileType) && !isPassable(down.tileType) && Math.abs(deltaX) < 0.01
 				&& Math.abs(deltaY) < 0.01) {
@@ -253,7 +253,7 @@ public class MyGame extends Game {
 			digTile = right;
 			diggingDirection = 2;
 			digging = dig(digTile, diggingDirection);
-			ship.fuel -= ship.fuelCost;
+			ship.fuel -= ship.fuelCost*4;
 		}
 	}
 
@@ -265,7 +265,7 @@ public class MyGame extends Game {
 			digTile = down;
 			diggingDirection = 3;
 			digging = dig(digTile, diggingDirection);
-			ship.fuel -= ship.fuelCost;
+			ship.fuel -= ship.fuelCost*4;
 		}
 	}
 
@@ -276,8 +276,8 @@ public class MyGame extends Game {
 		Tile up = tiles[startx + 5][starty + 3];
 		if (deltaY < 0) { // space between block
 			speed += accel;
-		} else if (isPassable(up.tileType) && (Math.abs(deltaX) < .1 || (isPassable(upleft.tileType) && deltaX >= 0.1)
-				|| (isPassable(upright.tileType) && deltaX <= -0.1))) {
+		} else if (isPassable(up.tileType) && (Math.abs(deltaX) < .2 || (isPassable(upleft.tileType) && deltaX >= 0.2)
+				|| (isPassable(upright.tileType) && deltaX <= -0.2))) {
 			// open space above, not allowed to mine up
 			speed += accel;
 			if (speed < 0)
@@ -333,7 +333,7 @@ public class MyGame extends Game {
 			}
 		} else if (speed > 0) {
 			if (isPassable(up.tileType) && (Math.abs(deltaX) < .2 || (isPassable(upleft.tileType) && deltaX >= .2)
-					|| (isPassable(upright.tileType) && deltaX <= -.2)) || deltaY < 0) {
+					|| (isPassable(upright.tileType) && deltaX <= -.2)) || deltaY < 0) {			
 				deltaY += speed;
 			}
 		}
@@ -342,12 +342,12 @@ public class MyGame extends Game {
 			starty--;
 			deltaY = 0;
 			if (p1.pressed(Button.U))
-				ship.fuel -= ship.fuelCost;
+				ship.fuel -= ship.fuelCost/2;
 		} else if (deltaY < -1) {
 			starty++;
 			deltaY = 0;
 			if (p1.pressed(Button.U))
-				ship.fuel -= ship.fuelCost;
+				ship.fuel -= ship.fuelCost/2;
 		}
 
 	}

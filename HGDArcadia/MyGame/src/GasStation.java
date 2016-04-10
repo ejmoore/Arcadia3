@@ -30,7 +30,7 @@ public class GasStation implements Building {
 
 	@Override
 	public void enter() {
-		if ((MyGame.ship.maxFuel - MyGame.ship.fuel) <= MyGame.ship.money) {
+		if ((MyGame.ship.maxFuel - MyGame.ship.fuel)/10 <= MyGame.ship.money) {
 			MyGame.ship.money -= (MyGame.ship.maxFuel - MyGame.ship.fuel)/10;
 			MyGame.ship.fuel = MyGame.ship.maxFuel;
 		}
