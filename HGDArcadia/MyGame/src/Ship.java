@@ -54,9 +54,12 @@ public class Ship {
 	
 	static Image[] drillStrength = new Image[3];
 	static Image[] drillStrengthUp = new Image[3];
+	
 	int drillStrengthIndex = -1;
+	
 	static Image[] drillSpeed = new Image[3];
 	static Image[] drillSpeedUp = new Image[3];
+	
 	int drillSpeedIndex = -1;
 	
 	static Image NetItem;
@@ -132,11 +135,11 @@ public class Ship {
 		tileSizeH = tileH;
 		tileSizeW = tileW;
 		
-//		for (int i = 0; i < 11; i++) {	//THIS IS GOD MODE INVENTORY SETTINGS
-//			inventory[i] += 80;			//THIS IS GOD MODE INVENTORY SETTINGS
-//			curInventory += 80;			//THIS IS GOD MODE INVENTORY SETTINGS
-//		}								//THIS IS GOD MODE INVENTORY SETTINGS
-//		maxInventory = 10000;
+		for (int i = 0; i < 11; i++) {	//THIS IS GOD MODE INVENTORY SETTINGS
+			inventory[i] += 80;			//THIS IS GOD MODE INVENTORY SETTINGS
+			curInventory += 80;			//THIS IS GOD MODE INVENTORY SETTINGS
+		}								//THIS IS GOD MODE INVENTORY SETTINGS
+		maxInventory = 10000;
 		
 	}
 

@@ -642,6 +642,7 @@ public class MyGame extends Game {
 				break;
 			}
 		}
+		//Sound.Jet.play();
 		Particle.drawParticles(particles, g);
 
 		if (System.currentTimeMillis() > movementSoundEnd) {
