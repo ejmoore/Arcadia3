@@ -37,7 +37,7 @@ public class Tile {
 			greenOre = ImageIO.read(MyGame.class.getResource("images/GreenOre.png"));
 			pinkOre = ImageIO.read(MyGame.class.getResource("images/PinkOre.png"));
 			yellowOre = ImageIO.read(MyGame.class.getResource("images/YellowOre.png"));
-			multicolorOre = ImageIO.read(MyGame.class.getResource("images/FancyShmansyOre2.png"));
+			multicolorOre = ImageIO.read(MyGame.class.getResource("images/FancyShmansyOre.png"));
 			redOre = ImageIO.read(MyGame.class.getResource("images/RedOre.png"));
 			starOre = ImageIO.read(MyGame.class.getResource("images/SilverOre.png"));
 			circleOre = ImageIO.read(MyGame.class.getResource("images/FancyCirclyOre.png"));
