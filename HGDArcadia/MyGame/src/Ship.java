@@ -45,6 +45,7 @@ public class Ship {
 	static Image shipLeftImage;
 	static Image shipRightImage;
 
+
 	static Image[] drillStrength = new Image[8];
 	static Image[] drillStrengthUp = new Image[8];
 	static Image[] drillStrengthLeft = new Image[8];
@@ -168,13 +169,12 @@ public class Ship {
 		tileSizeH = tileH;
 		tileSizeW = tileW;
 
-	
-		for (int i = 0; i < 11; i++) {	//THIS IS GOD MODE INVENTORY SETTINGS
-			inventory[i] += 80;			//THIS IS GOD MODE INVENTORY SETTINGS
-			curInventory += 80;			//THIS IS GOD MODE INVENTORY SETTINGS
-		}								//THIS IS GOD MODE INVENTORY SETTINGS
-		maxInventory = 10000;
-		
+		// for (int i = 0; i < 11; i++) { //THIS IS GOD MODE INVENTORY SETTINGS
+		// inventory[i] += 80; //THIS IS GOD MODE INVENTORY SETTINGS
+		// curInventory += 80; //THIS IS GOD MODE INVENTORY SETTINGS
+		// } //THIS IS GOD MODE INVENTORY SETTINGS
+		// maxInventory = 10000;
+
 
 	}
 

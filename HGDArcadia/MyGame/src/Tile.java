@@ -15,18 +15,20 @@ public class Tile {
 	static Image store;
 	static Image saveLocation;
 	static Image craftingBuilding;
+	static Image gasStation;
 	static Image dirt;
 	static Image blueOre;
 	static Image greenOre;
 	static Image pinkOre;
 	static Image yellowOre;
-	static Image multicolorOre;
 	static Image redOre;
 	static Image starOre;
 	static Image circleOre;
+	static Image multicolorOre;
 	static Image dirtBackground;
 	static Image skyBackground;
 	static Image net;
+	static Image death;
 
 	static {
 		try {
@@ -44,7 +46,9 @@ public class Tile {
 			dirtBackground = ImageIO.read(MyGame.class.getResource("images/DirtBackground.png"));
 			skyBackground = ImageIO.read(MyGame.class.getResource("images/SkyBackground.png"));
 			craftingBuilding = ImageIO.read(MyGame.class.getResource("images/CraftingBuilding.png"));
+			gasStation = ImageIO.read(MyGame.class.getResource("images/GasStation.png"));
 			net = ImageIO.read(MyGame.class.getResource("images/Net.png"));
+			death = ImageIO.read(MyGame.class.getResource("images/Death.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -107,7 +111,7 @@ public class Tile {
 		} else if (tileType == 10) {
 			g.drawImage(multicolorOre, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
 		} else if (tileType == 21) {
-			g.drawImage(multicolorOre, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
+			g.drawImage(death, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
 		}else if (tileType == 25) {
 			g.drawImage(net, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
 		} else if (tileType == 99) {
@@ -118,6 +122,9 @@ public class Tile {
 		} else if (tileType == 96) {
 			g.drawImage(skyBackground, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
 			g.drawImage(craftingBuilding, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
+		} else if (tileType == 95) {
+			g.drawImage(skyBackground, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
+			g.drawImage(gasStation, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
 		} else if (tileType == 0) {
 			if (col < 18) {
 				g.drawImage(skyBackground, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);

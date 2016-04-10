@@ -6,7 +6,7 @@ import arcadia.*;
 public class GasStation implements Building {
 
 	boolean inside = false;
-	
+
 	@Override
 	public void buildingControls(Input p1) {
 		if (p1.pressed(Button.B)) {
@@ -20,7 +20,7 @@ public class GasStation implements Building {
 
 	@Override
 	public void drawBuilding(Graphics2D g) {
-		
+
 	}
 
 	@Override
@@ -30,11 +30,16 @@ public class GasStation implements Building {
 
 	@Override
 	public void enter() {
-		if ((MyGame.ship.maxFuel - MyGame.ship.fuel)/10 <= MyGame.ship.money) {
-			MyGame.ship.money -= (MyGame.ship.maxFuel - MyGame.ship.fuel)/10;
+
+		if ((MyGame.ship.maxFuel - MyGame.ship.fuel) / 10 <= MyGame.ship.money) {
+
+			if (MyGame.ship.maxFuel != MyGame.ship.fuel) {
+				Sound.coinNoise.play();
+			}
+			MyGame.ship.money -= (MyGame.ship.maxFuel - MyGame.ship.fuel) / 10;
 			MyGame.ship.fuel = MyGame.ship.maxFuel;
-		}
-		else 
+
+		} else
 			System.out.println("Too poor/Come back later");
 	}
 
