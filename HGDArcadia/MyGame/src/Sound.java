@@ -10,7 +10,7 @@ public class Sound {
 	public static final Sound Jet = new Sound ("/sounds/JetNoise.wav");
 	public static final Sound PositiveFeedback = new Sound ("/sounds/PositiveUpdate.wav");
 	public static final Sound Warning1 = new Sound("/sounds/Warning1.wav");
-	
+	public static final Sound Upgrade = new Sound("/sounds/Upgrade.wav");
 	public AudioClip clip;
 	
 	Thread sound1;

@@ -320,6 +320,7 @@ public class CraftingBuilding implements Building {
 				//System.out.println(MyGame.ship.inventory[curInventory+1] + " : " + curInventory);
 				if (MyGame.ship.inventory[curInventory+2] < 10) {
 					//System.out.println("YOU'RE TOO POOR");
+					Sound.Warning1.play();
 					return;
 				}
 				MyGame.ship.maxInventory = cargoInventory[++curInventory-1]; //System.out.println(MyGame.ship.maxInventory);
@@ -327,6 +328,7 @@ public class CraftingBuilding implements Building {
 			} else {
 				if (MyGame.ship.inventory[curItemSlots+2] < 10) {
 					//System.out.println("YOU'RE TOO POOR");
+					Sound.Warning1.play();
 					return;
 				}
 				MyGame.ship.maxItemSlots = itemSlots[++curItemSlots-1]; //System.out.println(MyGame.ship.maxItemSlots);
@@ -338,6 +340,7 @@ public class CraftingBuilding implements Building {
 				//System.out.println(MyGame.ship.inventory[curSpeed+1] + " : " + curSpeed);
 				if (MyGame.ship.inventory[curSpeed+2] < 10) {
 					//System.out.println("YOU'RE TOO POOR");
+					Sound.Warning1.play();
 					return;
 				}
 				MyGame.ship.drill = drillSpeed[++curSpeed-1]; //System.out.println(MyGame.ship.drill);
@@ -346,6 +349,7 @@ public class CraftingBuilding implements Building {
 			} else {
 				if (MyGame.ship.inventory[curMinable+2] < 10) {
 					//System.out.println("YOU'RE TOO POOR");
+					Sound.Warning1.play();
 					return;
 				}
 				MyGame.notMineable.remove((Integer)mineable[curMinable]);
@@ -369,6 +373,7 @@ public class CraftingBuilding implements Building {
 			} else {
 				if (MyGame.ship.inventory[curFuelEff+2] < 10) {
 					//System.out.println("YOU'RE TOO POOR");
+					Sound.Warning1.play();
 					return;
 				}
 				MyGame.ship.fuelCost = fuelEff[++curFuelEff-1];
@@ -381,6 +386,7 @@ public class CraftingBuilding implements Building {
 			if (upgradeNum == 1) {
 				if (MyGame.ship.inventory[curMaxDepth+2] < 10) {
 					//System.out.println("YOU'RE TOO POOR");
+					Sound.Warning1.play();
 					return;
 				}
 				MyGame.ship.maxDepth = maxDepth[++curMaxDepth-1];
@@ -388,6 +394,7 @@ public class CraftingBuilding implements Building {
 			} else {
 				if (MyGame.ship.inventory[curMaxHealth+2] < 10) {
 					//System.out.println("YOU'RE TOO POOR");
+					Sound.Warning1.play();
 					return;
 				}
 				MyGame.ship.maxHealth = maxHealth[++curMaxHealth-1];
@@ -396,6 +403,7 @@ public class CraftingBuilding implements Building {
 			}
 		}
 		System.out.println("UPGRADE PURCHASED");
+		Sound.Upgrade.play();
 	}
 
 }

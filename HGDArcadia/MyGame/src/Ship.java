@@ -45,18 +45,24 @@ public class Ship {
 	static Image shipLeftImage;
 	static Image shipRightImage;
 
+
 	static Image[] drillStrength = new Image[8];
 	static Image[] drillStrengthUp = new Image[8];
+	static Image[] drillStrengthLeft = new Image[8];
+	static Image[] drillStrengthRight = new Image[8];
 	int drillStrengthIndex = -1;
 	static Image[] drillSpeed = new Image[8];
 	static Image[] drillSpeedUp = new Image[8];
+	static Image[] drillSpeedLeft = new Image[8];
+	static Image[] drillSpeedRight = new Image[8];
 	int drillSpeedIndex = -1;
+	
 
 	static Image[] fuelCapacity = new Image[8];
 	static Image[] fuelCapacityUp = new Image[8];
 	int fuelCapacityIndex = -1;
 	static Image[] fuelEfficiency = new Image[8];
-	static Image[] fueldEfficiencyUp = new Image[8];
+	static Image[] fuelEfficiencyUp = new Image[8];
 	int fuelEfficiencyIndex = -1;
 
 	static Image NetItem;
@@ -77,20 +83,28 @@ public class Ship {
 			for (int i = 1; i <= 8; i++) {
 				String strength = "images/DrillStrengthUpgrade" + i + ".png";
 				String strengthUp = "images/DrillStrengthUpgradeUp" + i + ".png";
-				fuelCapacity[i - 1] = ImageIO.read(MyGame.class.getResource(strength));
-				fuelCapacity[i - 1] = ImageIO.read(MyGame.class.getResource(strengthUp));
+				String strengthLeft = "images/DrillStrengthUpgradeLeft" + i + ".png";
+				String strengthRight = "images/DrillStrengthUpgradeRight" + i + ".png";
+				drillStrength[i - 1] = ImageIO.read(MyGame.class.getResource(strength));
+				drillStrengthUp[i - 1] = ImageIO.read(MyGame.class.getResource(strengthUp));
+				drillStrengthLeft[i - 1] = ImageIO.read(MyGame.class.getResource(strengthLeft));
+				drillStrengthRight[i - 1] = ImageIO.read(MyGame.class.getResource(strengthRight));
 				String speed = "images/DrillSpeedUpgrade" + i + ".png";
 				String speedUp = "images/DrillSpeedUpgradeUp" + i + ".png";
-				fuelCapacity[i - 1] = ImageIO.read(MyGame.class.getResource(speed));
-				fuelCapacity[i - 1] = ImageIO.read(MyGame.class.getResource(speedUp));
+				String speedLeft = "images/DrillSpeedUpgradeLeft" + i + ".png";
+				String speedRight = "images/DrillSpeedUpgradeRight" + i + ".png";
+				drillSpeed[i - 1] = ImageIO.read(MyGame.class.getResource(speed));
+				drillSpeedUp[i - 1] = ImageIO.read(MyGame.class.getResource(speedUp));
+				drillSpeedLeft[i - 1] = ImageIO.read(MyGame.class.getResource(speedLeft));
+				drillSpeedRight[i - 1] = ImageIO.read(MyGame.class.getResource(speedRight));
 				String cap = "images/FuelCapacityUpgrade" + i + ".png";
 				String capUp = "images/FuelCapacityUpgradeUp" + i + ".png";
 				fuelCapacity[i - 1] = ImageIO.read(MyGame.class.getResource(cap));
-				fuelCapacity[i - 1] = ImageIO.read(MyGame.class.getResource(capUp));
+				fuelCapacityUp[i - 1] = ImageIO.read(MyGame.class.getResource(capUp));
 				String eff = "images/FuelEfficiencyUpgrade" + i + ".png";
 				String effUp = "images/FuelEfficiencyUpgradeUp" + i + ".png";
-				fuelCapacity[i - 1] = ImageIO.read(MyGame.class.getResource(eff));
-				fuelCapacity[i - 1] = ImageIO.read(MyGame.class.getResource(effUp));
+				fuelEfficiency[i - 1] = ImageIO.read(MyGame.class.getResource(eff));
+				fuelEfficiencyUp[i - 1] = ImageIO.read(MyGame.class.getResource(effUp));
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -128,6 +142,24 @@ public class Ship {
 				g.drawImage(drillSpeedUp[drillSpeedIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset + 31,
 						(HEIGHT / 2 - tileSizeH) - yOffset - 16, scale * 50 + 1, scale * 50, null);
 			}
+		} else if (direction == 'l') {
+			if (drillStrengthIndex > -1) {
+				g.drawImage(drillStrengthLeft[drillStrengthIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset - 1,
+						(HEIGHT / 2 - tileSizeH) - yOffset + 4, scale * 28 + 1, scale * 62, null);
+			}
+			if (drillSpeedIndex > -1) {
+				g.drawImage(drillSpeedLeft[drillSpeedIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset - 1,
+						(HEIGHT / 2 - tileSizeH) - yOffset + 4, scale * 28 + 1, scale * 62, null);
+			}
+		} else if (direction == 'r') {
+			if (drillStrengthIndex > -1) {
+				g.drawImage(drillStrengthRight[drillStrengthIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset + 86,
+						(HEIGHT / 2 - tileSizeH) - yOffset + 6, scale * 28 + 1, scale * 62, null);
+			}
+			if (drillSpeedIndex > -1) {
+				g.drawImage(drillSpeedRight[drillSpeedIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset + 86,
+						(HEIGHT / 2 - tileSizeH) - yOffset + 6, scale * 28 + 1, scale * 62, null);
+			}
 		}
 	}
 
@@ -136,11 +168,13 @@ public class Ship {
 		HEIGHT = height;
 		tileSizeH = tileH;
 		tileSizeW = tileW;
+
 		// for (int i = 0; i < 11; i++) { //THIS IS GOD MODE INVENTORY SETTINGS
 		// inventory[i] += 80; //THIS IS GOD MODE INVENTORY SETTINGS
 		// curInventory += 80; //THIS IS GOD MODE INVENTORY SETTINGS
 		// } //THIS IS GOD MODE INVENTORY SETTINGS
 		// maxInventory = 10000;
+
 
 	}
 

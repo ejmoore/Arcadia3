@@ -107,11 +107,32 @@ public class SaveLocation implements Building {
 		writer.println((int)ship.money);
 		writer.println();
 		writer.flush();
+
+		//consumables
+			
+		for (int i = 0; i < ship.maxItemSlots; i++){
+			if(ship.consumables[i] instanceof Net){
+				writer.print(1 + " ");
+			}else if (ship.consumables[i] instanceof RepairKit){
+				writer.print(2 + " ");
+			}else{
+				writer.print(3 + " ");
+			}
+		}
+		writer.println();
 		
-		
+		//upgrades
+		writer.println(ship.drillSpeedIndex);
+		writer.println(ship.drillStrengthIndex);
+		writer.println(ship.maxItemSlots);
+		writer.println();
 		
 		// death inventory
+		for (int i = 0; i < ship.inventory.length; i++){
+			writer.print(ship.deathInventory[i] + " ");
+		}
 		
+		writer.println();
 		for (int j = 0; j < height; j++) {
 			for (int i = 0; i <= width + 14; i++) {
 				int next = tiles[i][j].tileType;
@@ -167,6 +188,29 @@ public class SaveLocation implements Building {
 				
 		// money 
 		ship.money = map.nextInt();
+		
+		//consumables
+		for (int i = 0; i < ship.maxItemSlots; i++){
+			int next = map.nextInt();
+			if (next == 1){
+				ship.consumables[i] = new Net(i);
+			}else if(next == 2){
+				ship.consumables[i] = new RepairKit(i);
+			}else{
+				ship.consumables[i] = new FuelCanister(i);
+			}
+		}
+		
+		
+		//upgrades
+		ship.drillSpeedIndex=map.nextInt();
+		ship.drillStrengthIndex=map.nextInt();
+		ship.maxItemSlots = map.nextInt();
+		
+		// death inventory
+		for (int i = 0; i < ship.inventory.length; i++){
+			ship.deathInventory[i] = map.nextInt();
+		}
 		
 		
 		for (int y = 0; y < height; y++) {
