@@ -398,11 +398,11 @@ public class MyGame extends Game {
 	 * @param g Graphics Object
 	 */
 	public void drawTiles(Graphics2D g) {
-		float k = -1 + deltaX;
+		float k = deltaX - 1;
 		for (int i = startx; i <= startx + 10; i++) {
-			float h = -1 + deltaY;
+			float h = deltaY - 1;
 			for (int j = starty; j <= starty + 10; j++) {
-				tiles[i][j].drawTile(g, (k), (h));
+				tiles[i][j].drawTile(g, k, h);
 				h++;
 			}
 			k++;
