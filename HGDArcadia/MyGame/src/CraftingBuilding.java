@@ -369,6 +369,7 @@ public class CraftingBuilding implements Building {
 				MyGame.ship.maxFuel = shipFuel[++curMaxFuel-1];
 				MyGame.ship.fuel = MyGame.ship.maxFuel;
 				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[curMaxFuel+1] -= 10;
+				MyGame.ship.fuelCapacityIndex++;
 				//System.out.println(MyGame.ship.maxFuel);
 			} else {
 				if (MyGame.ship.inventory[curFuelEff+2] < 10) {
@@ -379,6 +380,7 @@ public class CraftingBuilding implements Building {
 				MyGame.ship.fuelCost = fuelEff[++curFuelEff-1];
 				MyGame.ship.fuel = MyGame.ship.maxFuel;
 				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[curFuelEff+1] -= 10;
+				MyGame.ship.fuelEfficiencyIndex++;
 				//System.out.println(MyGame.ship.fuelCost);
 			}
 		}

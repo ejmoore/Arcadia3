@@ -133,6 +133,14 @@ public class Ship {
 				g.drawImage(drillSpeed[drillSpeedIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset + 31,
 						(HEIGHT / 2 - tileSizeH) - yOffset + 38, scale * 50 + 1, scale * 50, null);
 			}
+			if (fuelCapacityIndex > -1) {
+				g.drawImage(fuelCapacity[fuelCapacityIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset - 21,
+						(HEIGHT / 2 - tileSizeH) - yOffset - 12, scale * 113, scale * 72, null);
+			}
+			if (fuelEfficiencyIndex > -1) {
+				g.drawImage(fuelEfficiency[fuelEfficiencyIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset - 21,
+						(HEIGHT / 2 - tileSizeH) - yOffset - 12, scale * 113, scale * 72, null);
+			}
 		} else if (direction == 'u') {
 			if (drillStrengthIndex > -1) {
 				g.drawImage(drillStrengthUp[drillStrengthIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset + 31,
@@ -141,6 +149,14 @@ public class Ship {
 			if (drillSpeedIndex > -1) {
 				g.drawImage(drillSpeedUp[drillSpeedIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset + 31,
 						(HEIGHT / 2 - tileSizeH) - yOffset - 16, scale * 50 + 1, scale * 50, null);
+			}
+			if (fuelCapacityIndex > -1) {
+				g.drawImage(fuelCapacityUp[fuelCapacityIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset + 22,
+						(HEIGHT / 2 - tileSizeH) - yOffset + 12, scale * 113, scale * 72, null);
+			}
+			if (fuelEfficiencyIndex > -1) {
+				g.drawImage(fuelEfficiencyUp[fuelEfficiencyIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset + 22,
+						(HEIGHT / 2 - tileSizeH) - yOffset + 12, scale * 113, scale * 72, null);
 			}
 		} else if (direction == 'l') {
 			if (drillStrengthIndex > -1) {
@@ -169,11 +185,11 @@ public class Ship {
 		tileSizeH = tileH;
 		tileSizeW = tileW;
 
-		// for (int i = 0; i < 11; i++) { //THIS IS GOD MODE INVENTORY SETTINGS
-		// inventory[i] += 80; //THIS IS GOD MODE INVENTORY SETTINGS
-		// curInventory += 80; //THIS IS GOD MODE INVENTORY SETTINGS
-		// } //THIS IS GOD MODE INVENTORY SETTINGS
-		// maxInventory = 10000;
+		 for (int i = 0; i < 11; i++) { //THIS IS GOD MODE INVENTORY SETTINGS
+		 inventory[i] += 80; //THIS IS GOD MODE INVENTORY SETTINGS
+		 curInventory += 80; //THIS IS GOD MODE INVENTORY SETTINGS
+		 } //THIS IS GOD MODE INVENTORY SETTINGS
+		 maxInventory = 10000;
 
 
 	}
