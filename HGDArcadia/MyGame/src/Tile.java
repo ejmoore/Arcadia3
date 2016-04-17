@@ -95,7 +95,7 @@ public class Tile {
 		g.fillRect((int) (x * tileSizeW), (int) (y * tileSizeH), tileSizeW,
 				tileSizeH+4);
 		if (tileType == 1 || tileType == 98) {
-			g.drawImage(dirt, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
+			g.drawImage(dirt, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 73, null);
 		} else if (tileType == 2) {
 			g.drawImage(blueOre, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
 		} else if (tileType == 3) {

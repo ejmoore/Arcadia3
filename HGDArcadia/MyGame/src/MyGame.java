@@ -56,7 +56,7 @@ public class MyGame extends Game {
 	public MyGame() {
 
 		try {
-			banner = ImageIO.read(MyGame.class.getResource("images/banner.png"));
+			banner = ImageIO.read(MyGame.class.getResource("images/banner2.png"));
 		} catch (IOException e) {
 			System.out.println("NO BANNER FOUND");
 			e.printStackTrace();

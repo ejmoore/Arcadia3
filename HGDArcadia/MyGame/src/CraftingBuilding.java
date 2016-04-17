@@ -43,6 +43,8 @@ public class CraftingBuilding implements Building {
 		}
 
 		public void drawMenu1(Graphics2D g) { // Hull Upgrade
+			upgrade1 = (curMaxDepth == 5) ? curMaxDepth+2:curMaxDepth+1;
+			upgrade2 = (curMaxHealth == 5) ? curMaxHealth+2:curMaxHealth+1;
 			g.setColor(Color.BLACK);
 			g.fillRect(0, 0, WIDTH, HEIGHT);
 
@@ -53,14 +55,18 @@ public class CraftingBuilding implements Building {
 				} else {
 					g.setColor(Color.WHITE);
 				}
-				g.fillRect((int) (i * ((float) WIDTH / 5.0f)), HEIGHT - 300, 100, 100);
+				g.fillRect((int) (i * ((float) WIDTH / 5.0f)-13), HEIGHT - 300, 113, 100);
 				g.setColor(Color.GRAY);
 				g.fillRect((int) (i * ((float) WIDTH / 5.0f)) + 100, HEIGHT - 300, 200, 100);
 				g.setColor(Color.MAGENTA);
 				if (i == 1) {
-					g.drawString(upgrade1 + "", (int) (i * ((float) WIDTH / 5.0f) + 50), HEIGHT - 250);
+					Tile temp = new Tile(upgrade1+1,0,0,1,1);
+					temp.drawTile(g,(int) (i * ((float) WIDTH / 5.0f)-13), HEIGHT - 286);
+					g.setColor(Color.MAGENTA);
 				} else {
-					g.drawString(upgrade2 + "", (int) (i * ((float) WIDTH / 5.0f) + 50), HEIGHT - 250);
+					Tile temp = new Tile(upgrade2+1,0,0,1,1);
+					temp.drawTile(g,(int) (i * ((float) WIDTH / 5.0f)-13), HEIGHT - 286);
+					g.setColor(Color.MAGENTA);
 				}
 			}
 			//g.drawString("Increase the max depth\n you can reach", 305, HEIGHT - 250);
@@ -75,6 +81,8 @@ public class CraftingBuilding implements Building {
 		}
 
 		public void drawMenu2(Graphics2D g) { // Drill Upgrade
+			upgrade1 = (curSpeed == 5) ? curSpeed+2:curSpeed+1;
+			upgrade2 = (curMinable == 5) ? curMinable+2:curMinable+1;
 			g.setColor(Color.BLACK);
 			g.fillRect(0, 0, WIDTH, HEIGHT);
 
@@ -85,14 +93,18 @@ public class CraftingBuilding implements Building {
 				} else {
 					g.setColor(Color.WHITE);
 				}
-				g.fillRect((int) (i * ((float) WIDTH / 5.0f)), HEIGHT - 300, 100, 100);
+				g.fillRect((int) (i * ((float) WIDTH / 5.0f)-13), HEIGHT - 300, 113, 100);
 				g.setColor(Color.GRAY);
 				g.fillRect((int) (i * ((float) WIDTH / 5.0f)) + 100, HEIGHT - 300, 200, 100);
 				g.setColor(Color.MAGENTA);
 				if (i == 1) {
-					g.drawString(upgrade1 + "", (int) (i * ((float) WIDTH / 5.0f) + 50), HEIGHT - 250);
+					Tile temp = new Tile(upgrade1+1,0,0,1,1);
+					temp.drawTile(g,(int) (i * ((float) WIDTH / 5.0f)-13), HEIGHT - 286);
+					g.setColor(Color.MAGENTA);
 				} else {
-					g.drawString(upgrade2 + "", (int) (i * ((float) WIDTH / 5.0f) + 50), HEIGHT - 250);
+					Tile temp = new Tile(upgrade2+1,0,0,1,1);
+					temp.drawTile(g,(int) (i * ((float) WIDTH / 5.0f)-13), HEIGHT - 286);
+					g.setColor(Color.MAGENTA);
 				}
 			}
 //			g.drawString("Increase the drill's speed", 305, HEIGHT - 250);
@@ -106,6 +118,8 @@ public class CraftingBuilding implements Building {
 		}
 
 		public void drawMenu3(Graphics2D g) { // Fuel Upgrade
+			upgrade1 = (curMaxFuel == 5) ? curMaxFuel+2:curMaxFuel+1;
+			upgrade2 = (curFuelEff == 5) ? curFuelEff+2:curFuelEff+1;
 			g.setColor(Color.BLACK);
 			g.fillRect(0, 0, WIDTH, HEIGHT);
 
@@ -116,19 +130,23 @@ public class CraftingBuilding implements Building {
 				} else {
 					g.setColor(Color.WHITE);
 				}
-				g.fillRect((int) (i * ((float) WIDTH / 5.0f)), HEIGHT - 300, 100, 100);
+				g.fillRect((int) (i * ((float) WIDTH / 5.0f)-13), HEIGHT - 300, 113, 100);
 				g.setColor(Color.GRAY);
 				g.fillRect((int) (i * ((float) WIDTH / 5.0f)) + 100, HEIGHT - 300, 200, 100);
 				g.setColor(Color.MAGENTA);
 				if (i == 1) {
-					g.drawString(upgrade1 + "", (int) (i * ((float) WIDTH / 5.0f) + 50), HEIGHT - 250);
+					Tile temp = new Tile(upgrade1+1,0,0,1,1);
+					temp.drawTile(g,(int) (i * ((float) WIDTH / 5.0f)-13), HEIGHT - 286);
+					g.setColor(Color.MAGENTA);
 				} else {
-					g.drawString(upgrade2 + "", (int) (i * ((float) WIDTH / 5.0f) + 50), HEIGHT - 250);
+					Tile temp = new Tile(upgrade2+1,0,0,1,1);
+					temp.drawTile(g,(int) (i * ((float) WIDTH / 5.0f)-13), HEIGHT - 286);
+					g.setColor(Color.MAGENTA);
 				}
 			}
 //			g.drawString("Increase maximum fuel capacity", 305, HEIGHT - 250);
 //			g.drawString("Increase your fuel efficiency", 715, HEIGHT - 250);
-			drawString(g,"Increase maximum \nfuel capacity",305,HEIGHT-300);
+			drawString(g,"Increase \nmaximum fuel \ncapacity",305,HEIGHT-300);
 			drawString(g,"Increase your fuel \nefficiency",715,HEIGHT-300);
 
 			g.setColor(Color.WHITE);
@@ -137,6 +155,8 @@ public class CraftingBuilding implements Building {
 		}
 
 		public void drawMenu4(Graphics2D g) { // Cargo Bay upgrade
+			upgrade1 = (curInventory == 5) ? curInventory+2:curInventory+1;
+			upgrade2 = (curItemSlots == 5) ? curItemSlots+2:curItemSlots+1;
 			g.setColor(Color.BLACK);
 			g.fillRect(0, 0, WIDTH, HEIGHT);
 
@@ -147,20 +167,24 @@ public class CraftingBuilding implements Building {
 				} else {
 					g.setColor(Color.WHITE);
 				}
-				g.fillRect((int) (i * ((float) WIDTH / 5.0f)), HEIGHT - 300, 100, 100);
+				g.fillRect((int) (i * ((float) WIDTH / 5.0f)-13), HEIGHT - 300, 113, 100);
 				g.setColor(Color.GRAY);
 				g.fillRect((int) (i * ((float) WIDTH / 5.0f)) + 100, HEIGHT - 300, 200, 100);
 				g.setColor(Color.MAGENTA);
 				if (i == 1) {
-					g.drawString(upgrade1 + "", (int) (i * ((float) WIDTH / 5.0f) + 50), HEIGHT - 250);
+					Tile temp = new Tile(upgrade1+1,0,0,1,1);
+					temp.drawTile(g,(int) (i * ((float) WIDTH / 5.0f)-13), HEIGHT - 286);
+					g.setColor(Color.MAGENTA);
 				} else {
-					g.drawString(upgrade2 + "", (int) (i * ((float) WIDTH / 5.0f) + 50), HEIGHT - 250);
+					Tile temp = new Tile(upgrade2+1,0,0,1,1);
+					temp.drawTile(g,(int) (i * ((float) WIDTH / 5.0f)-13), HEIGHT - 286);
+					g.setColor(Color.MAGENTA);
 				}
 			}
 //			g.drawString("Increase the max ore you can hold", 305, HEIGHT - 250);
 //			g.drawString("Increase your max number of item slots", 715, HEIGHT - 250);
 			drawString(g,"Increase the max \nore you can hold",305,HEIGHT-300);
-			drawString(g,"Increase your max \nnumber of item \nslots",715,HEIGHT-300);
+			drawString(g,"Increase your \nmax number of \nitem slots",715,HEIGHT-300);
 
 			g.setColor(Color.WHITE);
 			g.fillRect(WIDTH / 2 - 113, 50, 226, 144); // Preview
@@ -223,7 +247,7 @@ public class CraftingBuilding implements Building {
 					e.printStackTrace();
 				}
 			}
-			if (p1.pressed(Button.L) && activeButton > 0) {
+			if (p1.pressed(Button.L) && activeButton > 1) {
 				activeButton -= 1;
 				try {
 					Thread.sleep(100);
@@ -249,7 +273,7 @@ public class CraftingBuilding implements Building {
 
 	@Override
 	public void drawBuilding(Graphics2D g) { // 1024x576
-		g.setFont(new Font("TimesRoman", Font.PLAIN, 25));
+		g.setFont(new Font("TimesRoman", Font.PLAIN, 22));
 		if (currentMenu == null) {
 			g.setColor(Color.BLACK);
 			g.fillRect(0, 0, WIDTH, HEIGHT);
@@ -427,7 +451,7 @@ public class CraftingBuilding implements Building {
 				}
 			}
 		}
-		System.out.println("UPGRADE PURCHASED");
+		//System.out.println("UPGRADE PURCHASED");
 		Sound.Upgrade.play();
 	}
 
