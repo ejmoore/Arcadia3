@@ -16,6 +16,7 @@ public class Tile {
 	static Image saveLocation;
 	static Image craftingBuilding;
 	static Image gasStation;
+	static Image victoryBuilding;
 	static Image dirt;
 	static Image blueOre;
 	static Image greenOre;
@@ -46,6 +47,7 @@ public class Tile {
 			dirtBackground = ImageIO.read(MyGame.class.getResource("images/DirtBackground.png"));
 			skyBackground = ImageIO.read(MyGame.class.getResource("images/SkyBackground.png"));
 			craftingBuilding = ImageIO.read(MyGame.class.getResource("images/CraftingBuilding.png"));
+			victoryBuilding = ImageIO.read(MyGame.class.getResource("images/GGLS.png"));
 			gasStation = ImageIO.read(MyGame.class.getResource("images/GasStation.png"));
 			net = ImageIO.read(MyGame.class.getResource("images/Net.png"));
 			death = ImageIO.read(MyGame.class.getResource("images/Death.png"));
@@ -125,6 +127,9 @@ public class Tile {
 		} else if (tileType == 95) {
 			g.drawImage(skyBackground, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
 			g.drawImage(gasStation, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
+		} else if (tileType == 94){
+			g.drawImage(skyBackground, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
+			g.drawImage(victoryBuilding, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);
 		} else if (tileType == 0) {
 			if (col < 18) {
 				g.drawImage(skyBackground, (int) (x * tileSizeW), (int) (y * tileSizeH), 113, 72, null);

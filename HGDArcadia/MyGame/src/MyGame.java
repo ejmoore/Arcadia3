@@ -32,7 +32,7 @@ public class MyGame extends Game {
 	boolean digging = false;
 	Tile digTile = null;
 	int diggingDirection = 0;
-	Building[] buildings = new Building[5];
+	Building[] buildings = new Building[6];
 	Scanner map = null;
 	char lastDirection = 'u';
 	ArrayList<Particle> particles = new ArrayList<Particle>();
@@ -49,7 +49,7 @@ public class MyGame extends Game {
 	String playingMusic = "";
 
 	static ArrayList<Integer> notMineable = new ArrayList<Integer>(10);
-	int[] passables = { 0, 25, 95, 96, 97, 99 };
+	int[] passables = { 0, 25, 94, 95, 96, 97, 99 };
 
 	public static boolean loadingGame = false;
 
@@ -80,6 +80,7 @@ public class MyGame extends Game {
 		buildings[2] = new CraftingBuilding();
 		buildings[3] = new InventoryScreen();
 		buildings[4] = new GasStation();
+		buildings[5] = new Victory();
 
 		notMineable.add(7);
 		notMineable.add(98);
@@ -147,6 +148,9 @@ public class MyGame extends Game {
 				if (p1.pressed(Button.D)) {
 					buildings[4].enter();
 				}
+			} else if (player.tileType == 94){
+				if(p1.pressed(Button.D))
+					buildings[5].enter();
 			}
 
 			updateMove(p1);
@@ -625,8 +629,8 @@ public class MyGame extends Game {
 			loopingMusic = "background";
 			playingMusic = "background";
 		}
-		for (int i = 0; i <= 5; i++) {
-			if (i == 5) {
+		for (int i = 0; i <= 6; i++) {
+			if (i == 6) {
 				if (ship.fuel <= 0 || ship.health <= 0) {
 					death();
 				}
