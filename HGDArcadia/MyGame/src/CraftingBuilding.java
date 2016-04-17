@@ -325,6 +325,7 @@ public class CraftingBuilding implements Building {
 				}
 				MyGame.ship.maxInventory = cargoInventory[++curInventory-1]; //System.out.println(MyGame.ship.maxInventory);
 				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[curInventory+1] -= 10;
+				MyGame.ship.cargoInventoryIndex++;
 			} else {
 				if (MyGame.ship.inventory[curItemSlots+2] < 10) {
 					//System.out.println("YOU'RE TOO POOR");
