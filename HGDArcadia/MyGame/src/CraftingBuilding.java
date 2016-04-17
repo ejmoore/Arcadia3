@@ -333,6 +333,7 @@ public class CraftingBuilding implements Building {
 				}
 				MyGame.ship.maxItemSlots = itemSlots[++curItemSlots-1]; //System.out.println(MyGame.ship.maxItemSlots);
 				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[curItemSlots+1] -= 10;
+				MyGame.ship.cargoItemSlotsIndex++;
 			}
 		}
 		if (upgrade.equals("Drill")) {
@@ -393,6 +394,7 @@ public class CraftingBuilding implements Building {
 				}
 				MyGame.ship.maxDepth = maxDepth[++curMaxDepth-1];
 				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[curMaxDepth+1] -= 10;
+				MyGame.ship.hullDepthIndex++;
 			} else {
 				if (MyGame.ship.inventory[curMaxHealth+2] < 10) {
 					//System.out.println("YOU'RE TOO POOR");
@@ -402,6 +404,7 @@ public class CraftingBuilding implements Building {
 				MyGame.ship.maxHealth = maxHealth[++curMaxHealth-1];
 				MyGame.ship.health = MyGame.ship.maxHealth;
 				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[curMaxHealth+1] -= 10;
+				MyGame.ship.hullHealthIndex++;
 			}
 		}
 		System.out.println("UPGRADE PURCHASED");
