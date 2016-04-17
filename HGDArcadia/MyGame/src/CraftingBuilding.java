@@ -281,40 +281,41 @@ public class CraftingBuilding implements Building {
 			g.setColor(Color.WHITE);
 			if (activeButton == 1) {
 				g.setColor(Color.BLUE);
-				g.fillRect(102, 250, 118, 125);// Hull
+				//g.fillRect(x, y, width, height);
+				g.fillRect(102, 255, 160, 105);// Hull
 			} else {
 				g.setColor(Color.WHITE);
-				g.fillRect(102, 250, 118, 125);
+				g.fillRect(102, 255, 160, 105);
 			}
 			g.setColor(Color.MAGENTA);
 			g.drawString("Hull upgrades", 112, 313);
 			if (activeButton == 2) {
 				g.setColor(Color.BLUE);
-				g.fillRect(352, 250, 117, 125);// Drill
+				g.fillRect(352, 255, 160, 105);// Drill
 			} else {
 				g.setColor(Color.WHITE);
-				g.fillRect(352, 250, 117, 125);
+				g.fillRect(352, 255, 160, 105);
 			}
 			g.setColor(Color.MAGENTA);
 			g.drawString("Drill upgrades", 362, 313);
 			if (activeButton == 3) {
 				g.setColor(Color.BLUE);
-				g.fillRect(586, 250, 117, 125);// Fuel
+				g.fillRect(586, 255, 160, 105);// Fuel
 			} else {
 				g.setColor(Color.WHITE);
-				g.fillRect(586, 250, 117, 125);
+				g.fillRect(586, 255, 160, 105);
 			}
 			g.setColor(Color.MAGENTA);
 			g.drawString("Fuel upgrades", 596, 313);
 			if (activeButton == 4) {
 				g.setColor(Color.BLUE);
-				g.fillRect(820, 250, 117, 125);// Cargo
+				g.fillRect(820, 255, 160, 105);// Cargo
 			} else {
 				g.setColor(Color.WHITE);
-				g.fillRect(820, 250, 117, 125);
+				g.fillRect(820, 255, 160, 105);
 			}
 			g.setColor(Color.MAGENTA);
-			g.drawString("Cargo upgrades", 830, 313);
+			g.drawString("Cargo upgrades", 823, 313);
 		} else if (currentMenu.menu == 1) {
 			currentMenu.drawMenu1(g);
 		} else if (currentMenu.menu == 2) {
