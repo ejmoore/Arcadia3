@@ -25,9 +25,9 @@ public class Store implements Building {
 		storeFont = new Font("Jokerman", Font.PLAIN, 105);
 		try {
 			storeButton = ImageIO.read(MyGame.class.getResource("images/StoreButton.png"));
-			fuel = ImageIO.read(MyGame.class.getResource("images/FuelItem.png"));
-			net = ImageIO.read(MyGame.class.getResource("images/NetItem.png"));
-			repair = ImageIO.read(MyGame.class.getResource("images/RepairItem.png"));
+			fuel = ImageIO.read(MyGame.class.getResource("images/StoreFuel.png"));
+			net = ImageIO.read(MyGame.class.getResource("images/StoreNet.png"));
+			repair = ImageIO.read(MyGame.class.getResource("images/StoreRepair.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
