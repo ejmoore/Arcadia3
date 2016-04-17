@@ -38,7 +38,7 @@ public class InitializeMap {
 
 		public int getUpper() {
 			return upperHeight;
-			
+
 		}
 
 		public int getLower() {
@@ -67,12 +67,14 @@ public class InitializeMap {
 			for (int i = 0; i <= width; i++) {
 				if (x == 17 && i == 1) {
 					writer.print("99 ");
-				} else if(x == 17 && i == 6){
+				} else if (x == 17 && i == 6) {
 					writer.print("97 ");
-				} else if(x == 17 && i == 20){
+				} else if (x == 17 && i == 20) {
 					writer.print("96 ");
-				} else if(x == 17 && i == 14){
+				} else if (x == 17 && i == 14) {
 					writer.print("95 ");
+				} else if (x == 17 && i == 26) {
+					writer.print("94 ");
 				} else {
 					writer.print("00 ");
 				}
@@ -87,12 +89,13 @@ public class InitializeMap {
 		// 8-10 now makes row 8 columns 0-2 of tiletype 98 a un-mineable dirt
 		Zone crust = new Zone(18, 21);
 		for (int x = 0; x <= 2; x++) {
-			
+
 			for (int i = 0; i < 7; i++) {
 				writer.print("07 ");
 			}
 			for (int i = 0; i <= width; i++) {
-				if (x == 0 && (i == 1 || i == 0 || i == 2 || i == 5 || i == 6|| i == 7 || i == 13 || i == 14 || i == 15 || i == 19 || i == 20 || i == 21)) {
+				if (x == 0 && (i == 1 || i == 0 || i == 2 || i == 5 || i == 6 || i == 7 || i == 13 || i == 14 || i == 15
+						|| i == 19 || i == 20 || i == 21 || i == 25 || i == 26 || i == 27)) {
 					writer.print("98 ");
 				} else {
 					writer.print("01 ");
@@ -104,8 +107,7 @@ public class InitializeMap {
 			}
 			writer.println();
 		}
-		
-		
+
 		Zone zone1 = new Zone(22, 130);
 		zone1.dirtSpawnRate = 75;
 		zone1.airSpawnRate = 5;
@@ -202,58 +204,58 @@ public class InitializeMap {
 			for (int x = 0; x <= width; x++) {
 				int tileNum = randomGenerator.nextInt(99) + 1;
 				if (tileNum >= 0 && tileNum <= n1) {
-					//Air
+					// Air
 					writer.print("00 ");
 				} else if (tileNum > n1 && tileNum <= n2) {
-					//Dirt
+					// Dirt
 					writer.print("01 ");
 				} else if (tileNum > n2 && tileNum <= n3) {
-					//ore1
+					// ore1
 					writer.print("02 ");
 				} else if (tileNum > n3 && tileNum <= n4) {
-					//ore2
+					// ore2
 					writer.print("03 ");
 				} else if (tileNum > n4 && tileNum <= n5) {
-					//ore3
+					// ore3
 					writer.print("04 ");
 				} else if (tileNum > n5 && tileNum <= n6) {
-					//ore4
+					// ore4
 					writer.print("05 ");
 				} else if (tileNum > n6 && tileNum <= n7) {
-					//ore5
+					// ore5
 					writer.print("06 ");
 				} else if (tileNum > n7 && tileNum <= n8) {
-					//ore6
+					// ore6
 					writer.print("08 ");
 				} else if (tileNum > n8 && tileNum <= n9) {
-					//ore7
+					// ore7
 					writer.print("09 ");
 				} else if (tileNum > n9 && tileNum <= n10) {
-					//ore8
+					// ore8
 					writer.print("10 ");
 				} else if (tileNum > n10 && tileNum <= n11) {
-					//ore9
+					// ore9
 					writer.print("11 ");
 				} else if (tileNum > n11 && tileNum <= n12) {
-					//ore10
+					// ore10
 					writer.print("12 ");
 				} else if (tileNum > n12 && tileNum <= n13) {
-					//ore11
+					// ore11
 					writer.print("13 ");
 				} else if (tileNum > n13 && tileNum <= n14) {
-					//ore12
+					// ore12
 					writer.print("14 ");
 				} else if (tileNum > n14 && tileNum <= n15) {
-					//ore13
+					// ore13
 					writer.print("15 ");
 				} else if (tileNum > n15 && tileNum <= n16) {
-					//ore14
+					// ore14
 					writer.print("16 ");
 				} else if (tileNum > n16 && tileNum <= n17) {
-					//ore15
+					// ore15
 					writer.print("17 ");
 				} else if (tileNum > n17 && tileNum <= n18) {
-					//wall
+					// wall
 					writer.print("07 ");
 				}
 			}
@@ -262,7 +264,7 @@ public class InitializeMap {
 			}
 			writer.println();
 		}
-		
+
 	}
-	
+
 }
