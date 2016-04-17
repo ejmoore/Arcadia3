@@ -60,11 +60,40 @@ public class Ship {
 
 	static Image[] fuelCapacity = new Image[8];
 	static Image[] fuelCapacityUp = new Image[8];
+	static Image[] fuelCapacityLeft = new Image[8];
+	static Image[] fuelCapacityRight = new Image[8];
 	int fuelCapacityIndex = -1;
 	static Image[] fuelEfficiency = new Image[8];
 	static Image[] fuelEfficiencyUp = new Image[8];
+	static Image[] fuelEfficiencyLeft = new Image[8];
+	static Image[] fuelEfficiencyRight = new Image[8];
 	int fuelEfficiencyIndex = -1;
+	
+	
+	static Image[] hullDepth = new Image[8];
+	static Image[] hullDepthUp = new Image[8];
+	static Image[] hullDepthLeft = new Image[8];
+	static Image[] hullDepthRight = new Image[8];
+	int hullDepthIndex = -1;
+	static Image[] hullHealth = new Image[8];
+	static Image[] hullHealthUp = new Image[8];
+	static Image[] hullHealthLeft = new Image[8];
+	static Image[] hullHealthRight = new Image[8];
+	int hullHealthIndex = -1;
+	
+	
+	static Image[] cargoItemSlots = new Image[8];
+	static Image[] cargoItemSlotsUp = new Image[8];
+	static Image[] cargoItemSlotsLeft = new Image[8];
+	static Image[] cargoItemSlotsRight = new Image[8];
+	int cargoItemSlotsIndex = -1;
+	static Image[] cargoInventory = new Image[8];
+	static Image[] cargoInventoryUp = new Image[8];
+	static Image[] cargoInventoryLeft = new Image[8];
+	static Image[] cargoInventoryRight = new Image[8];
+	int cargoInventoryIndex = -1;
 
+	
 	static Image NetItem;
 	static Image FuelItem;
 	static Image RepairItem;
@@ -99,12 +128,52 @@ public class Ship {
 				drillSpeedRight[i - 1] = ImageIO.read(MyGame.class.getResource(speedRight));
 				String cap = "images/FuelCapacityUpgrade" + i + ".png";
 				String capUp = "images/FuelCapacityUpgradeUp" + i + ".png";
+				String capLeft = "images/FuelCapacityUpgradeLeft" + i + ".png";
+				String capRight = "images/FuelCapacityUpgradeRight" + i + ".png";
 				fuelCapacity[i - 1] = ImageIO.read(MyGame.class.getResource(cap));
 				fuelCapacityUp[i - 1] = ImageIO.read(MyGame.class.getResource(capUp));
+				fuelCapacityLeft[i - 1] = ImageIO.read(MyGame.class.getResource(capLeft));
+				fuelCapacityRight[i - 1] = ImageIO.read(MyGame.class.getResource(capRight));
 				String eff = "images/FuelEfficiencyUpgrade" + i + ".png";
 				String effUp = "images/FuelEfficiencyUpgradeUp" + i + ".png";
+				String effLeft = "images/FuelEfficiencyUpgradeLeft" + i + ".png";
+				String effRight = "images/FuelEfficiencyUpgradeRight" + i + ".png";
 				fuelEfficiency[i - 1] = ImageIO.read(MyGame.class.getResource(eff));
 				fuelEfficiencyUp[i - 1] = ImageIO.read(MyGame.class.getResource(effUp));
+				fuelEfficiencyLeft[i - 1] = ImageIO.read(MyGame.class.getResource(effLeft));
+				fuelEfficiencyRight[i - 1] = ImageIO.read(MyGame.class.getResource(effRight));
+				String depth = "images/HullDepthUpgrade" + i + ".png";
+				String depthUp = "images/HullDepthUpgradeUp" + i + ".png";
+				String depthLeft = "images/HullDepthUpgradeLeft" + i + ".png";
+				String depthRight = "images/HullDepthUpgradeRight" + i + ".png";
+				hullDepth[i-1] = ImageIO.read(MyGame.class.getResource(depth));
+				hullDepthUp[i-1] = ImageIO.read(MyGame.class.getResource(depthUp));
+				hullDepthLeft[i-1] = ImageIO.read(MyGame.class.getResource(depthLeft));
+				hullDepthRight[i-1] = ImageIO.read(MyGame.class.getResource(depthRight));
+				String health = "images/HullHealthUpgrade" + i + ".png";
+				String healthUp = "images/HullHealthUpgradeUp" + i + ".png";
+				String healthLeft = "images/HullHealthUpgradeLeft" + i + ".png";
+				String healthRight = "images/HullHealthUpgradeRight" + i + ".png";
+				hullHealth[i-1] = ImageIO.read(MyGame.class.getResource(health));
+				hullHealthUp[i-1] = ImageIO.read(MyGame.class.getResource(healthUp));
+				hullHealthLeft[i-1] = ImageIO.read(MyGame.class.getResource(healthLeft));
+				hullHealthRight[i-1] = ImageIO.read(MyGame.class.getResource(healthRight));
+				String itemSlots = "images/CargoItemSlotsUpgrade" + i + ".png";
+				String itemSlotsUp = "images/CargoItemSlotsUpgradeUp" + i + ".png";
+				String itemSlotsLeft = "images/CargoItemSlotsUpgradeLeft" + i + ".png";
+				String itemSlotsRight = "images/CargoItemSlotsUpgradeRight" + i + ".png";
+				cargoItemSlots[i-1] = ImageIO.read(MyGame.class.getResource(itemSlots));
+				cargoItemSlotsUp[i-1] = ImageIO.read(MyGame.class.getResource(itemSlotsUp));
+				cargoItemSlotsLeft[i-1] = ImageIO.read(MyGame.class.getResource(itemSlotsLeft));
+				cargoItemSlotsRight[i-1] = ImageIO.read(MyGame.class.getResource(itemSlotsRight));
+				String inventory = "images/CargoInventoryUpgrade" + i + ".png";
+				String inventoryUp = "images/CargoInventoryUpgradeUp" + i + ".png";
+				String inventoryLeft = "images/CargoInventoryUpgradeLeft" + i + ".png";
+				String inventoryRight = "images/CargoInventoryUpgradeRight" + i + ".png";
+				cargoInventory[i-1] = ImageIO.read(MyGame.class.getResource(inventory));
+				cargoInventoryUp[i-1] = ImageIO.read(MyGame.class.getResource(inventoryUp));
+				cargoInventoryLeft[i-1] = ImageIO.read(MyGame.class.getResource(inventoryLeft));
+				cargoInventoryRight[i-1] = ImageIO.read(MyGame.class.getResource(inventoryRight));
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -141,6 +210,22 @@ public class Ship {
 				g.drawImage(fuelEfficiency[fuelEfficiencyIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset - 21,
 						(HEIGHT / 2 - tileSizeH) - yOffset - 12, scale * 113, scale * 72, null);
 			}
+			if (hullHealthIndex > -1) {
+				g.drawImage(hullHealth[hullHealthIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset, (HEIGHT / 2 - tileSizeH) - yOffset,
+						scale * tileSizeW + 1, scale * tileSizeH, null);
+			}
+			if (hullDepthIndex > -1) {
+				g.drawImage(hullDepth[hullDepthIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset, (HEIGHT / 2 - tileSizeH) - yOffset,
+						scale * tileSizeW + 1, scale * tileSizeH, null);
+			}
+			if (cargoItemSlotsIndex > -1) {
+				g.drawImage(cargoItemSlots[cargoItemSlotsIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset, (HEIGHT / 2 - tileSizeH) - yOffset,
+						scale * tileSizeW + 1, scale * tileSizeH, null);
+			}
+			if (cargoInventoryIndex > -1) {
+				g.drawImage(cargoInventory[cargoInventoryIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset, (HEIGHT / 2 - tileSizeH) - yOffset,
+						scale * tileSizeW + 1, scale * tileSizeH, null);
+			}
 		} else if (direction == 'u') {
 			if (drillStrengthIndex > -1) {
 				g.drawImage(drillStrengthUp[drillStrengthIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset + 31,
@@ -158,23 +243,87 @@ public class Ship {
 				g.drawImage(fuelEfficiencyUp[fuelEfficiencyIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset + 22,
 						(HEIGHT / 2 - tileSizeH) - yOffset + 12, scale * 113, scale * 72, null);
 			}
+			if (hullHealthIndex > -1) {
+				g.drawImage(hullHealthUp[hullHealthIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset, (HEIGHT / 2 - tileSizeH) - yOffset,
+						scale * tileSizeW + 1, scale * tileSizeH, null);
+			}
+			if (hullDepthIndex > -1) {
+				g.drawImage(hullDepthUp[hullDepthIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset, (HEIGHT / 2 - tileSizeH) - yOffset,
+						scale * tileSizeW + 1, scale * tileSizeH, null);
+			}
+			if (cargoItemSlotsIndex > -1) {
+				g.drawImage(cargoItemSlotsUp[cargoItemSlotsIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset, (HEIGHT / 2 - tileSizeH) - yOffset,
+						scale * tileSizeW + 1, scale * tileSizeH, null);
+			}
+			if (cargoInventoryIndex > -1) {
+				g.drawImage(cargoInventoryUp[cargoInventoryIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset, (HEIGHT / 2 - tileSizeH) - yOffset,
+						scale * tileSizeW + 1, scale * tileSizeH, null);
+			}
 		} else if (direction == 'l') {
 			if (drillStrengthIndex > -1) {
-				g.drawImage(drillStrengthLeft[drillStrengthIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset - 1,
-						(HEIGHT / 2 - tileSizeH) - yOffset + 4, scale * 28 + 1, scale * 62, null);
+				g.drawImage(drillStrengthLeft[drillStrengthIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset,
+						(HEIGHT / 2 - tileSizeH) - yOffset + 4, scale * 28, scale * 62, null);
 			}
 			if (drillSpeedIndex > -1) {
-				g.drawImage(drillSpeedLeft[drillSpeedIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset - 1,
-						(HEIGHT / 2 - tileSizeH) - yOffset + 4, scale * 28 + 1, scale * 62, null);
+				g.drawImage(drillSpeedLeft[drillSpeedIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset,
+						(HEIGHT / 2 - tileSizeH) - yOffset + 4, scale * 28, scale * 62, null);
+			}
+			if (fuelCapacityIndex > -1) {
+				g.drawImage(fuelCapacityLeft[fuelCapacityIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset, (HEIGHT / 2 - tileSizeH) - yOffset,
+						scale * tileSizeW + 1, scale * tileSizeH, null);
+			}
+			if (fuelEfficiencyIndex > -1) {
+				g.drawImage(fuelEfficiencyLeft[fuelEfficiencyIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset, (HEIGHT / 2 - tileSizeH) - yOffset,
+						scale * tileSizeW + 1, scale * tileSizeH, null);
+			}
+			if (hullHealthIndex > -1) {
+				g.drawImage(hullHealthLeft[hullHealthIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset, (HEIGHT / 2 - tileSizeH) - yOffset,
+						scale * tileSizeW + 1, scale * tileSizeH, null);
+			}
+			if (hullDepthIndex > -1) {
+				g.drawImage(hullDepthLeft[hullDepthIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset, (HEIGHT / 2 - tileSizeH) - yOffset,
+						scale * tileSizeW + 1, scale * tileSizeH, null);
+			}
+			if (cargoItemSlotsIndex > -1) {
+				g.drawImage(cargoItemSlotsLeft[cargoItemSlotsIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset, (HEIGHT / 2 - tileSizeH) - yOffset,
+						scale * tileSizeW + 1, scale * tileSizeH, null);
+			}
+			if (cargoInventoryIndex > -1) {
+				g.drawImage(cargoInventoryLeft[cargoInventoryIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset, (HEIGHT / 2 - tileSizeH) - yOffset,
+						scale * tileSizeW + 1, scale * tileSizeH, null);
 			}
 		} else if (direction == 'r') {
 			if (drillStrengthIndex > -1) {
-				g.drawImage(drillStrengthRight[drillStrengthIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset + 86,
-						(HEIGHT / 2 - tileSizeH) - yOffset + 6, scale * 28 + 1, scale * 62, null);
+				g.drawImage(drillStrengthRight[drillStrengthIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset + scale * 86,
+						(HEIGHT / 2 - tileSizeH) - yOffset + scale * 6, scale * 28, scale * 62, null);
 			}
 			if (drillSpeedIndex > -1) {
-				g.drawImage(drillSpeedRight[drillSpeedIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset + 86,
-						(HEIGHT / 2 - tileSizeH) - yOffset + 6, scale * 28 + 1, scale * 62, null);
+				g.drawImage(drillSpeedRight[drillSpeedIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset + scale * 86,
+						(HEIGHT / 2 - tileSizeH) - yOffset + scale * 6, scale * 28, scale * 62, null);
+			}
+			if (fuelCapacityIndex > -1) {
+			g.drawImage(fuelCapacityRight[fuelCapacityIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset, (HEIGHT / 2 - tileSizeH) - yOffset,
+					scale * tileSizeW + 1, scale * tileSizeH, null);
+			}
+			if (fuelEfficiencyIndex > -1) {
+				g.drawImage(fuelEfficiencyRight[fuelEfficiencyIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset, (HEIGHT / 2 - tileSizeH) - yOffset,
+						scale * tileSizeW + 1, scale * tileSizeH, null);
+			}
+			if (hullHealthIndex > -1) {
+				g.drawImage(hullHealthRight[hullHealthIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset, (HEIGHT / 2 - tileSizeH) - yOffset,
+						scale * tileSizeW + 1, scale * tileSizeH, null);
+			}
+			if (hullDepthIndex > -1) {
+				g.drawImage(hullDepthRight[hullDepthIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset, (HEIGHT / 2 - tileSizeH) - yOffset,
+						scale * tileSizeW + 1, scale * tileSizeH, null);
+			}
+			if (cargoItemSlotsIndex > -1) {
+				g.drawImage(cargoItemSlotsRight[cargoItemSlotsIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset, (HEIGHT / 2 - tileSizeH) - yOffset,
+						scale * tileSizeW + 1, scale * tileSizeH, null);
+			}
+			if (cargoInventoryIndex > -1) {
+				g.drawImage(cargoInventoryRight[cargoInventoryIndex], (WIDTH / 2 - tileSizeW / 2 - 5) - xOffset, (HEIGHT / 2 - tileSizeH) - yOffset,
+						scale * tileSizeW + 1, scale * tileSizeH, null);
 			}
 		}
 	}
@@ -186,9 +335,9 @@ public class Ship {
 		tileSizeW = tileW;
 
 		 for (int i = 0; i < 11; i++) { //THIS IS GOD MODE INVENTORY SETTINGS
-		 inventory[i] += 80; //THIS IS GOD MODE INVENTORY SETTINGS
-		 curInventory += 80; //THIS IS GOD MODE INVENTORY SETTINGS
-		 } //THIS IS GOD MODE INVENTORY SETTINGS
+			 inventory[i] += 80;		//THIS IS GOD MODE INVENTORY SETTINGS
+			 curInventory += 80;		//THIS IS GOD MODE INVENTORY SETTINGS
+		 } 								//THIS IS GOD MODE INVENTORY SETTINGS
 		 maxInventory = 10000;
 
 

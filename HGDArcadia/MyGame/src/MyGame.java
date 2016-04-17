@@ -15,13 +15,13 @@ public class MyGame extends Game {
 	Image banner;
 	public static Tile[][] tiles = new Tile[55][1010];
 	int startx = 10;
-	int starty = 10;
+	int starty = 12;
 	int deathx;
 	int deathy;
 	float deltaX = 0;
 	float deltaY = 0;
 	float accel = 0.005f;
-	float speed = .05f;
+	float speed = 0;
 	long startTime = System.currentTimeMillis();
 	private final int width = 40;
 	private final int height = 1010;
