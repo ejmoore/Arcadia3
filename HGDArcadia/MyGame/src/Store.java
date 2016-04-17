@@ -164,7 +164,6 @@ public class Store implements Building {
 					}
 					// buyControls(p1);
 				}
-				System.out.println(MyGame.ship.money);
 			}
 		}
 	}
