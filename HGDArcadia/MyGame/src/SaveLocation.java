@@ -125,6 +125,12 @@ public class SaveLocation implements Building {
 		writer.println(ship.drillSpeedIndex);
 		writer.println(ship.drillStrengthIndex);
 		writer.println(ship.maxItemSlots);
+		writer.println(ship.fuelCapacityIndex);
+		writer.println(ship.fuelEfficiencyIndex);
+		writer.println(ship.hullDepthIndex);
+		writer.println(ship.hullHealthIndex);
+		writer.println(ship.cargoItemSlotsIndex);
+		writer.println(ship.cargoInventoryIndex);
 		writer.println();
 		
 		// death inventory
@@ -161,74 +167,81 @@ public class SaveLocation implements Building {
 		Scanner map = null;
 		try {
 			map = new Scanner(new File("mapSave.txt"));
+			// inventory
+			for (int i = 0; i < ship.inventory.length; i++){
+				ship.inventory[i] = map.nextInt();
+			}
+			
+			ship.maxInventory = map.nextInt();
+			ship.curInventory = map.nextInt();
+			ship.topOre = map.nextInt();
+			ship.drill = map.nextInt();
+			
+			// fuel
+
+			ship.fuel = map.nextInt();
+			ship.maxFuel = map.nextDouble();
+			ship.fuelCost = map.nextDouble();
+			
+			
+			// health
+			ship.health = map.nextInt();
+			ship.maxHealth = map.nextDouble();
+			ship.maxDepth = map.nextInt();
+					
+			// money 
+			ship.money = map.nextInt();
+			
+			//consumables
+			for (int i = 0; i < ship.maxItemSlots; i++){
+				int next = map.nextInt();
+				if (next == 1){
+					ship.consumables[i] = new Net(i);
+				}else if(next == 2){
+					ship.consumables[i] = new RepairKit(i);
+				}else{
+					ship.consumables[i] = new FuelCanister(i);
+				}
+			}
+			
+			//upgrades
+			ship.drillSpeedIndex=map.nextInt();
+			ship.drillStrengthIndex=map.nextInt();
+			ship.maxItemSlots = map.nextInt();
+			ship.fuelCapacityIndex = map.nextInt();
+			ship.fuelEfficiencyIndex = map.nextInt();
+			ship.hullDepthIndex = map.nextInt();
+			ship.hullHealthIndex = map.nextInt();
+			ship.cargoItemSlotsIndex = map.nextInt();
+			ship.cargoInventoryIndex = map.nextInt();
+			
+			// death inventory
+			for (int i = 0; i < ship.inventory.length; i++){
+				ship.deathInventory[i] = map.nextInt();
+			}
+			
+			
+			for (int y = 0; y < height; y++) {
+				for (int x = 0; x < width + 15; x++) {
+					if (map.hasNextInt()) {
+						int tileNum = map.nextInt();
+						if (tileNum < 10){
+							writer.print("0" + tileNum+ " ");
+						}else{
+							writer.print(tileNum+ " ");
+						}
+					}
+				}
+				writer.println();
+			}
+			MyGame.loadingGame = true;
+			createTiles();
+			return tiles;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		// inventory
-		for (int i = 0; i < ship.inventory.length; i++){
-			ship.inventory[i] = map.nextInt();
-		}
-		
-		ship.maxInventory = map.nextInt();
-		ship.curInventory = map.nextInt();
-		ship.topOre = map.nextInt();
-		ship.drill = map.nextInt();
-		
-		// fuel
-
-		ship.fuel = map.nextInt();
-		ship.maxFuel = map.nextDouble();
-		ship.fuelCost = map.nextDouble();
-		
-		
-		// health
-		ship.health = map.nextInt();
-		ship.maxHealth = map.nextDouble();
-		ship.maxDepth = map.nextInt();
-				
-		// money 
-		ship.money = map.nextInt();
-		
-		//consumables
-		for (int i = 0; i < ship.maxItemSlots; i++){
-			int next = map.nextInt();
-			if (next == 1){
-				ship.consumables[i] = new Net(i);
-			}else if(next == 2){
-				ship.consumables[i] = new RepairKit(i);
-			}else{
-				ship.consumables[i] = new FuelCanister(i);
-			}
-		}
-		
-		
-		//upgrades
-		ship.drillSpeedIndex=map.nextInt();
-		ship.drillStrengthIndex=map.nextInt();
-		ship.maxItemSlots = map.nextInt();
-		
-		// death inventory
-		for (int i = 0; i < ship.inventory.length; i++){
-			ship.deathInventory[i] = map.nextInt();
-		}
-		
-		
-		for (int y = 0; y < height; y++) {
-			for (int x = 0; x < width + 15; x++) {
-				if (map.hasNextInt()) {
-					int tileNum = map.nextInt();
-					if (tileNum < 10){
-						writer.print("0" + tileNum+ " ");
-					}else{
-						writer.print(tileNum+ " ");
-					}
-				}
-			}
-			writer.println();
-		}
-		MyGame.loadingGame = true;
-		createTiles();
 		return tiles;
+		
 	}
 
 	@Override
