@@ -32,7 +32,7 @@ public class MyGame extends Game {
 	boolean digging = false;
 	Tile digTile = null;
 	int diggingDirection = 0;
-	Building[] buildings = new Building[6];
+	static Building[] buildings = new Building[6];
 	Scanner map = null;
 	char lastDirection = 'u';
 	ArrayList<Particle> particles = new ArrayList<Particle>();
@@ -107,8 +107,8 @@ public class MyGame extends Game {
 		if (!digging) {
 
 			if (p1.pressed(Button.A)) {
-				if (ship.consumables[0] != null && starty >= 12)
-					ship.consumables[0].use(ship, player);
+				if (ship.consumables[ship.consumable] != null && starty >= 12)
+					ship.consumables[ship.consumable].use(ship, player);
 			}
 			else if (p1.pressed(Button.B)) {
 				int size = ship.maxItemSlots;
@@ -365,7 +365,7 @@ public class MyGame extends Game {
 		deathx = startx;
 		deathy = starty;
 		startx = 10;
-		starty = 10;
+		starty = 12;
 		deltaX = 0;
 		deltaY = 0;
 		if (grave.tileType < 50)
