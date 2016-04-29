@@ -12,14 +12,14 @@ public class CraftingBuilding implements Building {
 	public SubMenu currentMenu = null;
 	int activeButton = 1;
 
-	int[] cargoInventory = { 20, 30, 40, 50, 60, 70,0, 80, 90, 100, 110, 120, 130, 140, 150 }; int curInventory = 0;
-	int[] itemSlots = { 2, 3, 4, 5, 6, 7,0, 8, 9, 10, 11, 12, 13, 14, 15 }; int curItemSlots = 0;
-	int[] drillSpeed = { 10, 20, 30, 40, 50, 60,0, 70, 80, 90, 100, 110, 120, 130, 140, 150 }; int curSpeed = 0;
-	int[] mineable = { 3, 4, 5, 6, 8, 9,0, 10, 11, 12, 13, 14, 15, 16, 17, 18 }; int curMinable = 0;
-	int[] shipFuel = { 200, 300, 400, 500, 600, 700,0, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600 }; int curMaxFuel = 0;
-	double[] fuelEff = { .9, .8, .7, .6, .5, .4,0, .3, .2, .45, .4, .35, .3, .25, .2, .1 }; int curFuelEff = 0;
-	int[] maxDepth = { 2500, 3750, 5000, 6250, 7500, 8750,0, 10000, 11250, 1500, 1650, 1800, 1950, 2100, 2250 }; int curMaxDepth = 0;
-	int[] maxHealth = { 200, 300, 400, 500, 600, 700,0, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600 }; int curMaxHealth = 0;
+	int[] cargoInventory = { 20, 30, 40, 50, 60, 70,0, 80, 90, 100, 110, 120, 130, 140, 150 }; static int curInventory = 0;
+	int[] itemSlots = { 2, 3, 4, 5, 6, 7,0, 8, 9, 10, 11, 12, 13, 14, 15 }; static int curItemSlots = 0;
+	int[] drillSpeed = { 10, 20, 30, 40, 50, 60,0, 70, 80, 90, 100, 110, 120, 130, 140, 150 }; static int curSpeed = 0;
+	int[] mineable = { 3, 4, 5, 6, 8, 9,0, 10, 11, 12, 13, 14, 15, 16, 17, 18 }; static int curMinable = 0;
+	int[] shipFuel = { 200, 300, 400, 500, 600, 700,0, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600 }; static int curMaxFuel = 0;
+	double[] fuelEff = { .9, .8, .7, .6, .5, .4,0, .3, .2, .45, .4, .35, .3, .25, .2, .1 }; static int curFuelEff = 0;
+	int[] maxDepth = { 2500, 3750, 5000, 6250, 7500, 8750,0, 10000, 11250, 1500, 1650, 1800, 1950, 2100, 2250 }; static int curMaxDepth = 0;
+	int[] maxHealth = { 200, 300, 400, 500, 600, 700,0, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600 }; static int curMaxHealth = 0;
 	
 	public void drawString(Graphics2D g, String text, int x, int y) {
 		for (String line : text.split("\n")) {
@@ -45,6 +45,8 @@ public class CraftingBuilding implements Building {
 		public void drawMenu1(Graphics2D g) { // Hull Upgrade
 			upgrade1 = (curMaxDepth == 5) ? curMaxDepth+2:curMaxDepth+1;
 			upgrade2 = (curMaxHealth == 5) ? curMaxHealth+2:curMaxHealth+1;
+			
+			
 			g.setColor(Color.BLACK);
 			g.fillRect(0, 0, WIDTH, HEIGHT);
 
@@ -343,7 +345,7 @@ public class CraftingBuilding implements Building {
 		if (upgrade.equals("Cargo Bay")) {
 			if (upgradeNum == 1) {
 				//System.out.println(MyGame.ship.inventory[curInventory+1] + " : " + curInventory);
-				if (MyGame.ship.inventory[curInventory+2] < 10) {
+				if (curInventory >= 8 || MyGame.ship.inventory[curInventory+2] < 10) {
 					//System.out.println("YOU'RE TOO POOR");
 					Sound.Warning1.play();
 					return;
@@ -351,11 +353,11 @@ public class CraftingBuilding implements Building {
 				MyGame.ship.maxInventory = cargoInventory[++curInventory-1]; //System.out.println(MyGame.ship.maxInventory);
 				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[curInventory+1] -= 10;
 				MyGame.ship.cargoInventoryIndex++;
-				if (curInventory == 6) {
+				if (curInventory == 5) {
 					curInventory++;
 				}
 			} else {
-				if (MyGame.ship.inventory[curItemSlots+2] < 10) {
+				if (curItemSlots >=8 || MyGame.ship.inventory[curItemSlots+2] < 10) {
 					//System.out.println("YOU'RE TOO POOR");
 					Sound.Warning1.play();
 					return;
@@ -363,7 +365,7 @@ public class CraftingBuilding implements Building {
 				MyGame.ship.maxItemSlots = itemSlots[++curItemSlots-1]; //System.out.println(MyGame.ship.maxItemSlots);
 				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[curItemSlots+1] -= 10;
 				MyGame.ship.cargoItemSlotsIndex++;
-				if (curItemSlots == 6) {
+				if (curItemSlots == 5) {
 					curItemSlots++;
 				}
 			}
@@ -371,7 +373,7 @@ public class CraftingBuilding implements Building {
 		if (upgrade.equals("Drill")) {
 			if (upgradeNum == 1) {
 				//System.out.println(MyGame.ship.inventory[curSpeed+1] + " : " + curSpeed);
-				if (MyGame.ship.inventory[curSpeed+2] < 10) {
+				if (curSpeed >=10 || MyGame.ship.inventory[curSpeed+2] < 10) {
 					//System.out.println("YOU'RE TOO POOR");
 					Sound.Warning1.play();
 					return;
@@ -379,11 +381,11 @@ public class CraftingBuilding implements Building {
 				MyGame.ship.drill = drillSpeed[++curSpeed-1]; //System.out.println(MyGame.ship.drill);
 				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[curSpeed+1] -= 10;
 				MyGame.ship.drillSpeedIndex++;
-				if (curSpeed == 6) {
+				if (curSpeed == 5) {
 					curSpeed++;
 				}
 			} else {
-				if (MyGame.ship.inventory[curMinable+2] < 10) {
+				if (curMinable >=10 || MyGame.ship.inventory[curMinable+2] < 10) {
 					//System.out.println("YOU'RE TOO POOR");
 					Sound.Warning1.play();
 					return;
@@ -391,14 +393,14 @@ public class CraftingBuilding implements Building {
 				MyGame.notMineable.remove((Integer)mineable[curMinable]);
 				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[++curMinable+1] -= 10;
 				MyGame.ship.drillStrengthIndex++;
-				if (curMinable == 6) {
+				if (curMinable == 5) {
 					curMinable++;
 				}
 			}
 		}
 		if (upgrade.equals("Fuel")) {
 			if (upgradeNum == 1) {
-				if (MyGame.ship.inventory[curMaxFuel+2] < 10) {
+				if (curMaxFuel >=10 || MyGame.ship.inventory[curMaxFuel+2] < 10) {
 					//System.out.println("YOU'RE TOO POOR");
 					return;
 				}
@@ -406,11 +408,11 @@ public class CraftingBuilding implements Building {
 				MyGame.ship.fuel = MyGame.ship.maxFuel;
 				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[curMaxFuel+1] -= 10;
 				MyGame.ship.fuelCapacityIndex++;
-				if (curMaxFuel == 6) {
+				if (curMaxFuel == 5) {
 					curMaxFuel++;
 				}
 			} else {
-				if (MyGame.ship.inventory[curFuelEff+2] < 10) {
+				if (curFuelEff >=10 || MyGame.ship.inventory[curFuelEff+2] < 10) {
 					//System.out.println("YOU'RE TOO POOR");
 					Sound.Warning1.play();
 					return;
@@ -419,14 +421,14 @@ public class CraftingBuilding implements Building {
 				MyGame.ship.fuel = MyGame.ship.maxFuel;
 				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[curFuelEff+1] -= 10;
 				MyGame.ship.fuelEfficiencyIndex++;
-				if (curFuelEff == 6) {
+				if (curFuelEff == 5) {
 					curFuelEff++;
 				}
 			}
 		}
 		if (upgrade.equals("Hull")) {
 			if (upgradeNum == 1) {
-				if (MyGame.ship.inventory[curMaxDepth+2] < 10) {
+				if (curMaxDepth >=10 || MyGame.ship.inventory[curMaxDepth+2] < 10) {
 					//System.out.println("YOU'RE TOO POOR");
 					Sound.Warning1.play();
 					return;
@@ -434,11 +436,11 @@ public class CraftingBuilding implements Building {
 				MyGame.ship.maxDepth = maxDepth[++curMaxDepth-1];
 				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[curMaxDepth+1] -= 10;
 				MyGame.ship.hullDepthIndex++;
-				if (curMaxDepth == 6) {
+				if (curMaxDepth == 5) {
 					curMaxDepth++;
 				}
 			} else {
-				if (MyGame.ship.inventory[curMaxHealth+2] < 10) {
+				if (curMaxHealth >=10 || MyGame.ship.inventory[curMaxHealth+2] < 10) {
 					//System.out.println("YOU'RE TOO POOR");
 					Sound.Warning1.play();
 					return;
@@ -447,7 +449,7 @@ public class CraftingBuilding implements Building {
 				MyGame.ship.health = MyGame.ship.maxHealth;
 				MyGame.ship.curInventory -= 10; MyGame.ship.inventory[curMaxHealth+1] -= 10;
 				MyGame.ship.hullHealthIndex++;
-				if (curMaxHealth == 6) {
+				if (curMaxHealth == 5) {
 					curMaxHealth++;
 				}
 			}

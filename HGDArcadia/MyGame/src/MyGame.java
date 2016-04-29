@@ -32,7 +32,7 @@ public class MyGame extends Game {
 	boolean digging = false;
 	Tile digTile = null;
 	int diggingDirection = 0;
-	Building[] buildings = new Building[6];
+	static Building[] buildings = new Building[6];
 	Scanner map = null;
 	char lastDirection = 'u';
 	ArrayList<Particle> particles = new ArrayList<Particle>();
@@ -365,7 +365,7 @@ public class MyGame extends Game {
 		deathx = startx;
 		deathy = starty;
 		startx = 10;
-		starty = 10;
+		starty = 12;
 		deltaX = 0;
 		deltaY = 0;
 		if (grave.tileType < 50)

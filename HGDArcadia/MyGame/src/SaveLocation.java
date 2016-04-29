@@ -112,11 +112,13 @@ public class SaveLocation implements Building {
 			
 		for (int i = 0; i < ship.maxItemSlots; i++){
 			if(ship.consumables[i] instanceof Net){
-				writer.print(1 + " ");
+				writer.print("1 ");
 			}else if (ship.consumables[i] instanceof RepairKit){
-				writer.print(2 + " ");
+				writer.print("2 ");
+			}else if(ship.consumables[i] instanceof FuelCanister){
+				writer.print("3 ");
 			}else{
-				writer.print(3 + " ");
+				writer.print("0 ");
 			}
 		}
 		writer.println();
@@ -134,7 +136,7 @@ public class SaveLocation implements Building {
 		writer.println();
 		
 		// death inventory
-		for (int i = 0; i < ship.inventory.length; i++){
+		for (int i = 0; i < ship.deathInventory.length; i++){
 			writer.print(ship.deathInventory[i] + " ");
 		}
 		
@@ -152,6 +154,7 @@ public class SaveLocation implements Building {
 			writer.println();
 			writer.flush();
 		}
+		
 	}
 
 	public Tile[][] loadGame() {
@@ -199,24 +202,35 @@ public class SaveLocation implements Building {
 					ship.consumables[i] = new Net(i);
 				}else if(next == 2){
 					ship.consumables[i] = new RepairKit(i);
-				}else{
+				}else if(next == 3){
 					ship.consumables[i] = new FuelCanister(i);
+				}else{
+					ship.consumables[i] = null;
 				}
 			}
 			
 			//upgrades
+			CraftingBuilding upgrades = (CraftingBuilding) MyGame.buildings[2];
 			ship.drillSpeedIndex=map.nextInt();
+			upgrades.curSpeed=ship.drillSpeedIndex+1;
 			ship.drillStrengthIndex=map.nextInt();
+			upgrades.curMinable=ship.drillStrengthIndex+1;
 			ship.maxItemSlots = map.nextInt();
 			ship.fuelCapacityIndex = map.nextInt();
+			upgrades.curMaxFuel = ship.fuelCapacityIndex+1;
 			ship.fuelEfficiencyIndex = map.nextInt();
+			upgrades.curFuelEff = ship.fuelEfficiencyIndex+1;
 			ship.hullDepthIndex = map.nextInt();
+			upgrades.curMaxDepth = ship.hullDepthIndex+1;
 			ship.hullHealthIndex = map.nextInt();
+			upgrades.curMaxHealth = ship.hullHealthIndex+1;
 			ship.cargoItemSlotsIndex = map.nextInt();
+			upgrades.curItemSlots = ship.cargoItemSlotsIndex+1;
 			ship.cargoInventoryIndex = map.nextInt();
+			upgrades.curInventory = ship.cargoInventoryIndex+1;
 			
 			// death inventory
-			for (int i = 0; i < ship.inventory.length; i++){
+			for (int i = 0; i < ship.deathInventory.length; i++){
 				ship.deathInventory[i] = map.nextInt();
 			}
 			
