@@ -72,7 +72,7 @@ public class MyGame extends Game {
 		createOres();
 
 		//ship.consumables[0] = new Net(3);
-		ship.consumables[0] = new RepairKit(0);
+		//ship.consumables[0] = new RepairKit(0);
 		//ship.consumables[2] = new FuelCanister(3);
 		
 		buildings[0] = new Store();
@@ -107,8 +107,8 @@ public class MyGame extends Game {
 		if (!digging) {
 
 			if (p1.pressed(Button.A)) {
-				if (ship.consumables[0] != null && starty >= 12)
-					ship.consumables[0].use(ship, player);
+				if (ship.consumables[ship.consumable] != null && starty >= 12)
+					ship.consumables[ship.consumable].use(ship, player);
 			}
 			else if (p1.pressed(Button.B)) {
 				int size = ship.maxItemSlots;
